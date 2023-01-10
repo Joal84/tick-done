@@ -1,0 +1,15 @@
+.btn {
+  border: none;
+  min-width: 100px;
+  height: 40px;
+  text-align: center;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: hsl(160, 100%, 75%);
+}
+
+.btn:hover {
+  background-color: hsl(160, 100%, 60%);
+}
