@@ -19,3 +19,7 @@
   text-transform: uppercase;
   font-weight: 300;
 }
+.buttonContainer {
+  display: flex;
+  gap: 20px;
+}

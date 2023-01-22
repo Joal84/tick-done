@@ -1,7 +1,7 @@
 import { supabase } from "./supabase";
 import { useEffect, useState, createContext } from "react";
 
-export const userDataContext = createContext({});
+export const userDataContext: any = createContext({});
 
 export default function UserAuth({ children }: any) {
   const [user, setUser] = useState({});

@@ -1,7 +1,7 @@
 import buttonCss from "./button.module.css";
 type props = {
   title: string;
-  onClick: () => void;
+  onClick: any;
 };
 
 export default function Button({ title, onClick }: props) {
