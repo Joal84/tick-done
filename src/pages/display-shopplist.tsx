@@ -1,13 +1,14 @@
 import { useState, useEffect, useContext } from "react";
 import { supabase } from "../utils/supabase";
-import { newAddedProduct } from "./add-to-shopplist";
+import AddToShopplist from "../components/add-to-shopplist";
 import shoppingItem from "./display-shopplist.module.css";
-import Button from "./button";
+import Button from "../components/button";
+import { userDataContext } from "../utils/userAuth";
 
-export default function DisplayShopplist({ setAddedProduct }: any) {
+export default function DisplayShopplist({ setAddedItem, addedItem }: any) {
+  const userAuth: any = useContext(userDataContext);
   const [fetchError, setFetchError] = useState("");
   const [list, setList]: any = useState([]);
-  const updatedList = useContext(newAddedProduct);
 
   useEffect(() => {
     const fetchList = async () => {
@@ -15,7 +16,6 @@ export default function DisplayShopplist({ setAddedProduct }: any) {
 
       if (error) {
         setFetchError("Could not fetch the list");
-        setList({});
       }
       if (data) {
         setList(data);
@@ -23,7 +23,7 @@ export default function DisplayShopplist({ setAddedProduct }: any) {
       }
     };
     fetchList();
-  }, [updatedList]);
+  }, [addedItem]);
 
   const handleDelete = async (item: any) => {
     const { data, error } = await supabase
@@ -37,28 +37,35 @@ export default function DisplayShopplist({ setAddedProduct }: any) {
       setList({});
     }
     if (data) {
-      setAddedProduct(data);
+      setAddedItem(data);
     }
   };
 
+  console.log(list.reverse());
+
   return (
     <div className={shoppingItem.background}>
+      {Object.keys(userAuth).length !== 0 && (
+        <AddToShopplist setAddedItem={setAddedItem} />
+      )}
       <div className={shoppingItem.container}>
-        {list.length === 0 ? (
+        {list.length === 0 || Object.keys(userAuth).length === 0 ? (
           <img
             className={shoppingItem.shoppingCart}
             alt="Shopping Cart image"
             src="src/assets/shopping-cart.png"
           ></img>
         ) : (
-          list.map((product: any) => (
-            <div className={shoppingItem.itemAdded}>
-              <p key={product.id}>{product.product_name}</p>
-              <p>{product.quantity}</p>
-              <p>{product.completed.toString()}</p>
-              <Button title="Delete" onClick={() => handleDelete(product)} />
-            </div>
-          ))
+          list
+            .map((product: any) => (
+              <div key={Math.random()} className={shoppingItem.itemAdded}>
+                <p key={product.id}>{product.product_name}</p>
+                <p key={product.quantity}>{product.quantity}</p>
+                <p key={product.name}>{product.completed.toString()}</p>
+                <Button title="Delete" onClick={() => handleDelete(product)} />
+              </div>
+            ))
+            .reverse()
         )}
       </div>
     </div>

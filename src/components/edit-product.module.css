@@ -1,0 +1,11 @@
+.categoryField {
+  font-size: 1.6rem;
+}
+
+.label {
+  font-size: 2rem;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+}

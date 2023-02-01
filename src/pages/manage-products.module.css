@@ -1,0 +1,15 @@
+.background {
+  position: fixed;
+  background-color: white;
+  height: 90vh;
+  width: 100%;
+  max-width: 1280px;
+}
+p {
+  text-align: center;
+  font-size: 2rem;
+}
+.addButton {
+  text-align: center;
+  margin: 20px;
+}

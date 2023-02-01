@@ -6,9 +6,9 @@ import { userDataContext } from "../utils/userAuth";
 import { ReactComponent as AddButton } from "../assets/plus-icon.svg";
 import Button from "./button";
 
-export const newAddedProduct = createContext({});
+export const newAddedItem = createContext({});
 
-export default function AddToShopplist({ setAddedProduct }: any) {
+export default function AddToShopplist({ setAddedItem }: any) {
   const [product_name, setProduct] = useState("");
   const [quantity, setQuantity] = useState("1");
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +19,11 @@ export default function AddToShopplist({ setAddedProduct }: any) {
 
   const userAuth: any = useContext(userDataContext);
   const user_id = userAuth.id;
+
+  const clearField = () => {
+    setQuantity("");
+    setProduct("");
+  };
 
   //Fetching product list from user DB
   useEffect(() => {
@@ -55,11 +60,12 @@ export default function AddToShopplist({ setAddedProduct }: any) {
       .select();
 
     if (error) {
-      console.log(error);
+      setFormError(error);
     }
     if (data) {
-      setAddedProduct(data);
+      setAddedItem(data);
     }
+    clearField();
   };
 
   return (
@@ -81,6 +87,7 @@ export default function AddToShopplist({ setAddedProduct }: any) {
             name="product"
             value={product_name}
             onChange={(e) => setProduct(e.target.value)}
+            required
           />
           <datalist id="product">
             {itemList.map((product: any) => {
@@ -103,6 +110,7 @@ export default function AddToShopplist({ setAddedProduct }: any) {
             name="quantity"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
+            required
           />
           <datalist id="quantity">
             <option value="1">1</option>
@@ -114,11 +122,13 @@ export default function AddToShopplist({ setAddedProduct }: any) {
             <option value="7">7</option>
             <option value="8">8</option>
             <option value="9">9</option>
+            <option value="10">10</option>
           </datalist>
 
           <Button title="Add" onClick={handleSubmit} />
         </form>
       ) : null}
+      {formError && <p>{formError}</p>}
     </div>
   );
 }
