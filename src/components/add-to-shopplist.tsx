@@ -1,4 +1,4 @@
-import addProd from "./add-to-shopplist.module.css";
+import css from "./add-to-shopplist.module.css";
 import { supabase } from "../utils/supabase";
 import { FormEvent, useState } from "react";
 import { useContext, useEffect, createContext } from "react";
@@ -69,21 +69,21 @@ export default function AddToShopplist({ setAddedItem }: any) {
   };
 
   return (
-    <div className={addProd.container}>
+    <div className={css.container}>
       <AddButton
-        className={isOpen ? addProd.svgClose : addProd.svgAdd}
+        className={isOpen ? css.svgClose : css.svgAdd}
         onClick={() => setIsOpen(!isOpen)}
       />
       {isOpen ? (
         <form onSubmit={handleSubmit}>
-          <label className={addProd.title} htmlFor="product">
+          <label className={css.title} htmlFor="product">
             Product Name:
           </label>
 
           <input
             type="text"
             list="product"
-            className={addProd.field}
+            className={css.field}
             name="product"
             value={product_name}
             onChange={(e) => setProduct(e.target.value)}
@@ -99,14 +99,14 @@ export default function AddToShopplist({ setAddedItem }: any) {
             })}
           </datalist>
 
-          <label className={addProd.title} htmlFor="quantity">
+          <label className={css.title} htmlFor="quantity">
             Quantity
           </label>
 
           <input
             type="text"
             list="quantity"
-            className={addProd.field}
+            className={css.field}
             name="quantity"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}

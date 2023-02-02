@@ -6,8 +6,6 @@ import Button from "./button";
 import css from "./display-products.module.css";
 
 export default function DisplayProducts({
-  addOverlayOpen,
-  setAddOverlayOpen,
   setEditOverlayOpen,
   editOverlayOpen,
   addedProduct,

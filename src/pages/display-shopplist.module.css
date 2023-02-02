@@ -11,17 +11,81 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 20px;
 }
 .itemAdded {
   font-size: 2rem;
-  display: flex;
-  max-width: 1280px;
-  width: 100%;
-  gap: 60px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgb(241, 241, 241);
+  width: 80vw;
+  max-width: 1200px;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
 }
 .shoppingCart {
   max-width: 100%;
   height: auto;
   width: auto;
   margin-top: 100px;
+}
+
+h2 {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+p {
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-top: 10px;
+}
+.notCompletedIcon {
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 300px;
+  padding: 5px;
+  fill: rgb(157, 157, 157);
+  transition: all 0.5s;
+}
+.notCompletedIcon:hover {
+  fill: rgb(62, 184, 97);
+}
+.completedIcon {
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 300px;
+  padding: 5px;
+  fill: rgb(11, 195, 35);
+  transition: all 0.2s;
+}
+.deleteButton {
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 300px;
+  padding: 5px;
+  fill: rgb(255, 141, 141);
+  transition: all 0.2s;
+}
+.deleteButton:hover {
+  fill: hsl(4, 91%, 59%);
+}
+.quantityCont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
