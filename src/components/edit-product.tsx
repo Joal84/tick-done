@@ -32,7 +32,6 @@ export default function EditProduct(props: any) {
     if (error) {
     }
     if (data) {
-      console.log(data);
       props.setEditedProduct(data);
     }
     props.setEditOverlayOpen(false);

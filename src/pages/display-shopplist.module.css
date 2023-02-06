@@ -14,7 +14,6 @@
   gap: 20px;
 }
 .itemAdded {
-  font-size: 2rem;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   display: grid;
   align-items: center;
@@ -22,8 +21,24 @@
 
   background-color: rgb(241, 241, 241);
   width: 80vw;
+  height: 100px;
   max-width: 1200px;
-  padding: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+}
+.itemAddedCompleted {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgb(207, 231, 215);
+  width: 80vw;
+  height: 100px;
+  max-width: 1200px;
+  padding: 10px;
   border-radius: 10px;
   text-align: center;
   font-weight: 600;
@@ -39,6 +54,7 @@ h2 {
   text-transform: uppercase;
   font-size: 1.5rem;
   font-weight: 300;
+  margin-bottom: 15px;
 }
 
 p {
@@ -88,4 +104,18 @@ p {
   justify-content: center;
   align-items: center;
   gap: 20px;
+}
+.quantityButton {
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 300px;
+  padding: 5px;
+  font-size: 2.5rem;
+  line-height: 0.9;
+}
+.quantity {
+  font-size: 2rem;
+  font-weight: 500;
 }

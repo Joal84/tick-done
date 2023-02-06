@@ -3,12 +3,10 @@ import css from "./add-to-product.module.css";
 import { userDataContext } from "../utils/userAuth";
 import { supabase } from "../utils/supabase";
 import Button from "./button";
+import { ProductListContext } from "../App";
 
-export default function AddToProduct({
-  setAddedProduct,
-  setAddOverlayOpen,
-}: any) {
-  const [product, setProduct] = useState({});
+export default function AddToProduct({ setAddOverlayOpen }: any) {
+  const [productList, setProductList]: any = useContext(ProductListContext);
   const [name, setName] = useState("");
   const [category, setCategory] = useState("Food-and-Pantry");
   const [description, setDescription] = useState("");
@@ -34,7 +32,7 @@ export default function AddToProduct({
       setFormError(error);
     }
     if (data) {
-      setAddedProduct(data);
+      setProductList([...productList, ...data]);
     }
     setAddOverlayOpen(false);
   };

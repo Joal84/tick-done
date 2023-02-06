@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { supabase } from "../utils/supabase";
 import Modal from "./modal";
 import EditProduct from "./edit-product";
 import Button from "./button";
 import css from "./display-products.module.css";
+import { ProductListContext } from "../App";
 
 export default function DisplayProducts({
   setEditOverlayOpen,
   editOverlayOpen,
-  addedProduct,
 }: any) {
   const [fetchError, setFetchError] = useState("");
-  const [list, setList] = useState([]);
+  const [productList, setProductList]: any = useContext(ProductListContext);
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
@@ -34,15 +34,15 @@ export default function DisplayProducts({
         .select();
 
       if (error) {
-        setFetchError("Could not fetch the list");
+        setFetchError("Could not fetch the productList");
       }
       if (data) {
-        setList(data);
+        setProductList(data);
         setFetchError("");
       }
     };
     fetchList();
-  }, [addedProduct, deletedProduct, editedProduct]);
+  }, [deletedProduct, editedProduct]);
 
   const handleDelete = async (item: any) => {
     const { data, error }: any = await supabase
@@ -61,7 +61,7 @@ export default function DisplayProducts({
 
   return (
     <div>
-      {list
+      {productList
         .map((product: any) => {
           return (
             <div className={css.container} key={Math.random()}>

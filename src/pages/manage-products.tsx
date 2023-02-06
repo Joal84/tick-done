@@ -6,7 +6,7 @@ import DisplayProducts from "../components/display-products";
 import Modal from "../components/modal";
 import Button from "../components/button";
 
-export default function ManageProducts({ setAddedProduct, addedProduct }: any) {
+export default function ManageProducts() {
   const [addOverlayOpen, setAddOverlayOpen] = useState(false);
   const [editOverlayOpen, setEditOverlayOpen] = useState(false);
   const userAuth: any = useContext(userDataContext);
@@ -26,9 +26,8 @@ export default function ManageProducts({ setAddedProduct, addedProduct }: any) {
           <DisplayProducts
             setAddOverlayOpen={setAddOverlayOpen}
             addOverlayOpen={addOverlayOpen}
-            editOverlayOpen={editOverlayOpen}
             setEditOverlayOpen={setEditOverlayOpen}
-            addedProduct={addedProduct}
+            editOverlayOpen={editOverlayOpen}
           />
         </>
       )}
@@ -37,10 +36,7 @@ export default function ManageProducts({ setAddedProduct, addedProduct }: any) {
           <Modal
             setAddOverlayOpen={setAddOverlayOpen}
             AddToProduct={
-              <AddToProduct
-                setAddOverlayOpen={setAddOverlayOpen}
-                setAddedProduct={setAddedProduct}
-              />
+              <AddToProduct setAddOverlayOpen={setAddOverlayOpen} />
             }
           ></Modal>
         </>

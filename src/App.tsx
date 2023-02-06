@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, createContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./pages/login-page";
@@ -10,38 +10,29 @@ import UserAuth from "./utils/userAuth";
 import ManageProducts from "./pages/manage-products";
 import "./App.css";
 
+export const ShoppingListContext: any = createContext([{}]);
+export const ProductListContext: any = createContext([{}]);
+
 function App() {
-  const [addedItem, setAddedItem] = useState([]);
-  const [addedProduct, setAddedProduct] = useState([]);
   const [userLogged, setUserLogged] = useState({});
+  const [list, setList] = useState([{}]);
+  const [productList, setProductList] = useState([{}]);
 
   return (
     <BrowserRouter>
       <UserAuth>
-        <div className="App">
-          <Navigation setUserLogged={setUserLogged} />
-        </div>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <DisplayShopplist
-                setAddedItem={setAddedItem}
-                addedItem={addedItem}
-              />
-            }
-          />
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/manage-products"
-            element={
-              <ManageProducts
-                setAddedProduct={setAddedProduct}
-                addedProduct={addedProduct}
-              />
-            }
-          />
-        </Routes>
+        <ShoppingListContext.Provider value={[list, setList]}>
+          <ProductListContext.Provider value={[productList, setProductList]}>
+            <div className="App">
+              <Navigation setUserLogged={setUserLogged} />
+            </div>
+            <Routes>
+              <Route path="/" element={<DisplayShopplist />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/manage-products" element={<ManageProducts />} />
+            </Routes>
+          </ProductListContext.Provider>
+        </ShoppingListContext.Provider>
       </UserAuth>
     </BrowserRouter>
   );

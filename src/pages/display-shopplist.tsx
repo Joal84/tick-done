@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { supabase } from "../utils/supabase";
 import AddToShopplist from "../components/add-to-shopplist";
 import css from "./display-shopplist.module.css";
-import Button from "../components/button";
+import { ShoppingListContext } from "../App";
 import { userDataContext } from "../utils/userAuth";
 import { ReactComponent as CompletedButton } from "../assets/check_circle_black_24dp.svg";
 import { ReactComponent as DeleteButton } from "../assets/delete_black_24dp.svg";
@@ -10,8 +10,7 @@ import { ReactComponent as DeleteButton } from "../assets/delete_black_24dp.svg"
 export default function DisplayShopplist({ setAddedItem, addedItem }: any) {
   const userAuth: any = useContext(userDataContext);
   const [fetchError, setFetchError] = useState("");
-  const [quantity, setQuantity] = useState(1);
-  const [list, setList]: any = useState([]);
+  const [list, setList]: any = useContext(ShoppingListContext);
 
   useEffect(() => {
     const fetchList = async () => {
@@ -27,20 +26,26 @@ export default function DisplayShopplist({ setAddedItem, addedItem }: any) {
       }
     };
     fetchList();
-  }, [addedItem]);
+  }, []);
 
-  const handleQuantity = (item: any, index: number) => {
+  const handleQuantity = (item: any, index: number, operator: string) => {
     const newList = [...list];
-    // newList[index] = {
-    //   ...newList[index],
-    //   quantity: quantity,
-    // };
+    if (operator === "+")
+      newList[index] = {
+        ...newList[index],
+        quantity: newList[index].quantity + 1,
+      };
+    if (operator === "-" && newList[index].quantity > 1)
+      newList[index] = {
+        ...newList[index],
+        quantity: newList[index].quantity - 1,
+      };
 
     setList(newList);
-    const updateQuantity = async (completedStatus: any) => {
+    const updateQuantity = async (quantityToUpdate: any) => {
       const { data, error }: any = await supabase
         .from("shopping_lists")
-        .update({ quantity: completedStatus })
+        .update({ quantity: quantityToUpdate })
         .eq("id", item.id);
 
       if (error) {
@@ -93,9 +98,7 @@ export default function DisplayShopplist({ setAddedItem, addedItem }: any) {
 
   return (
     <div className={css.background}>
-      {Object.keys(userAuth).length !== 0 && (
-        <AddToShopplist setAddedItem={setAddedItem} />
-      )}
+      {Object.keys(userAuth).length !== 0 && <AddToShopplist />}
       <div className={css.container}>
         {list.length === 0 || Object.keys(userAuth).length === 0 ? (
           <img
@@ -107,7 +110,12 @@ export default function DisplayShopplist({ setAddedItem, addedItem }: any) {
           list
             .map((product: any, index: number) => {
               return (
-                <div key={Math.random()} className={css.itemAdded}>
+                <div
+                  key={Math.random()}
+                  className={
+                    product.completed ? css.itemAddedCompleted : css.itemAdded
+                  }
+                >
                   <div className={css.divider}>
                     <h2>Name</h2>
                     <p key={product.id}>{product.product_name}</p>
@@ -115,9 +123,19 @@ export default function DisplayShopplist({ setAddedItem, addedItem }: any) {
                   <div className={css.divider}>
                     <h2>Quantity</h2>
                     <div className={css.quantityCont}>
-                      <div>+</div>
-                      <p>{product.quantity}</p>
-                      <div>-</div>
+                      <div
+                        className={css.quantityButton}
+                        onClick={() => handleQuantity(product, index, "-")}
+                      >
+                        -
+                      </div>
+                      <div className={css.quantity}>{product.quantity}</div>
+                      <div
+                        className={css.quantityButton}
+                        onClick={() => handleQuantity(product, index, "+")}
+                      >
+                        +
+                      </div>
                     </div>
                   </div>
                   <div className={css.divider}>
