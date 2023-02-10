@@ -9,6 +9,7 @@ import UserAuth from "./utils/userAuth";
 
 import ManageProducts from "./pages/manage-products";
 import "./App.css";
+import { supabase } from "./utils/supabase";
 
 export const ShoppingListContext: any = createContext([{}]);
 export const ProductListContext: any = createContext([{}]);

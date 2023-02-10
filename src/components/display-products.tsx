@@ -19,14 +19,6 @@ export default function DisplayProducts({
   const [editedProduct, setEditedProduct] = useState({});
   const [deletedProduct, setDeletedProduct] = useState({});
 
-  const handleEdit = (product: any) => {
-    setEditOverlayOpen(true);
-    setName(product.name);
-    setCategory(product.category);
-    setDescription(product.description);
-    setId(product.id);
-  };
-
   useEffect(() => {
     const fetchList = async () => {
       const { data, error }: any = await supabase
@@ -43,6 +35,14 @@ export default function DisplayProducts({
     };
     fetchList();
   }, [deletedProduct, editedProduct]);
+
+  const handleEdit = (product: any) => {
+    setEditOverlayOpen(true);
+    setName(product.name);
+    setCategory(product.category);
+    setDescription(product.description);
+    setId(product.id);
+  };
 
   const handleDelete = async (item: any) => {
     const { data, error }: any = await supabase
