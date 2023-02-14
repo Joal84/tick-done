@@ -7,9 +7,9 @@
   text-transform: uppercase;
   border-radius: 10px;
   cursor: pointer;
-  background-color: hsl(160, 100%, 75%);
+  background-color: rgb(207, 231, 215);
 }
 
 .btn:hover {
-  background-color: hsl(160, 100%, 60%);
+  background-color: hsl(140, 33%, 80%);
 }

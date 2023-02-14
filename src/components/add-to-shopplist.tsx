@@ -24,7 +24,7 @@ export default function AddToShopplist({ setNewItem, handleQuantity }: any) {
 
   const user_id = userAuth.id;
 
-  // Adding new item into the list
+  // Capture products from input field
   const handleChange = async (e: any) => {
     setProductName(e.detail.tagify.value.map((item: any) => item.value));
   };
@@ -34,18 +34,23 @@ export default function AddToShopplist({ setNewItem, handleQuantity }: any) {
     tagifyRef.current && tagifyRef.current.removeAllTags();
   };
 
-  // Filter input for unique values in the list
-  const uniqueListValue = productName.filter(
-    (o1: any) =>
-      !list.some(
-        (o2: any) => o1.toLowerCase() === o2.product_name.toLowerCase()
-      )
-  );
-
   // Filter input for products that are not in the product list yet
-  const uniqueProductListValue = productName.filter(
+  const newProductListValue = productName.filter(
     (o1: any) =>
       !productList.some((o2: any) => o1.toLowerCase() === o2.name.toLowerCase())
+  );
+
+  // Filter input for peoducts that are in the product List already
+  const findNewProdInProductList = productList.filter((o1: any) =>
+    productName.some((o2: any) => o1.name.toLowerCase() === o2.toLowerCase())
+  );
+
+  // Filter for products that are in the product list but not in the shopping list
+  const uniqueItemInTheList = findNewProdInProductList.filter(
+    (item1) =>
+      !list.some(
+        (item2) => item1.name.toLowerCase() === item2.name.toLowerCase()
+      )
   );
 
   const handleSubmit = () => {
@@ -54,39 +59,66 @@ export default function AddToShopplist({ setNewItem, handleQuantity }: any) {
       return;
     }
 
-    uniqueListValue.map(async (item) => {
-      const { data, error }: any = await supabase
-        .from("shopping_lists")
-        .insert([{ product_name: item, user_id }])
-        .select();
-
-      if (error) {
-      }
-      if (data) {
-        setList([...list, ...data]);
-        setNewItem(data);
-      }
-    });
-
-    if (uniqueProductListValue.length > 0) {
-      uniqueProductListValue.map(async (item) => {
+    // Adding products into shopping list that already exists in Product list
+    if (findNewProdInProductList.length > 0) {
+      uniqueItemInTheList.map(async (item: any) => {
         const { data, error }: any = await supabase
-          .from("products_list")
-          .insert([{ name: item, user_id }])
+          .from("shopping_lists")
+          .insert([{ name: item.name, product_id: item.id, user_id }])
           .select();
 
         if (error) {
-          setFormError(error);
         }
         if (data) {
-          setProductList([...productList, ...data]);
+          setList([...list, ...data]);
+          setNewItem(data);
         }
       });
     }
+    // Adding products into product list that do not exists in Product list
+    newProductListValue.map(async (item) => {
+      const { data: prod_data, error: prod_error }: any = await supabase
+        .from("products_list")
+        .insert([{ name: item, category: "None", avg_price: 0, user_id }])
+        .select();
+
+      if (prod_data) {
+        setProductList([...productList, ...prod_data]);
+      }
+
+      // Check if new item also does not exist in the shopping list
+      const uniqueItemInTheList = prod_data.filter(
+        (item1) =>
+          !list.some(
+            (item2) => item1.name.toLowerCase() === item2.name.toLowerCase()
+          )
+      );
+
+      // Add new and unique item in the shopping list
+      uniqueItemInTheList.map(async (newItem: any) => {
+        const { data: shopping_data, error: shopping_error } = await supabase
+          .from("shopping_lists")
+          .insert([
+            {
+              name: newItem.name,
+              product_id: newItem.id,
+              user_id,
+            },
+          ])
+          .select();
+
+        if (shopping_error) {
+          setFormError(prod_error);
+        }
+        if (shopping_data) {
+          setList([...list, ...shopping_data]);
+          setNewItem(shopping_data);
+        }
+      });
+    });
 
     clearAll(tagifyRef1);
   };
-
   return (
     <div className={css.container}>
       <TagField handleChange={handleChange} tagifyRef={tagifyRef1} />

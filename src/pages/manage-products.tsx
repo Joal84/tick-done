@@ -23,6 +23,7 @@ export default function ManageProducts() {
               onClick={() => setAddOverlayOpen(true)}
             />
           </div>
+
           <DisplayProducts
             setAddOverlayOpen={setAddOverlayOpen}
             addOverlayOpen={addOverlayOpen}

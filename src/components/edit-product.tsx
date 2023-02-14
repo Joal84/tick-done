@@ -5,15 +5,17 @@ import Button from "./button";
 
 export default function EditProduct(props: any) {
   const [name, setName] = useState("");
-  const [category, setCategory] = useState("Food-and-Pantry");
+  const [category, setCategory] = useState("None");
   const [description, setDescription] = useState("");
   const [id, setId] = useState("");
+  const [avgPrice, setAvgPrice] = useState(0);
 
   useEffect(() => {
     setName(props.name);
     setCategory(props.category);
     setDescription(props.description);
     setId(props.id);
+    setAvgPrice(props.avgPrice);
   }, []);
 
   const handleSubmit = async function (e: FormEvent<HTMLFormElement>) {
@@ -25,7 +27,7 @@ export default function EditProduct(props: any) {
 
     const { data, error }: any = await supabase
       .from("products_list")
-      .update({ name, description, category, id })
+      .update({ name, description, category, avg_price: avgPrice, id })
       .eq("id", id)
       .select();
 
@@ -60,6 +62,7 @@ export default function EditProduct(props: any) {
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >
+          <option value="None">None</option>
           <option value="Food-and-Pantry">Food and Pantry</option>
           <option value="Health-and-Beauty">Health and Beauty</option>
           <option value="Household">Household</option>
@@ -74,6 +77,17 @@ export default function EditProduct(props: any) {
           onChange={(e) => setDescription(e.target.value)}
           name="description"
         ></textarea>
+        <label className={css.price} htmlFor="average-price">
+          Price
+        </label>
+        <input
+          className={css.categoryField}
+          type="number"
+          name="average-price"
+          value={avgPrice}
+          onChange={(e) => setAvgPrice(e.target.value)}
+          required
+        ></input>
         <Button onClick={handleSubmit} title="Edit" />
       </form>
     </div>

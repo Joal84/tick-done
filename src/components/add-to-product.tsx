@@ -8,8 +8,9 @@ import { ProductListContext } from "../App";
 export default function AddToProduct({ setAddOverlayOpen }: any) {
   const [productList, setProductList]: any = useContext(ProductListContext);
   const [name, setName] = useState("");
-  const [category, setCategory] = useState("Food-and-Pantry");
+  const [category, setCategory] = useState("None");
   const [description, setDescription] = useState("");
+  const [avgPrice, setAvgPrice] = useState(0);
   const [formError, setFormError] = useState("");
 
   const userAuth: any = useContext(userDataContext);
@@ -25,7 +26,7 @@ export default function AddToProduct({ setAddOverlayOpen }: any) {
 
     const { data, error }: any = await supabase
       .from("products_list")
-      .insert([{ name, category, description, user_id }])
+      .insert([{ name, category, description, avg_price: avgPrice, user_id }])
       .select();
 
     if (error) {
@@ -61,6 +62,7 @@ export default function AddToProduct({ setAddOverlayOpen }: any) {
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >
+          <option value="None">None</option>
           <option value="Food-and-Pantry">Food and Pantry</option>
           <option value="Health-and-Beauty">Health and Beauty</option>
           <option value="Household">Household</option>
@@ -75,6 +77,17 @@ export default function AddToProduct({ setAddOverlayOpen }: any) {
           onChange={(e) => setDescription(e.target.value)}
           name="description"
         ></textarea>
+        <label className={css.price} htmlFor="average-price">
+          Price
+        </label>
+        <input
+          className={css.categoryField}
+          type="number"
+          name="average-price"
+          value={avgPrice}
+          onChange={(e) => setAvgPrice(e.target.value)}
+          required
+        ></input>
         <Button onClick={handleSubmit} title="Add" />
       </form>
     </div>

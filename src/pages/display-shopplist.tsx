@@ -8,13 +8,17 @@ import { ReactComponent as CompletedButton } from "../assets/check_circle_black_
 import { ReactComponent as DeleteButton } from "../assets/delete_black_24dp.svg";
 import { ProductListContext } from "../App";
 
-export default function DisplayShopplist({ setAddedItem, addedItem }: any) {
+export default function DisplayShopplist() {
   const userAuth: any = useContext(userDataContext);
   const [fetchError, setFetchError] = useState("");
   const [deletedItem, setDeletedItem] = useState([{}]);
   const [newItem, setNewItem] = useState([{}]);
   const [list, setList]: any = useContext(ShoppingListContext);
   const [productList, setProductList]: any = useContext(ProductListContext);
+
+  const productsInTheList = productList.filter((o1: any) =>
+    list.some((o2: any) => o1.name === o2.name)
+  );
 
   useEffect(() => {
     const fetchLProdList = async () => {
@@ -31,7 +35,9 @@ export default function DisplayShopplist({ setAddedItem, addedItem }: any) {
       }
     };
     const fetchList = async () => {
-      const { data, error } = await supabase.from("shopping_lists").select();
+      const { data, error } = await supabase
+        .from("shopping_lists")
+        .select("*, products_list(avg_price)");
 
       if (error) {
         setFetchError("Could not fetch the list");
@@ -113,6 +119,7 @@ export default function DisplayShopplist({ setAddedItem, addedItem }: any) {
       setDeletedItem(data);
     }
   };
+  console.log(list);
 
   return (
     <div className={css.background}>
@@ -139,11 +146,11 @@ export default function DisplayShopplist({ setAddedItem, addedItem }: any) {
                 }
               >
                 <div className={css.divider}>
-                  <h2>Name</h2>
-                  <p key={product.id}>{product.product_name}</p>
+                  <h2 className={css.title}>Name</h2>
+                  <p key={product.id}>{product.name}</p>
                 </div>
                 <div className={css.divider}>
-                  <h2>Quantity</h2>
+                  <h2 className={css.title}>Quantity</h2>
                   <div className={css.quantityCont}>
                     <div
                       className={css.quantityButton}
@@ -159,6 +166,10 @@ export default function DisplayShopplist({ setAddedItem, addedItem }: any) {
                       +
                     </div>
                   </div>
+                </div>
+                <div className={css.divider}>
+                  <h2 className={css.title}>Price</h2>
+                  <p key={product.id}>{product?.products_list?.avg_price} €</p>
                 </div>
                 <div className={css.divider}>
                   <CompletedButton
