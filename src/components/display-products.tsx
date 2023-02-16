@@ -3,6 +3,7 @@ import { supabase } from "../utils/supabase";
 import Modal from "./modal";
 import EditProduct from "./edit-product";
 import css from "./display-products.module.css";
+
 import { lastPurchased } from "../handlers/last-purchased";
 import { ProductListContext } from "../App";
 import { ReactComponent as DeleteButton } from "../assets/delete_black_24dp.svg";
@@ -11,6 +12,7 @@ import { ReactComponent as EditButton } from "../assets/edit_black_24dp.svg";
 export default function DisplayProducts({
   setEditOverlayOpen,
   editOverlayOpen,
+  filteredProducts,
 }: any) {
   const [fetchError, setFetchError] = useState("");
   const [productList, setProductList]: any = useContext(ProductListContext);
@@ -66,7 +68,7 @@ export default function DisplayProducts({
 
   return (
     <div className={css.gridContainer}>
-      {productList.map((product: any) => {
+      {filteredProducts.map((product: any) => {
         return (
           <div key={product.id} className={css.card}>
             <div className={css.titleContainer}>
