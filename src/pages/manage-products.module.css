@@ -18,3 +18,11 @@ p {
   text-align: center;
   margin: 20px;
 }
+.categorySearch {
+  margin: 20px;
+}
+.filterContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

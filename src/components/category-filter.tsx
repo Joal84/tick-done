@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import css from "./category-filter.module.css";
 
-export default function CategortFilter({ onChangeHandler }: any) {
+export default function CategoryFilter({ onChangeHandler }: any) {
   return (
     <>
-      <label htmlFor="category-search">Filter Category</label>
+      <label htmlFor="category-search" className={css.title}>
+        Category
+      </label>
       <select
         id="category-search"
+        className={css.dropdown}
         name="category-search"
         onChange={(e) => onChangeHandler(e.target.value)}
       >

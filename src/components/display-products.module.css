@@ -75,3 +75,9 @@ dd {
   font-size: 1.8rem;
   font-weight: 400;
 }
+
+.loading {
+  position: fixed;
+  top: 30%;
+  right: 48%;
+}

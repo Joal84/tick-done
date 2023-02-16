@@ -6,7 +6,7 @@ import DisplayProducts from "../components/display-products";
 import Modal from "../components/modal";
 import Button from "../components/button";
 import Search from "../components/filtered-search";
-import CategortFilter from "../components/category-filter";
+import CategoryFilter from "../components/category-filter";
 import { ProductListContext } from "../App";
 
 export default function ManageProducts() {
@@ -15,7 +15,7 @@ export default function ManageProducts() {
   const [search, setSearch] = useState("");
   const [inputCategoryFilter, setinputCategoryFilter] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([{}]);
-  const [productList, setProductList]: any = useContext(ProductListContext);
+  const [productList]: any = useContext(ProductListContext);
   const userAuth: any = useContext(userDataContext);
 
   const onSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -29,10 +29,12 @@ export default function ManageProducts() {
   };
 
   useEffect(() => {
-    const newFilteredProducts = productList.filter((product: any) => {
-      return product.name.toLocaleLowerCase().includes(search);
-    });
-    setFilteredProducts(newFilteredProducts);
+    if (search) {
+      const newFilteredProducts = productList.filter((product: any) => {
+        return product.name.toLocaleLowerCase().includes(search);
+      });
+      setFilteredProducts(newFilteredProducts);
+    }
   }, [productList, search]);
 
   useEffect(() => {
@@ -40,8 +42,9 @@ export default function ManageProducts() {
       if (inputCategoryFilter === "all") {
         return product;
       }
-
-      return product.category.includes(inputCategoryFilter);
+      if (inputCategoryFilter) {
+        return product.category.includes(inputCategoryFilter);
+      }
     });
     setFilteredProducts(categoryFilteredProducts);
   }, [productList, inputCategoryFilter]);
@@ -52,9 +55,13 @@ export default function ManageProducts() {
         <p>Login to manage your products</p>
       ) : (
         <>
-          <div className={css.search}>
-            <Search onChangeHandler={onSearchChange} />
-            <CategortFilter onChangeHandler={onCategoryFilter} />
+          <div className={css.filterContainer}>
+            <div className={css.search}>
+              <Search onChangeHandler={onSearchChange} />
+            </div>
+            <div className={css.categorySearch}>
+              <CategoryFilter onChangeHandler={onCategoryFilter} />
+            </div>
           </div>
           <div className={css.addButton}>
             <Button
@@ -62,14 +69,23 @@ export default function ManageProducts() {
               onClick={() => setAddOverlayOpen(true)}
             />
           </div>
-
-          <DisplayProducts
-            filteredProducts={filteredProducts}
-            setAddOverlayOpen={setAddOverlayOpen}
-            addOverlayOpen={addOverlayOpen}
-            setEditOverlayOpen={setEditOverlayOpen}
-            editOverlayOpen={editOverlayOpen}
-          />
+          {search || inputCategoryFilter ? (
+            <DisplayProducts
+              filteredProducts={filteredProducts}
+              setAddOverlayOpen={setAddOverlayOpen}
+              addOverlayOpen={addOverlayOpen}
+              setEditOverlayOpen={setEditOverlayOpen}
+              editOverlayOpen={editOverlayOpen}
+            />
+          ) : (
+            <DisplayProducts
+              filteredProducts={productList}
+              setAddOverlayOpen={setAddOverlayOpen}
+              addOverlayOpen={addOverlayOpen}
+              setEditOverlayOpen={setEditOverlayOpen}
+              editOverlayOpen={editOverlayOpen}
+            />
+          )}
         </>
       )}
       {addOverlayOpen && (
