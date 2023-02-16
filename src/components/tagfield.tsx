@@ -2,10 +2,6 @@ import { useState, useEffect, useContext, useMemo, useRef } from "react";
 import { ProductListContext } from "../App.js";
 import Tags from "@yaireo/tagify/dist/react.tagify";
 
-import { ShoppingListContext } from "../App.js";
-import { userDataContext } from "../utils/userAuth.js";
-import { supabase } from "../utils/supabase.js";
-
 import "../tagify.css";
 
 // Tagify settings object
@@ -21,15 +17,6 @@ export default function TagField({ handleChange, tagifyRef }: any) {
   const [tagifySettings, setTagifySettings] = useState([]);
   const [tagifyProps, setTagifyProps] = useState({});
   const [productList]: any = useContext(ProductListContext);
-  const [prodNames, setProdNames] = useState("");
-
-  useMemo(() => {
-    setProdNames(
-      productList.map((product: any) => {
-        return product.name;
-      })
-    );
-  }, [productList]);
 
   const settings: any = {
     ...baseTagifySettings,
@@ -38,10 +25,9 @@ export default function TagField({ handleChange, tagifyRef }: any) {
 
   useEffect(() => {
     setTagifyProps({ loading: true });
-
     setTagifyProps((lastProps) => ({
       ...lastProps,
-      whitelist: prodNames,
+      whitelist: productList.map((item: any) => item.name),
 
       loading: false,
     }));

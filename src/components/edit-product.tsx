@@ -8,7 +8,7 @@ export default function EditProduct(props: any) {
   const [category, setCategory] = useState("None");
   const [description, setDescription] = useState("");
   const [id, setId] = useState("");
-  const [avgPrice, setAvgPrice] = useState(0);
+  const [avgPrice, setAvgPrice] = useState("");
 
   useEffect(() => {
     setName(props.name);

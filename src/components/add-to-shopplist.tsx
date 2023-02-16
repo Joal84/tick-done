@@ -1,6 +1,6 @@
 import css from "./add-to-shopplist.module.css";
 import { supabase } from "../utils/supabase";
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { useContext } from "react";
 import { userDataContext } from "../utils/userAuth";
 import Tags from "@yaireo/tagify/dist/react.tagify";
@@ -47,9 +47,9 @@ export default function AddToShopplist({ setNewItem, handleQuantity }: any) {
 
   // Filter for products that are in the product list but not in the shopping list
   const uniqueItemInTheList = findNewProdInProductList.filter(
-    (item1) =>
+    (item1: any) =>
       !list.some(
-        (item2) => item1.name.toLowerCase() === item2.name.toLowerCase()
+        (item2: any) => item1.name.toLowerCase() === item2.name.toLowerCase()
       )
   );
 
@@ -88,9 +88,10 @@ export default function AddToShopplist({ setNewItem, handleQuantity }: any) {
 
       // Check if new item also does not exist in the shopping list
       const uniqueItemInTheList = prod_data.filter(
-        (item1) =>
+        (item1: any) =>
           !list.some(
-            (item2) => item1.name.toLowerCase() === item2.name.toLowerCase()
+            (item2: any) =>
+              item1.name.toLowerCase() === item2.name.toLowerCase()
           )
       );
 

@@ -2,8 +2,8 @@ import { useState, useEffect, useContext } from "react";
 import { supabase } from "../utils/supabase";
 import Modal from "./modal";
 import EditProduct from "./edit-product";
-import Button from "./button";
 import css from "./display-products.module.css";
+import { lastPurchased } from "../handlers/last-purchased";
 import { ProductListContext } from "../App";
 import { ReactComponent as DeleteButton } from "../assets/delete_black_24dp.svg";
 import { ReactComponent as EditButton } from "../assets/edit_black_24dp.svg";
@@ -38,6 +38,7 @@ export default function DisplayProducts({
     };
     fetchList();
   }, [deletedProduct, editedProduct]);
+  console.log(productList);
 
   const handleEdit = (product: any) => {
     setEditOverlayOpen(true);
@@ -69,12 +70,22 @@ export default function DisplayProducts({
         return (
           <div key={product.id} className={css.card}>
             <div className={css.titleContainer}>
-              <h2>{product.name}</h2>
-              <h3 className="">{product.category}</h3>
+              <h2 className={css.name}>{product.name}</h2>
+              <h3 className={css.category}>{product.category}</h3>
             </div>
             <dl>
               <dd>{product.description}</dd>
             </dl>
+            <div>
+              <h2 className={css.title}>Total bought:</h2>
+              <span className={css.lastPurchased}>{product.total_bought}</span>
+            </div>
+            <div>
+              <h2 className={css.title}>Last purchased:</h2>
+              <span className={css.lastPurchased}>
+                {lastPurchased(product.last_purchased)}
+              </span>
+            </div>
             <div className={css.buttonsContainer}>
               <span className={css.price}>
                 {product.avg_price} <span className={css.currency}>€</span>

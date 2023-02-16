@@ -7,6 +7,7 @@ import { userDataContext } from "../utils/userAuth";
 import { ReactComponent as CompletedButton } from "../assets/check_circle_black_24dp.svg";
 import { ReactComponent as DeleteButton } from "../assets/delete_black_24dp.svg";
 import { ProductListContext } from "../App";
+import { lastPurchased } from "../handlers/last-purchased";
 
 export default function DisplayShopplist() {
   const userAuth: any = useContext(userDataContext);
@@ -15,10 +16,6 @@ export default function DisplayShopplist() {
   const [newItem, setNewItem] = useState([{}]);
   const [list, setList]: any = useContext(ShoppingListContext);
   const [productList, setProductList]: any = useContext(ProductListContext);
-
-  const productsInTheList = productList.filter((o1: any) =>
-    list.some((o2: any) => o1.name === o2.name)
-  );
 
   useEffect(() => {
     const fetchLProdList = async () => {
@@ -34,35 +31,59 @@ export default function DisplayShopplist() {
         setFetchError("");
       }
     };
+    fetchLProdList();
+
     const fetchList = async () => {
       const { data, error } = await supabase
         .from("shopping_lists")
-        .select("*, products_list(avg_price)");
+        .select("*, products_list(avg_price, last_purchased, total_bought)");
 
       if (error) {
         setFetchError("Could not fetch the list");
       }
 
       if (data) {
-        setList(data);
+        setList(
+          data.map((item) => {
+            return (item = {
+              ...item,
+              totalPrice: (
+                item.quantity * (item.products_list?.avg_price || 0)
+              ).toFixed(2),
+            });
+          })
+        );
         setFetchError("");
       }
     };
     fetchList();
-    fetchLProdList();
   }, [deletedItem, newItem]);
+  console.log(list);
+
+  const totalPrice = list.reduce((total, itemPrice) => {
+    return (total += +itemPrice.totalPrice);
+  }, 0);
 
   const handleQuantity = (item: any, index: number, operator: string) => {
     const newList = [...list];
     if (operator === "+")
       newList[index] = {
         ...newList[index],
+
         quantity: newList[index].quantity + 1,
+        totalPrice: (
+          (newList[index].quantity + 1) *
+          (newList[index].products_list?.avg_price || 0)
+        ).toFixed(2),
       };
     if (operator === "-" && newList[index].quantity > 1)
       newList[index] = {
         ...newList[index],
         quantity: newList[index].quantity - 1,
+        totalPrice: (
+          (newList[index].quantity - 1) *
+          (newList[index].products_list?.avg_price || 0)
+        ).toFixed(2),
       };
 
     setList(newList);
@@ -86,13 +107,17 @@ export default function DisplayShopplist() {
     newList[index] = {
       ...newList[index],
       completed: !newList[index].completed,
+      last_purchased: newList[index].completed && new Date(),
     };
 
     setList(newList);
+
     const updateCompleted = async (completedStatus: any) => {
       const { data, error }: any = await supabase
         .from("shopping_lists")
-        .update({ completed: completedStatus })
+        .update({
+          completed: completedStatus,
+        })
         .eq("id", item.id);
 
       if (error) {
@@ -101,7 +126,32 @@ export default function DisplayShopplist() {
       if (data) {
       }
     };
+
+    if (newList[index].completed) {
+      const updateLastPurchased = async () => {
+        const { data, error }: any = await supabase
+          .from("products_list")
+          .update({
+            last_purchased: new Date(),
+            total_bought: item.products_list?.total_bought + item.quantity,
+          })
+          .eq("id", item.product_id)
+          .select();
+
+        if (error) {
+          setFetchError(error);
+        }
+        if (data) {
+          setNewItem(data);
+        }
+      };
+      updateLastPurchased();
+    }
     updateCompleted(!list[index].completed);
+  };
+
+  const itemPrice = (item: any) => {
+    return item.totalPrice;
   };
 
   const handleDelete = async (item: any) => {
@@ -119,7 +169,6 @@ export default function DisplayShopplist() {
       setDeletedItem(data);
     }
   };
-  console.log(list);
 
   return (
     <div className={css.background}>
@@ -147,29 +196,44 @@ export default function DisplayShopplist() {
               >
                 <div className={css.divider}>
                   <h2 className={css.title}>Name</h2>
-                  <p key={product.id}>{product.name}</p>
+                  <span className={css.infoSpan}>{product.name}</span>
                 </div>
                 <div className={css.divider}>
                   <h2 className={css.title}>Quantity</h2>
                   <div className={css.quantityCont}>
-                    <div
-                      className={css.quantityButton}
-                      onClick={() => handleQuantity(product, index, "-")}
-                    >
-                      -
-                    </div>
+                    {product.completed ? (
+                      <div></div>
+                    ) : (
+                      <div
+                        className={css.quantityButton}
+                        onClick={() => handleQuantity(product, index, "-")}
+                      >
+                        -
+                      </div>
+                    )}
                     <div className={css.quantity}>{product.quantity}</div>
-                    <div
-                      className={css.quantityButton}
-                      onClick={() => handleQuantity(product, index, "+")}
-                    >
-                      +
-                    </div>
+
+                    {product.completed ? (
+                      <div></div>
+                    ) : (
+                      <div
+                        className={css.quantityButton}
+                        onClick={() => handleQuantity(product, index, "+")}
+                      >
+                        +
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className={css.divider}>
                   <h2 className={css.title}>Price</h2>
-                  <p key={product.id}>{product?.products_list?.avg_price} €</p>
+                  <span className={css.infoSpan}>{itemPrice(product)}€</span>
+                </div>
+                <div className={css.divider}>
+                  <h2 className={css.title}>Last Purchased</h2>
+                  <span className={css.infoSpan}>
+                    {lastPurchased(product.products_list?.last_purchased)}
+                  </span>
                 </div>
                 <div className={css.divider}>
                   <CompletedButton
@@ -191,6 +255,10 @@ export default function DisplayShopplist() {
             );
           })
         )}
+      </div>
+      <div className={css.totalPriceCont}>
+        Total Price:{" "}
+        <span className={css.totalPrice}>{totalPrice.toFixed(2)}</span> €
       </div>
     </div>
   );
