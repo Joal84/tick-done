@@ -1,0 +1,55 @@
+.container {
+  width: 380px;
+  position: absolute;
+  top: 28%;
+  left: 8%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 24px;
+  border-radius: 25px;
+  background-color: #efefef;
+  filter: drop-shadow(0 0 40px #1010103e);
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 24px;
+}
+.field {
+  font-size: 1.6rem;
+  width: 280px;
+  height: 48px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 10px;
+}
+.labelField {
+  margin-top: 24px;
+  font-size: 1.4rem;
+  align-self: flex-start;
+  line-height: 0px;
+  /* position: relative;
+  top: 15px;
+  right: 100px; */
+  font-weight: 300;
+}
+.divider {
+  width: 115px;
+  border-bottom: 1px solid var(--border-color);
+}
+.dividerLabel {
+  font-size: 1.4rem;
+  font-weight: 300;
+  line-height: 0;
+}
+.dividerContainer {
+  display: flex;
+  gap: 16px;
+  margin: 32px 0 32px 0;
+}
+.cta {
+  font-size: 1.4rem;
+  margin-top: 24px;
+}

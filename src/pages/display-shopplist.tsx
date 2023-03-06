@@ -1,17 +1,15 @@
-import { useState, useEffect, useContext, useMemo } from "react";
+import { useState, useEffect, useContext } from "react";
 import { supabase } from "../utils/supabase";
 import AddToShopplist from "../components/add-to-shopplist";
 import css from "./display-shopplist.module.css";
 import { ShoppingListContext } from "../App";
 import { userDataContext } from "../utils/userAuth";
-import { ReactComponent as CompletedButton } from "../assets/check_circle_black_24dp.svg";
-import { ReactComponent as DeleteButton } from "../assets/delete_black_24dp.svg";
 import { ProductListContext } from "../App";
-import { lastPurchased } from "../handlers/last-purchased";
+import ShoppingItem from "../components/shopping-item";
+import Background from "../components/Background/background";
 import { ColorRing } from "react-loader-spinner";
-import { motion } from "framer-motion";
 
-export default function DisplayShopplist() {
+export default function DisplayShopplist({ footer }: any) {
   const userAuth: any = useContext(userDataContext);
   const [fetchError, setFetchError] = useState("");
   const [deletedItem, setDeletedItem] = useState([{}]);
@@ -68,10 +66,9 @@ export default function DisplayShopplist() {
     fetchList();
   }, [deletedItem, newItem]);
 
-  const totalPrice = list.reduce((total, itemPrice) => {
+  const totalPrice = list.reduce((total: any, itemPrice: any) => {
     return (total += +itemPrice.totalPrice);
   }, 0);
-
   const handleQuantity = (item: any, index: number, operator: string) => {
     const newList = [...list];
     if (operator === "+")
@@ -150,7 +147,7 @@ export default function DisplayShopplist() {
           setFetchError(error);
         }
         if (data) {
-          setNewItem(data);
+          // setNewItem(data);
         }
       };
       updateLastPurchased();
@@ -177,15 +174,12 @@ export default function DisplayShopplist() {
       setDeletedItem(data);
     }
   };
-
+  console.log(list);
   return (
     <>
-      <div className={css.background}>
+      <Background>
         {Object.keys(userAuth).length !== 0 && (
-          <AddToShopplist
-            setNewItem={setNewItem}
-            handleQuantity={handleQuantity}
-          />
+          <AddToShopplist setNewItem={setNewItem} />
         )}
         {isLoading && (
           <div className={css.loading}>
@@ -210,72 +204,15 @@ export default function DisplayShopplist() {
           ) : (
             list.map((product: any, index: number) => {
               return (
-                <motion.ul
+                <ShoppingItem
                   key={product.id}
-                  className={
-                    product.completed ? css.itemAddedCompleted : css.itemAdded
-                  }
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                >
-                  <div className={css.divider}>
-                    <h2 className={css.title}>Name</h2>
-                    <span className={css.infoSpan}>{product.name}</span>
-                  </div>
-                  <div className={css.divider}>
-                    <h2 className={css.title}>Quantity</h2>
-                    <div className={css.quantityCont}>
-                      {product.completed ? (
-                        <div></div>
-                      ) : (
-                        <div
-                          className={css.quantityButton}
-                          onClick={() => handleQuantity(product, index, "-")}
-                        >
-                          -
-                        </div>
-                      )}
-                      <div className={css.quantity}>{product.quantity}</div>
-
-                      {product.completed ? (
-                        <div></div>
-                      ) : (
-                        <div
-                          className={css.quantityButton}
-                          onClick={() => handleQuantity(product, index, "+")}
-                        >
-                          +
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className={css.divider}>
-                    <h2 className={css.title}>Price</h2>
-                    <span className={css.infoSpan}>{itemPrice(product)}€</span>
-                  </div>
-                  <div className={css.divider}>
-                    <h2 className={css.title}>Last Purchased</h2>
-                    <span className={css.infoSpan}>
-                      {lastPurchased(product.products_list?.last_purchased)}
-                    </span>
-                  </div>
-                  <div className={css.divider}>
-                    <CompletedButton
-                      className={
-                        product.completed
-                          ? css.completedIcon
-                          : css.notCompletedIcon
-                      }
-                      onClick={() => handleComplete(product, index)}
-                    />
-                  </div>
-                  <div className={css.divider}>
-                    <DeleteButton
-                      className={css.deleteButton}
-                      onClick={() => handleDelete(product)}
-                    />
-                  </div>
-                </motion.ul>
+                  product={product}
+                  index={index}
+                  itemPrice={itemPrice}
+                  handleDelete={handleDelete}
+                  handleQuantity={handleQuantity}
+                  handleComplete={handleComplete}
+                />
               );
             })
           )}
@@ -286,9 +223,8 @@ export default function DisplayShopplist() {
             <span className={css.totalPrice}>{totalPrice.toFixed(2)}</span> €
           </div>
         )}
-      </div>
-
-      <div>Footer</div>
+      </Background>
+      {footer}
     </>
   );
 }

@@ -23,6 +23,11 @@ export default function AddToProduct({ setAddOverlayOpen }: any) {
       setFormError("Please fill in all the fields");
       return;
     }
+    if (
+      productList.some((item) => item.name.toLowerCase() === name.toLowerCase())
+    ) {
+      return;
+    }
 
     const { data, error }: any = await supabase
       .from("products_list")

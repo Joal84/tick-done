@@ -1,9 +1,39 @@
 .background {
-  background-color: white;
-  padding: 20px 0 50px 0;
-  min-height: 80vh;
-  width: 100%;
-  max-width: 1280px;
-  border-radius: 0 0 20px 20px;
-  margin-bottom: 50px;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../assets/background_login.webp");
+  position: absolute;
+  background-size: 2400px;
+  background-position: fixed;
+  background-size: 100% auto;
+}
+.container {
+  margin: 0 auto;
+}
+.branding {
+  margin-left: 180px;
+  margin-top: 100px;
+  margin-bottom: 20px;
+  position: absolute;
+}
+.logoBox {
+  width: 75px;
+}
+.logoLettering {
+  width: 245px;
+  margin-bottom: 16px;
+  margin-left: 10px;
+}
+.slogan {
+  font-size: 1.6rem;
+  font-weight: 300;
+  position: relative;
+  left: -242px;
+  top: 3px;
+}
+.description {
+  font-weight: 300;
+  margin-top: 21px;
+  text-align: left;
+  font-size: 2rem;
 }

@@ -3,12 +3,9 @@ import { supabase } from "../utils/supabase";
 import Modal from "./modal";
 import EditProduct from "./edit-product";
 import css from "./display-products.module.css";
-
 import { ColorRing } from "react-loader-spinner";
-import { lastPurchased } from "../handlers/last-purchased";
 import { ProductListContext } from "../App";
-import { ReactComponent as DeleteButton } from "../assets/delete_black_24dp.svg";
-import { ReactComponent as EditButton } from "../assets/edit_black_24dp.svg";
+import ProductItem from "./product-item";
 
 export default function DisplayProducts({
   setEditOverlayOpen,
@@ -92,49 +89,21 @@ export default function DisplayProducts({
       <div className={css.gridContainer}>
         {filteredProducts.map((product: any) => {
           return (
-            <div key={product.id} className={css.card}>
-              <div className={css.titleContainer}>
-                <h2 className={css.name}>{product.name}</h2>
-                <h3 className={css.category}>{product.category}</h3>
-              </div>
-              <dl>
-                <dd>{product.description}</dd>
-              </dl>
-              <div>
-                <h2 className={css.title}>Total bought:</h2>
-                <span className={css.lastPurchased}>
-                  {product.total_bought}
-                </span>
-              </div>
-              <div>
-                <h2 className={css.title}>Last purchased:</h2>
-                <span className={css.lastPurchased}>
-                  {lastPurchased(product.last_purchased)}
-                </span>
-              </div>
-              <div className={css.buttonsContainer}>
-                <span className={css.price}>
-                  {product.avg_price} <span className={css.currency}>€</span>
-                </span>
-                <div>
-                  <EditButton
-                    className={css.editButton}
-                    onClick={() => handleEdit(product)}
-                  />
-                  <DeleteButton
-                    className={css.deleteButton}
-                    onClick={() => handleDelete(product)}
-                  />
-                </div>
-              </div>
-            </div>
+            <ProductItem
+              key={product.id}
+              product={product}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
           );
         })}
         {editOverlayOpen && (
           <Modal
+            key="123"
             setEditOverlayOpen={setEditOverlayOpen}
             EditProduct={
               <EditProduct
+                key="456"
                 name={name}
                 category={category}
                 description={description}
@@ -144,7 +113,7 @@ export default function DisplayProducts({
                 setEditedProduct={setEditedProduct}
               />
             }
-          ></Modal>
+          />
         )}
       </div>
     </>

@@ -8,8 +8,9 @@ import Button from "../components/button";
 import Search from "../components/filtered-search";
 import CategoryFilter from "../components/category-filter";
 import { ProductListContext } from "../App";
+import Background from "../components/Background/background";
 
-export default function ManageProducts() {
+export default function ManageProducts({ footer }) {
   const [addOverlayOpen, setAddOverlayOpen] = useState(false);
   const [editOverlayOpen, setEditOverlayOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -50,54 +51,57 @@ export default function ManageProducts() {
   }, [productList, inputCategoryFilter]);
 
   return (
-    <div className={css.background}>
-      {Object.keys(userAuth).length === 0 ? (
-        <p>Login to manage your products</p>
-      ) : (
-        <>
-          <div className={css.filterContainer}>
-            <div className={css.search}>
-              <Search onChangeHandler={onSearchChange} />
+    <>
+      <Background>
+        {Object.keys(userAuth).length === 0 ? (
+          <p>Login to manage your products</p>
+        ) : (
+          <>
+            <div className={css.filterContainer}>
+              <div className={css.search}>
+                <Search onChangeHandler={onSearchChange} />
+              </div>
+              <div className={css.categorySearch}>
+                <CategoryFilter onChangeHandler={onCategoryFilter} />
+              </div>
             </div>
-            <div className={css.categorySearch}>
-              <CategoryFilter onChangeHandler={onCategoryFilter} />
+            <div className={css.addButton}>
+              <Button
+                title="Add Product"
+                onClick={() => setAddOverlayOpen(true)}
+              />
             </div>
-          </div>
-          <div className={css.addButton}>
-            <Button
-              title="Add Product"
-              onClick={() => setAddOverlayOpen(true)}
-            />
-          </div>
-          {search || inputCategoryFilter ? (
-            <DisplayProducts
-              filteredProducts={filteredProducts}
+            {search || inputCategoryFilter ? (
+              <DisplayProducts
+                filteredProducts={filteredProducts}
+                setAddOverlayOpen={setAddOverlayOpen}
+                addOverlayOpen={addOverlayOpen}
+                setEditOverlayOpen={setEditOverlayOpen}
+                editOverlayOpen={editOverlayOpen}
+              />
+            ) : (
+              <DisplayProducts
+                filteredProducts={productList}
+                setAddOverlayOpen={setAddOverlayOpen}
+                addOverlayOpen={addOverlayOpen}
+                setEditOverlayOpen={setEditOverlayOpen}
+                editOverlayOpen={editOverlayOpen}
+              />
+            )}
+          </>
+        )}
+        {addOverlayOpen && (
+          <>
+            <Modal
               setAddOverlayOpen={setAddOverlayOpen}
-              addOverlayOpen={addOverlayOpen}
-              setEditOverlayOpen={setEditOverlayOpen}
-              editOverlayOpen={editOverlayOpen}
-            />
-          ) : (
-            <DisplayProducts
-              filteredProducts={productList}
-              setAddOverlayOpen={setAddOverlayOpen}
-              addOverlayOpen={addOverlayOpen}
-              setEditOverlayOpen={setEditOverlayOpen}
-              editOverlayOpen={editOverlayOpen}
-            />
-          )}
-        </>
-      )}
-      {addOverlayOpen && (
-        <>
-          <Modal
-            setAddOverlayOpen={setAddOverlayOpen}
-            AddToProduct={
-              <AddToProduct setAddOverlayOpen={setAddOverlayOpen} />
-            }
-          ></Modal>
-        </>
-      )}
-    </div>
+              AddToProduct={
+                <AddToProduct setAddOverlayOpen={setAddOverlayOpen} />
+              }
+            ></Modal>
+          </>
+        )}
+      </Background>
+      {footer}
+    </>
   );
 }

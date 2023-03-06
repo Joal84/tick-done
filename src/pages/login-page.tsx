@@ -6,6 +6,10 @@ import { userDataContext } from "../utils/userAuth";
 import { ProductListContext } from "../App";
 import { ShoppingListContext } from "../App";
 import css from "./login-page.module.css";
+import { ReactComponent as LogoBox } from "../assets/logo_box.svg";
+import { ReactComponent as LogoLettering } from "../assets/logo_lettering.svg";
+import SignUp from "../components/Login/sign-up";
+import SignIn from "../components/Login/sign-in";
 
 export default function Login() {
   const userAuth = useContext(userDataContext);
@@ -26,13 +30,27 @@ export default function Login() {
     });
   }, [userAuth]);
   return (
-    <div className={css.background}>
-      <Auth
-        supabaseClient={supabase}
-        appearance={{ theme: ThemeSupa }}
-        theme="light"
-        providers={["google"]}
-      />
-    </div>
+    <>
+      <div className={css.background}>
+        <div className={css.container}>
+          <div className={css.branding}>
+            <LogoBox className={css.logoBox} />
+            <LogoLettering className={css.logoLettering} />
+            <span className={css.slogan}>add. buy. repeat.</span>
+            <p className={css.description}>
+              A grocery list application made simple.
+            </p>
+          </div>
+          <SignIn />
+          {/* <SignUp /> */}
+          {/* <Auth
+          supabaseClient={supabase}
+          appearance={{ theme: ThemeSupa }}
+          theme="light"
+          providers={["google"]}
+        /> */}
+        </div>
+      </div>
+    </>
   );
 }

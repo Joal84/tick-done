@@ -54,8 +54,15 @@ Medium:
 1. Use a more-intuitive box-sizing model.
 */
 #root {
-  max-width: 1280px;
+  --background-color: #f9f9f9;
+  --background-grey: #efefef;
+  --border-color: #cbcbcb;
+  --font-dark: #1d1d1d;
+  --font-light: #f9f9f9;
+  --main-color: #227250;
+  --transition: all 0.2s ease-in-out;
   margin: 0 auto;
+  background-color: var(--background-color);
 }
 *,
 *::before,
@@ -76,6 +83,7 @@ Medium:
 html,
 body {
   font-size: 62.5%;
+  color: var(--font-dark);
 }
 /*
 	Typographic tweaks!
@@ -83,7 +91,6 @@ body {
 	5. Improve text rendering
   */
 body {
-  background-color: var(--background);
 }
 
 /*

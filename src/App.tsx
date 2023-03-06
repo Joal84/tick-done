@@ -2,6 +2,7 @@ import { useState, createContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./pages/login-page";
+import Footer from "./components/Footer/footer";
 
 import DisplayShopplist from "./pages/display-shopplist";
 import Navigation from "./components/navigation";
@@ -18,6 +19,7 @@ function App() {
   const [userLogged, setUserLogged] = useState({});
   const [list, setList] = useState([{}]);
   const [productList, setProductList] = useState([{}]);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <BrowserRouter>
@@ -25,12 +27,18 @@ function App() {
         <ShoppingListContext.Provider value={[list, setList]}>
           <ProductListContext.Provider value={[productList, setProductList]}>
             <div className="App">
-              <Navigation setUserLogged={setUserLogged} />
+              {/* <Navigation setUserLogged={setUserLogged} /> */}
             </div>
             <Routes>
-              <Route path="/" element={<DisplayShopplist />} />
+              <Route
+                path="/"
+                element={<DisplayShopplist footer={<Footer />} />}
+              />
               <Route path="/login" element={<Login />} />
-              <Route path="/manage-products" element={<ManageProducts />} />
+              <Route
+                path="/manage-products"
+                element={<ManageProducts footer={<Footer />} />}
+              />
             </Routes>
           </ProductListContext.Provider>
         </ShoppingListContext.Provider>

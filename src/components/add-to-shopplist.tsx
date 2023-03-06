@@ -10,7 +10,7 @@ import { ProductListContext } from "../App";
 import TagField from "./tagfield";
 import Button from "./button";
 
-export default function AddToShopplist({ setNewItem, handleQuantity }: any) {
+export default function AddToShopplist({ setNewItem }: any) {
   const tagifyRef1: any = useRef();
 
   const [formError, setFormError] = useState("");
