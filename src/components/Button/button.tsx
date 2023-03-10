@@ -1,6 +1,7 @@
 import { Children } from "react";
-import { ReactComponent as FbLogo } from "../assets/Facebook-f_Logo-White-Logo.wine.svg";
-import { ReactComponent as GoogleLogo } from "../assets/google_logo.svg";
+import { ReactComponent as FbLogo } from "../../assets/facebook-f_Logo-White-Logo.wine.svg";
+import { ReactComponent as GoogleLogo } from "../../assets/google_logo.svg";
+import { ReactComponent as AddSVG } from "../../assets/plus-icon.svg";
 
 import css from "./button.module.css";
 
@@ -18,9 +19,10 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button className={css[className]} onClick={onClick}>
+      {children}
       {className === "facebook" && <FbLogo className={css.fbLogo} />}
       {className === "google" && <GoogleLogo className={css.googleLogo} />}
-      {children}
+      {className === "add" && <AddSVG className={css.addLogo} />}
     </button>
   );
 }

@@ -1,14 +1,13 @@
 import css from "./add-to-shopplist.module.css";
 import { supabase } from "../utils/supabase";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useContext } from "react";
 import { userDataContext } from "../utils/userAuth";
 import Tags from "@yaireo/tagify/dist/react.tagify";
-
+import { ReactComponent as AddSVG } from "../assets/plus-icon.svg";
 import { ShoppingListContext } from "../App";
 import { ProductListContext } from "../App";
 import TagField from "./tagfield";
-import Button from "./button";
 
 export default function AddToShopplist({ setNewItem }: any) {
   const tagifyRef1: any = useRef();
@@ -123,7 +122,7 @@ export default function AddToShopplist({ setNewItem }: any) {
   return (
     <div className={css.container}>
       <TagField handleChange={handleChange} tagifyRef={tagifyRef1} />
-      <Button title="Add" onClick={handleSubmit} />
+      <AddSVG className={css.addButton} onClick={handleSubmit} />
     </div>
   );
 }

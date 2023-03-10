@@ -1,6 +1,6 @@
 import css from "./modal.module.css";
 import { useEffect, useRef } from "react";
-import Button from "./button";
+import Button from "../components/Button/button";
 
 const Modal = function ({
   setEditOverlayOpen,

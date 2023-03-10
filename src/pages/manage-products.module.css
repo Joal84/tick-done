@@ -1,14 +1,6 @@
-.background {
-  background-color: white;
-  padding: 20px 0 50px 0;
-  height: auto;
-  width: 100%;
-  max-width: 1280px;
-  border-radius: 0 0 20px 20px;
-}
-p {
-  text-align: center;
-  font-size: 2rem;
+.container {
+  margin: 0 auto;
+  max-width: 88svw;
 }
 .addButton {
   text-align: center;
@@ -24,5 +16,22 @@ p {
 .filterContainer {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+}
+.hiddenChild {
+  width: 180px;
+  visibility: hidden;
+}
+.dividerContainer {
+  margin-left: 20px;
+}
+.divider {
+  border-bottom: 3px solid #494949;
+  width: 220px;
+  margin-top: 8px;
+  margin-bottom: 48px;
+}
+.title {
+  text-align: left;
+  font-size: 2rem;
 }

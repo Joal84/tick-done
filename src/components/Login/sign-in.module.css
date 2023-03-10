@@ -2,42 +2,40 @@
   width: 380px;
   position: absolute;
   top: 28%;
-  left: 8%;
+  left: 3%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   padding: 24px;
   border-radius: 25px;
-  background-color: #efefef;
+  background-color: #e5e2e2;
+  border: 1px solid #c7c7c77c;
   filter: drop-shadow(0 0 40px #1010103e);
 }
 .form {
   display: flex;
   flex-direction: column;
-  margin-top: 24px;
+  margin-top: 16px;
 }
 .field {
   font-size: 1.6rem;
   width: 280px;
   height: 48px;
-  border: 1px solid var(--border-color);
+  border: var(--border);
   border-radius: 6px;
   padding: 10px;
 }
 .labelField {
   margin-top: 24px;
+  margin-bottom: 8px;
   font-size: 1.4rem;
   align-self: flex-start;
-  line-height: 0px;
-  /* position: relative;
-  top: 15px;
-  right: 100px; */
   font-weight: 300;
 }
 .divider {
   width: 115px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: var(--border);
 }
 .dividerLabel {
   font-size: 1.4rem;
@@ -52,4 +50,11 @@
 .cta {
   font-size: 1.4rem;
   margin-top: 24px;
+}
+.forgotPassword {
+  align-self: self-end;
+
+  font-size: 1.2rem;
+  margin-top: 8px;
+  margin-bottom: 24px;
 }

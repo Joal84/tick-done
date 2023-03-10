@@ -11,36 +11,48 @@ export default function ProductItem({
   return (
     <>
       <div key={product.id} className={css.card}>
-        <div className={css.titleContainer}>
-          <h2 className={css.name}>{product.name}</h2>
-          <h3 className={css.category}>{product.category}</h3>
+        <div className={css.titleAndImageContainer} id={css[product.category]}>
+          <div className={css.titleContainer}>
+            <h2 className={css.name}>{product.name}</h2>
+            <h3 className={css.category}>{product.category}</h3>
+          </div>
+          {product.category !== "None" ? (
+            <img
+              className={css.image}
+              src={`src/assets/${product.category}.png`}
+            />
+          ) : (
+            <></>
+          )}
         </div>
-        <dl>
+        <div className={css.divider} id={css[product.category]}>
+          <h2 className={css.title}>Last Purchased</h2>
+          <p className={css.lastPurchased}>
+            {lastPurchased(product.last_purchased)}
+          </p>
+        </div>
+        <dl className={css.description} id={css[product.category]}>
           <dd>{product.description}</dd>
         </dl>
-        <div>
-          <h2 className={css.title}>Total bought:</h2>
-          <span className={css.lastPurchased}>{product.total_bought}</span>
-        </div>
-        <div>
-          <h2 className={css.title}>Last purchased:</h2>
-          <span className={css.lastPurchased}>
-            {lastPurchased(product.last_purchased)}
-          </span>
-        </div>
-        <div className={css.buttonsContainer}>
-          <span className={css.price}>
-            {product.avg_price} <span className={css.currency}>€</span>
-          </span>
-          <div>
-            <EditButton
-              className={css.editButton}
-              onClick={() => handleEdit(product)}
-            />
-            <DeleteButton
-              className={css.deleteButton}
-              onClick={() => handleDelete(product)}
-            />
+        <div className={css.priceButtonsContainer}>
+          <span className={css.title}>Bought </span>
+          <span className={css.bought}>{product.total_bought}</span>
+          <span className={css.title}> times</span>
+          <div className={css.buttonsContainer}>
+            <span className={css.price}>
+              {product.avg_price.toFixed(2)}{" "}
+              <span className={css.currency}>€</span>
+            </span>
+            <div>
+              <EditButton
+                className={css.editButton}
+                onClick={() => handleEdit(product)}
+              />
+              <DeleteButton
+                className={css.deleteButton}
+                onClick={() => handleDelete(product)}
+              />
+            </div>
           </div>
         </div>
       </div>

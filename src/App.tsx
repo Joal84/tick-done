@@ -1,16 +1,16 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./pages/login-page";
 import Footer from "./components/Footer/footer";
-
 import DisplayShopplist from "./pages/display-shopplist";
-import Navigation from "./components/navigation";
 import UserAuth from "./utils/userAuth";
-
 import ManageProducts from "./pages/manage-products";
 import "./App.css";
-import { supabase } from "./utils/supabase";
+
+import SignIn from "./components/Login/sign-in";
+import SignUp from "./components/Login/sign-up";
+import Navigation from "./components/navigation";
 
 export const ShoppingListContext: any = createContext([{}]);
 export const ProductListContext: any = createContext([{}]);
@@ -26,18 +26,27 @@ function App() {
       <UserAuth>
         <ShoppingListContext.Provider value={[list, setList]}>
           <ProductListContext.Provider value={[productList, setProductList]}>
-            <div className="App">
-              {/* <Navigation setUserLogged={setUserLogged} /> */}
-            </div>
+            <div className="App"></div>
             <Routes>
               <Route
                 path="/"
-                element={<DisplayShopplist footer={<Footer />} />}
+                element={
+                  <DisplayShopplist
+                    nav={<Navigation setUserLogged={setUserLogged} />}
+                    footer={<Footer />}
+                  />
+                }
               />
-              <Route path="/login" element={<Login />} />
+              <Route path="/login" element={<Login signIn={<SignIn />} />} />
+              <Route path="/sign-up" element={<Login signUp={<SignUp />} />} />
               <Route
                 path="/manage-products"
-                element={<ManageProducts footer={<Footer />} />}
+                element={
+                  <ManageProducts
+                    nav={<Navigation setUserLogged={setUserLogged} />}
+                    footer={<Footer />}
+                  />
+                }
               />
             </Routes>
           </ProductListContext.Provider>

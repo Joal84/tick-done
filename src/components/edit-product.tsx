@@ -1,7 +1,7 @@
 import { useEffect, useState, FormEvent } from "react";
 import css from "./edit-product.module.css";
 import { supabase } from "../utils/supabase";
-import Button from "./button";
+import Button from "../components/Button/button";
 
 export default function EditProduct(props: any) {
   const [name, setName] = useState("");

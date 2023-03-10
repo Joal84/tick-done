@@ -10,41 +10,12 @@
 
 .container {
   margin: 0 auto;
+  margin-top: 26px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-}
-.itemAdded {
-  grid-template-columns: repeat(6, 1fr);
-  display: grid;
-  align-items: center;
-  justify-content: center;
-
-  background-color: rgb(241, 241, 241);
-  width: 80vw;
-  min-height: 100px;
-  max-width: 1200px;
-  padding: 10px;
-  border-radius: 10px;
-  text-align: center;
-  font-weight: 600;
-}
-.itemAddedCompleted {
-  grid-template-columns: repeat(6, 1fr);
-  display: grid;
-  align-items: center;
-  justify-content: center;
-
-  background-color: rgb(207, 231, 215);
-  width: 80vw;
-  height: 100px;
-  max-width: 1200px;
-  padding: 10px;
-  border-radius: 10px;
-  text-align: center;
-  font-weight: 600;
+  gap: 24px;
 }
 .shoppingCart {
   max-width: 100%;
@@ -52,76 +23,24 @@
   width: auto;
   margin-top: 100px;
 }
-
-.title {
-  text-transform: uppercase;
-  font-size: 1.5rem;
-  font-weight: 300;
-  margin-bottom: 15px;
+.divider {
+  margin-left: auto;
+  margin-right: 0;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  width: 200px;
+  border-bottom: 3px solid #494949;
+}
+.counter {
+  font-size: 2.4rem;
+}
+.completeCounter {
+  margin-top: 48px;
+  text-align: right;
+  font-size: 1.6rem;
+  width: 87svw;
 }
 
-.infoSpan {
-  font-size: 2rem;
-  text-transform: uppercase;
-  font-weight: 500;
-  margin-top: 10px;
-}
-.notCompletedIcon {
-  cursor: pointer;
-  width: 50px;
-  height: 50px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 300px;
-  padding: 5px;
-  fill: rgb(157, 157, 157);
-  transition: all 0.5s;
-}
-.notCompletedIcon:hover {
-  fill: rgb(62, 184, 97);
-}
-.completedIcon {
-  cursor: pointer;
-  width: 50px;
-  height: 50px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 300px;
-  padding: 5px;
-  fill: rgb(11, 195, 35);
-  transition: all 0.2s;
-}
-.deleteButton {
-  cursor: pointer;
-  width: 50px;
-  height: 50px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 300px;
-  padding: 5px;
-  fill: rgb(255, 141, 141);
-  transition: all 0.2s;
-}
-.deleteButton:hover {
-  fill: hsl(4, 91%, 59%);
-}
-.quantityCont {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-}
-.quantityButton {
-  cursor: pointer;
-  width: 35px;
-  height: 35px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 300px;
-  padding: 5px;
-  font-size: 2.5rem;
-  line-height: 0.9;
-}
-.quantity {
-  font-size: 2rem;
-  font-weight: 500;
-}
 .totalPrice {
   font-size: 3rem;
   font-weight: 500;
@@ -129,8 +48,6 @@
 .totalPriceCont {
   font-size: 2rem;
   font-weight: 300;
-  text-align: right;
-  margin: 20px 70px 0 0;
 }
 .loading {
   position: fixed;

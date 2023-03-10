@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useState, useContext } from "react";
 import css from "./add-to-product.module.css";
 import { userDataContext } from "../utils/userAuth";
 import { supabase } from "../utils/supabase";
-import Button from "./button";
+import Button from "../components/Button/button";
 import { ProductListContext } from "../App";
 
 export default function AddToProduct({ setAddOverlayOpen }: any) {

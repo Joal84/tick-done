@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { supabase } from "../../utils/supabase";
+import Button from "../Button/button";
+import Title from "../title";
 import css from "./sign-up.module.css";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -33,20 +37,30 @@ export default function SignUp() {
     }
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <motion.div animate={{ x: 100 }} className={css.container}>
+      <Title title="Create a tick-done account" />
+      <form className={css.form} onSubmit={handleSubmit}>
+        <label className={css.labelField} htmlFor="name">
+          Name
+        </label>
         <input
           className={css.field}
           placeholder="Name"
           name="name"
           onChange={handleChange}
         />
+        <label className={css.labelField} htmlFor="email">
+          Email
+        </label>
         <input
           className={css.field}
           placeholder="Email"
           name="email"
           onChange={handleChange}
         />
+        <label className={css.labelField} htmlFor="Password">
+          Password
+        </label>
         <input
           className={css.field}
           placeholder="Password"
@@ -54,8 +68,14 @@ export default function SignUp() {
           type="password"
           onChange={handleChange}
         />
-        <button type="submit">Sign Up</button>
+        <p className={css.password}>
+          Password should have a minimum of 5 characters
+        </p>
+        <Button type="submit">Sign Up</Button>
       </form>
-    </div>
+      <p className={css.cta}>
+        Already have an account? <Link to="/login">Sign In</Link>
+      </p>
+    </motion.div>
   );
 }

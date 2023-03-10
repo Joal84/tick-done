@@ -31,67 +31,108 @@ export default function ShoppingItem({
   handleQuantity,
   itemPrice,
 }: any) {
+  const handleKeyCompleted = (e, product, index) => {
+    if (e.keyCode === 13) {
+      handleComplete(product, index);
+    }
+  };
   return (
-    <motion.ul
-      className={product.completed ? css.itemAddedCompleted : css.itemAdded}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-    >
-      <div className={css.divider}>
-        <h2 className={css.title}>Name</h2>
-        <span className={css.infoSpan}>{product.name}</span>
-      </div>
-      <div className={css.divider}>
-        <h2 className={css.title}>Quantity</h2>
-        <div className={css.quantityCont}>
-          {product.completed ? (
-            <div></div>
+    <div className={css.container}>
+      <div
+        className={product.completed ? css.itemAddedCompleted : css.itemAdded}
+      >
+        <div className={css.divider}>
+          <h2 className={css.title}>Name</h2>
+          <span className={css.infoSpan}>{product.name}</span>
+        </div>
+        <div className={css.imageContainer}>
+          {product.products_list?.category !== "None" ? (
+            <img
+              id={product.completed ? css.imageCompleted : ""}
+              className={css.image}
+              src={`src/assets/${product.products_list?.category}.png`}
+            />
           ) : (
-            <div
-              className={css.quantityButton}
-              onClick={() => handleQuantity(product, index, "-")}
-            >
-              -
-            </div>
-          )}
-          <div className={css.quantity}>{product.quantity}</div>
-
-          {product.completed ? (
-            <div></div>
-          ) : (
-            <div
-              className={css.quantityButton}
-              onClick={() => handleQuantity(product, index, "+")}
-            >
-              +
-            </div>
+            ""
           )}
         </div>
+        <div
+          className={css.divider}
+          id={
+            product.completed
+              ? css.completed
+              : css[product.products_list?.category]
+          }
+        >
+          <h2 className={css.title}>Quantity</h2>
+          <div className={css.quantityCont}>
+            {product.completed ? (
+              <div />
+            ) : (
+              <div
+                tabIndex={0}
+                className={css.quantityButton}
+                onClick={() => handleQuantity(product, index, "-")}
+              >
+                -
+              </div>
+            )}
+            <div className={css.quantity}>{product.quantity}</div>
+
+            {product.completed ? (
+              <div />
+            ) : (
+              <div
+                tabIndex={0}
+                className={css.quantityButton}
+                onClick={() => handleQuantity(product, index, "+")}
+              >
+                +
+              </div>
+            )}
+          </div>
+        </div>
+        <div
+          className={css.divider}
+          id={
+            product.completed
+              ? css.completed
+              : css[product.products_list?.category]
+          }
+        >
+          <h2 className={css.title}>Price</h2>
+          <span className={css.infoSpan}>{itemPrice(product)}€</span>
+        </div>
+        <div
+          className={css.divider}
+          id={
+            product.completed
+              ? css.completed
+              : css[product.products_list?.category]
+          }
+        >
+          <h2 className={css.title}>Last Purchased</h2>
+          <span className={css.infoSpan}>
+            {lastPurchased(product.products_list?.last_purchased)}
+          </span>
+        </div>
       </div>
-      <div className={css.divider}>
-        <h2 className={css.title}>Price</h2>
-        <span className={css.infoSpan}>{itemPrice(product)}€</span>
-      </div>
-      <div className={css.divider}>
-        <h2 className={css.title}>Last Purchased</h2>
-        <span className={css.infoSpan}>
-          {lastPurchased(product.products_list?.last_purchased)}
-        </span>
-      </div>
-      <div className={css.divider}>
+      <div className={css.actionButtons}>
         <CompletedButton
+          tabIndex={0}
+          onKeyDown={(e) => handleKeyCompleted(e, product, index)}
           className={
             product.completed ? css.completedIcon : css.notCompletedIcon
           }
           onClick={() => handleComplete(product, index)}
         />
-      </div>
-      <div className={css.divider}>
+
         <DeleteButton
+          tabIndex={0}
           className={css.deleteButton}
           onClick={() => handleDelete(product)}
         />
       </div>
-    </motion.ul>
+    </div>
   );
 }

@@ -1,5 +1,5 @@
 .tagify {
-  --tags-border-color: #ddd;
+  --tags-border-color: #6e6e6e;
   --tag-bg: #e5e5e5;
   --tag-hover: #d3e2e2;
   display: flex;
@@ -21,10 +21,10 @@
   }
 }
 .tagify:hover {
-  border-color: #ccc;
+  border-color: #227250;
 }
 .tagify.tagify--focus {
-  border-color: #85c8ea;
+  border-color: #227250;
 }
 .tagify[readonly] {
   cursor: default;
@@ -68,7 +68,7 @@
   transition: 0.13s ease-out;
 }
 .tagify__tag.tagify--editable > div::before {
-  box-shadow: 0 0 0 2px #d3e2e2 inset !important;
+  box-shadow: 0 0 0 2px #d4e2d3 inset !important;
   box-shadow: 0 0 0 2px var(--tag-hover) inset !important;
 }
 .tagify__tag.tagify--editable.tagify--invalid > div::before {
@@ -125,7 +125,7 @@
   bottom: -2px;
   left: -2px;
   box-shadow: 0 0 0 1.1em #d3e2e2 inset;
-  box-shadow: 0 0 0 1.1em var(--tag-hover) inset;
+  box-shadow: 0 0 0 1.1em hsl(155, 54%, 69%) inset;
 }
 .tagify__tag.tagify--noAnim {
   animation: none;
@@ -313,7 +313,7 @@
   background: #fff;
   max-height: 300px;
   overflow: auto;
-  border: 1px solid #85c8ea;
+  border: 1px solid #227250;
   box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
 }

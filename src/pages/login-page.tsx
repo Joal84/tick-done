@@ -1,4 +1,3 @@
-import { Auth, ThemeSupa } from "@supabase/auth-ui-react";
 import { supabase } from "../utils/supabase";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useContext } from "react";
@@ -8,10 +7,8 @@ import { ShoppingListContext } from "../App";
 import css from "./login-page.module.css";
 import { ReactComponent as LogoBox } from "../assets/logo_box.svg";
 import { ReactComponent as LogoLettering } from "../assets/logo_lettering.svg";
-import SignUp from "../components/Login/sign-up";
-import SignIn from "../components/Login/sign-in";
 
-export default function Login() {
+export default function Login({ signIn, signUp }: any) {
   const userAuth = useContext(userDataContext);
   const [list, setList]: any = useContext(ShoppingListContext);
   const [productList, setProductList]: any = useContext(ProductListContext);
@@ -24,6 +21,7 @@ export default function Login() {
         navigate("/");
       }
       if (event === "SIGNED_OUT") {
+        navigate("/login");
         setProductList([{}]);
         setList([{}]);
       }
@@ -41,14 +39,7 @@ export default function Login() {
               A grocery list application made simple.
             </p>
           </div>
-          <SignIn />
-          {/* <SignUp /> */}
-          {/* <Auth
-          supabaseClient={supabase}
-          appearance={{ theme: ThemeSupa }}
-          theme="light"
-          providers={["google"]}
-        /> */}
+          {signIn || signUp}
         </div>
       </div>
     </>

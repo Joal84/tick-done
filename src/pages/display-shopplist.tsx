@@ -6,10 +6,10 @@ import { ShoppingListContext } from "../App";
 import { userDataContext } from "../utils/userAuth";
 import { ProductListContext } from "../App";
 import ShoppingItem from "../components/shopping-item";
-import Background from "../components/Background/background";
+
 import { ColorRing } from "react-loader-spinner";
 
-export default function DisplayShopplist({ footer }: any) {
+export default function DisplayShopplist({ nav, footer }: any) {
   const userAuth: any = useContext(userDataContext);
   const [fetchError, setFetchError] = useState("");
   const [deletedItem, setDeletedItem] = useState([{}]);
@@ -41,7 +41,9 @@ export default function DisplayShopplist({ footer }: any) {
       setIsLoading(true);
       const { data, error } = await supabase
         .from("shopping_lists")
-        .select("*, products_list(avg_price, last_purchased, total_bought)");
+        .select(
+          "*, products_list(avg_price, last_purchased, total_bought, category)"
+        );
 
       if (error) {
         setFetchError("Could not fetch the list");
@@ -54,7 +56,7 @@ export default function DisplayShopplist({ footer }: any) {
             return (item = {
               ...item,
               totalPrice: (
-                item.quantity * (item.products_list?.avg_price || 0)
+                item.quantity * (item.products_list?.avg_price || 0.0)
               ).toFixed(2),
             });
           })
@@ -69,6 +71,9 @@ export default function DisplayShopplist({ footer }: any) {
   const totalPrice = list.reduce((total: any, itemPrice: any) => {
     return (total += +itemPrice.totalPrice);
   }, 0);
+
+  const totalComplete = list.filter((item) => item.completed === true);
+
   const handleQuantity = (item: any, index: number, operator: string) => {
     const newList = [...list];
     if (operator === "+")
@@ -78,7 +83,7 @@ export default function DisplayShopplist({ footer }: any) {
         quantity: newList[index].quantity + 1,
         totalPrice: (
           (newList[index].quantity + 1) *
-          (newList[index].products_list?.avg_price || 0)
+          (newList[index].products_list?.avg_price || 0.0)
         ).toFixed(2),
       };
     if (operator === "-" && newList[index].quantity > 1)
@@ -87,7 +92,7 @@ export default function DisplayShopplist({ footer }: any) {
         quantity: newList[index].quantity - 1,
         totalPrice: (
           (newList[index].quantity - 1) *
-          (newList[index].products_list?.avg_price || 0)
+          (newList[index].products_list?.avg_price || 0.0)
         ).toFixed(2),
       };
 
@@ -174,10 +179,11 @@ export default function DisplayShopplist({ footer }: any) {
       setDeletedItem(data);
     }
   };
-  console.log(list);
+
   return (
     <>
-      <Background>
+      {nav}
+      <div>
         {Object.keys(userAuth).length !== 0 && (
           <AddToShopplist setNewItem={setNewItem} />
         )}
@@ -218,12 +224,19 @@ export default function DisplayShopplist({ footer }: any) {
           )}
         </div>
         {Object.keys(userAuth).length !== 0 && (
-          <div className={css.totalPriceCont}>
-            Total Price:{" "}
-            <span className={css.totalPrice}>{totalPrice.toFixed(2)}</span> €
+          <div className={css.completeCounter}>
+            <span>Completed </span>
+            <span className={css.counter}>
+              {totalComplete.length} / {list.length}
+            </span>
+            <div className={css.divider}></div>
+            <div className={css.totalPriceCont}>
+              Total Price:{" "}
+              <span className={css.totalPrice}>{totalPrice.toFixed(2)}</span> €
+            </div>
           </div>
         )}
-      </Background>
+      </div>
       {footer}
     </>
   );

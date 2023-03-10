@@ -1,10 +1,12 @@
 .card {
-  align-items: center;
-  justify-content: center;
+  box-shadow: 0px 0px 17px 0px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
-  background-color: rgb(238, 238, 238);
-  padding: 20px;
-  border-radius: 10px;
+  background-color: var(--background-grey);
+
+  border-radius: 16px;
 }
 
 .name {
@@ -13,10 +15,29 @@
   line-height: normal;
   font-weight: 500;
 }
+.titleAndImageContainer {
+  padding: 24px 16px 0 16px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  display: flex;
+  align-items: self-start;
+  justify-content: space-between;
+}
+.image {
+  width: 70px;
+  padding-bottom: 8px;
+}
 .titleContainer {
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 24px;
+}
+.divider {
+  padding: 8px 16px 8px 16px;
   display: flex;
   justify-content: space-between;
-  line-height: 0.6;
 }
 .buttonsContainer {
   display: flex;
@@ -25,48 +46,116 @@
 }
 .deleteButton {
   cursor: pointer;
-  width: 3.5rem;
-  height: 3.5rem;
-  background-color: rgb(255, 255, 255);
+  width: 45px;
+  height: 45px;
+  background-color: #b76565;
   border-radius: 300px;
-  padding: 5px;
-  fill: rgb(91, 35, 35);
+  padding: 8px;
+  fill: var(--font-light);
   transition: all 0.2s;
+}
+.deleteButton:hover {
+  background-color: hsl(0, 36%, 46%);
 }
 .editButton {
   cursor: pointer;
-  width: 3.5rem;
-  height: 3.5rem;
-  background-color: rgb(255, 255, 255);
+  width: 45px;
+  height: 45px;
+  background-color: var(--main-color);
   border-radius: 300px;
-  padding: 5px;
-  fill: rgb(59, 59, 59);
+  padding: 8px;
+  fill: var(--font-light);
   transition: all 0.2s;
   margin-right: 15px;
 }
+.editButton:hover {
+  background-color: hsl(155, 54%, 19%);
+}
 .category {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   color: #4f4f4f;
 }
 
-dd {
-  font-size: 1.6rem;
-  min-height: 40px;
-  margin-bottom: 10px;
-}
 .price {
-  font-size: 2.2rem;
+  font-size: 2.4rem;
+  font-weight: 400;
   align-self: flex-end;
-  color: rgb(58, 114, 61);
 }
 .currency {
-  color: black;
+  font-size: 1.6rem;
 }
 .title {
+  align-self: center;
   font-size: 1.6rem;
   font-weight: 300;
 }
 .lastPurchased {
-  font-size: 1.8rem;
-  font-weight: 400;
+  text-transform: Uppercase;
+
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+.bought {
+  font-weight: 500;
+  font-size: 2rem;
+}
+.description {
+  padding: 16px 16px 24px 16px;
+  font-size: 1.4rem;
+  font-weight: 300;
+  height: 100%;
+}
+
+#Food-and-Pantry {
+  background-color: hsl(155, 54%, 69%);
+
+  width: 100%;
+  height: 100%;
+}
+#Food-and-Pantry + .divider {
+  background-color: hsl(155, 54%, 50%);
+}
+
+#Food-and-Pantry + .description {
+  background-color: hsl(155, 54%, 93%);
+}
+.priceButtonsContainer {
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  padding: 8px 16px 24px 16px;
+  background-color: var(--background-color);
+}
+#Household {
+  background-color: #c1b9f9;
+
+  width: 100%;
+  height: 100%;
+}
+#Household + .divider {
+  background-color: hsl(248, 84%, 78%);
+}
+#Household + .description {
+  background-color: hsl(248, 84%, 96%);
+}
+#Health-and-Beauty {
+  background-color: #eaeb95;
+
+  width: 100%;
+  height: 100%;
+}
+#Health-and-Beauty + .divider {
+  background-color: hsl(61, 68%, 55%);
+}
+#Health-and-Beauty + .description {
+  background-color: hsl(61, 68%, 93%);
+}
+
+#None {
+  background-color: #fefefe;
+}
+#None + .divider {
+  background-color: #d3d3d3;
+}
+#None + .description {
+  background-color: #f0f0f0;
 }

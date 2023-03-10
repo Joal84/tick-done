@@ -4,13 +4,13 @@ import css from "./manage-products.module.css";
 import AddToProduct from "../components/add-to-product";
 import DisplayProducts from "../components/display-products";
 import Modal from "../components/modal";
-import Button from "../components/button";
+import Button from "../components/Button/button";
 import Search from "../components/filtered-search";
 import CategoryFilter from "../components/category-filter";
 import { ProductListContext } from "../App";
 import Background from "../components/Background/background";
 
-export default function ManageProducts({ footer }) {
+export default function ManageProducts({ nav, footer }) {
   const [addOverlayOpen, setAddOverlayOpen] = useState(false);
   const [editOverlayOpen, setEditOverlayOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -52,42 +52,53 @@ export default function ManageProducts({ footer }) {
 
   return (
     <>
-      <Background>
+      <div>
         {Object.keys(userAuth).length === 0 ? (
           <p>Login to manage your products</p>
         ) : (
           <>
-            <div className={css.filterContainer}>
-              <div className={css.search}>
-                <Search onChangeHandler={onSearchChange} />
+            {nav}
+            <div className={css.container}>
+              <div className={css.filterContainer}>
+                <div className={css.hiddenChild}></div>
+                <div className={css.hiddenChild}></div>
+                <div className={css.search}>
+                  <Search onChangeHandler={onSearchChange} />
+                </div>
+                <div className={css.categorySearch}>
+                  <CategoryFilter onChangeHandler={onCategoryFilter} />
+                </div>
+                <div className={css.addButton}>
+                  <Button
+                    className="add"
+                    onClick={() => setAddOverlayOpen(true)}
+                  >
+                    Add Product
+                  </Button>
+                </div>
               </div>
-              <div className={css.categorySearch}>
-                <CategoryFilter onChangeHandler={onCategoryFilter} />
+              <div className={css.dividerContainer}>
+                <p className={css.title}>Manage Your Products</p>
+                <div className={css.divider}></div>
               </div>
+              {search || inputCategoryFilter ? (
+                <DisplayProducts
+                  filteredProducts={filteredProducts}
+                  setAddOverlayOpen={setAddOverlayOpen}
+                  addOverlayOpen={addOverlayOpen}
+                  setEditOverlayOpen={setEditOverlayOpen}
+                  editOverlayOpen={editOverlayOpen}
+                />
+              ) : (
+                <DisplayProducts
+                  filteredProducts={productList}
+                  setAddOverlayOpen={setAddOverlayOpen}
+                  addOverlayOpen={addOverlayOpen}
+                  setEditOverlayOpen={setEditOverlayOpen}
+                  editOverlayOpen={editOverlayOpen}
+                />
+              )}
             </div>
-            <div className={css.addButton}>
-              <Button
-                title="Add Product"
-                onClick={() => setAddOverlayOpen(true)}
-              />
-            </div>
-            {search || inputCategoryFilter ? (
-              <DisplayProducts
-                filteredProducts={filteredProducts}
-                setAddOverlayOpen={setAddOverlayOpen}
-                addOverlayOpen={addOverlayOpen}
-                setEditOverlayOpen={setEditOverlayOpen}
-                editOverlayOpen={editOverlayOpen}
-              />
-            ) : (
-              <DisplayProducts
-                filteredProducts={productList}
-                setAddOverlayOpen={setAddOverlayOpen}
-                addOverlayOpen={addOverlayOpen}
-                setEditOverlayOpen={setEditOverlayOpen}
-                editOverlayOpen={editOverlayOpen}
-              />
-            )}
           </>
         )}
         {addOverlayOpen && (
@@ -100,7 +111,7 @@ export default function ManageProducts({ footer }) {
             ></Modal>
           </>
         )}
-      </Background>
+      </div>
       {footer}
     </>
   );

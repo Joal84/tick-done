@@ -56,10 +56,12 @@ Medium:
 #root {
   --background-color: #f9f9f9;
   --background-grey: #efefef;
-  --border-color: #cbcbcb;
+  --border: 1px solid #cbcbcb;
+
   --font-dark: #1d1d1d;
   --font-light: #f9f9f9;
   --main-color: #227250;
+  --food-color: #bce7be;
   --transition: all 0.2s ease-in-out;
   margin: 0 auto;
   background-color: var(--background-color);
@@ -76,6 +78,11 @@ Medium:
   margin: 0;
   font-family: "Inter", sans-serif;
   font-weight: 400;
+}
+
+a:link,
+a:visited {
+  color: var(--main-color);
 }
 /*
 	3. Allow percentage-based heights in the application

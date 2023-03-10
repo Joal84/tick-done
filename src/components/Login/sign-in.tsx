@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { supabase } from "../../utils/supabase";
+import { Link } from "react-router-dom";
 import Title from "../title";
-import Button from "../button";
+import Button from "../Button/button";
 import css from "./sign-in.module.css";
+import { motion } from "framer-motion";
 
 export default function SignIn() {
   const [formData, setFormData] = useState({
@@ -38,10 +40,9 @@ export default function SignIn() {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "facebook",
     });
-    console.log(data);
   };
   return (
-    <div className={css.container}>
+    <motion.div animate={{ x: 100 }} className={css.container}>
       <Title title="Login" />
       <form className={css.form} onSubmit={handleSubmit}>
         <label className={css.labelField} htmlFor="email">
@@ -57,6 +58,7 @@ export default function SignIn() {
           type="password"
           onChange={handleChange}
         />
+        <p className={css.forgotPassword}>Forgot Password?</p>
         <Button type="submit">Login</Button>
       </form>
       <div className={css.dividerContainer}>
@@ -70,7 +72,9 @@ export default function SignIn() {
       <Button onClick={handleFacebookOAuth} className="facebook">
         <span>Login with Facebook</span>
       </Button>
-      <p className={css.cta}>Don’t have an account? Sign Up</p>
-    </div>
+      <p className={css.cta}>
+        Don’t have an account? <Link to="/sign-up">Sign Up</Link>
+      </p>
+    </motion.div>
   );
 }
