@@ -60,17 +60,19 @@ function Navigation({ setUserLogged }: any) {
             </li>
           </ul>
         ) : (
-          <li
-            tabIndex={0}
-            className={css.navLink}
-            onClick={
-              Object.keys(userAuth).length !== 0
-                ? () => signOutUser()
-                : () => navigate("/login")
-            }
-          >
-            {Object.keys(userAuth).length !== 0 ? "Logout" : "Login"}
-          </li>
+          <ul className={css.buttonContainer}>
+            <li
+              tabIndex={0}
+              className={css.navLink}
+              onClick={
+                Object.keys(userAuth).length !== 0
+                  ? () => signOutUser()
+                  : () => navigate("/login")
+              }
+            >
+              {Object.keys(userAuth).length !== 0 ? "Logout" : "Login"}
+            </li>
+          </ul>
         )}
       </div>
     </nav>

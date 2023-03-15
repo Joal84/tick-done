@@ -7,13 +7,10 @@ import { ColorRing } from "react-loader-spinner";
 import { ProductListContext } from "../App";
 import ProductItem from "./product-item";
 
-export default function DisplayProducts({
-  setEditOverlayOpen,
-  editOverlayOpen,
-  filteredProducts,
-}: any) {
+export default function DisplayProducts({ filteredProducts }: any) {
   const [fetchError, setFetchError] = useState("");
   const [productList, setProductList]: any = useContext(ProductListContext);
+  const [editModal, setEditModal]: any = useState(false);
   const [name, setName] = useState("");
   const [category, setCategory] = useState(null);
   const [description, setDescription] = useState("");
@@ -44,7 +41,7 @@ export default function DisplayProducts({
   }, [deletedProduct, editedProduct]);
 
   const handleEdit = (product: any) => {
-    setEditOverlayOpen(true);
+    setEditModal(true);
     setName(product.name);
     setCategory(product.category);
     setDescription(product.description);
@@ -97,23 +94,17 @@ export default function DisplayProducts({
             />
           );
         })}
-        {editOverlayOpen && (
-          <Modal
-            key="123"
-            setEditOverlayOpen={setEditOverlayOpen}
-            EditProduct={
-              <EditProduct
-                key="456"
-                name={name}
-                category={category}
-                description={description}
-                id={id}
-                avgPrice={avgPrice}
-                setEditOverlayOpen={setEditOverlayOpen}
-                setEditedProduct={setEditedProduct}
-              />
-            }
-          />
+        {editModal && (
+          <Modal onClose={() => setEditModal(false)}>
+            <EditProduct
+              onClose={setEditModal}
+              name={name}
+              category={category}
+              description={description}
+              id={id}
+              avgPrice={avgPrice}
+            />
+          </Modal>
         )}
       </div>
     </>

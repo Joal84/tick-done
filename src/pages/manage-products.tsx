@@ -11,8 +11,7 @@ import { ProductListContext } from "../App";
 import Background from "../components/Background/background";
 
 export default function ManageProducts({ nav, footer }) {
-  const [addOverlayOpen, setAddOverlayOpen] = useState(false);
-  const [editOverlayOpen, setEditOverlayOpen] = useState(false);
+  const [addProdModal, setAddProdModal] = useState(false);
   const [search, setSearch] = useState("");
   const [inputCategoryFilter, setinputCategoryFilter] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([{}]);
@@ -22,11 +21,6 @@ export default function ManageProducts({ nav, footer }) {
   const onSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const searchFieldString = event.target.value.toLocaleLowerCase();
     setSearch(searchFieldString);
-  };
-
-  const onCategoryFilter = (event: string): void => {
-    const categoryFieldValue = event;
-    setinputCategoryFilter(categoryFieldValue);
   };
 
   useEffect(() => {
@@ -50,6 +44,13 @@ export default function ManageProducts({ nav, footer }) {
     setFilteredProducts(categoryFilteredProducts);
   }, [productList, inputCategoryFilter]);
 
+  const filterOptions = [
+    { value: "all", label: "All" },
+    { value: "None", label: "None" },
+    { value: "Food-and-Pantry", label: "Food-and-Pantry" },
+    { value: "Health-and-Beauty", label: "Health-and-Beauty" },
+    { value: "Household", label: "Household" },
+  ];
   return (
     <>
       <div>
@@ -66,13 +67,14 @@ export default function ManageProducts({ nav, footer }) {
                   <Search onChangeHandler={onSearchChange} />
                 </div>
                 <div className={css.categorySearch}>
-                  <CategoryFilter onChangeHandler={onCategoryFilter} />
+                  <CategoryFilter
+                    selector={(e) => setinputCategoryFilter(e.value)}
+                    placeholder="Filter Category"
+                    options={filterOptions}
+                  />
                 </div>
                 <div className={css.addButton}>
-                  <Button
-                    className="add"
-                    onClick={() => setAddOverlayOpen(true)}
-                  >
+                  <Button className="add" onClick={() => setAddProdModal(true)}>
                     Add Product
                   </Button>
                 </div>
@@ -83,33 +85,22 @@ export default function ManageProducts({ nav, footer }) {
               </div>
               {search || inputCategoryFilter ? (
                 <DisplayProducts
+                  onClose={() => setAddProdModal(false)}
                   filteredProducts={filteredProducts}
-                  setAddOverlayOpen={setAddOverlayOpen}
-                  addOverlayOpen={addOverlayOpen}
-                  setEditOverlayOpen={setEditOverlayOpen}
-                  editOverlayOpen={editOverlayOpen}
                 />
               ) : (
                 <DisplayProducts
+                  onClose={() => setAddProdModal(false)}
                   filteredProducts={productList}
-                  setAddOverlayOpen={setAddOverlayOpen}
-                  addOverlayOpen={addOverlayOpen}
-                  setEditOverlayOpen={setEditOverlayOpen}
-                  editOverlayOpen={editOverlayOpen}
                 />
               )}
             </div>
           </>
         )}
-        {addOverlayOpen && (
-          <>
-            <Modal
-              setAddOverlayOpen={setAddOverlayOpen}
-              AddToProduct={
-                <AddToProduct setAddOverlayOpen={setAddOverlayOpen} />
-              }
-            ></Modal>
-          </>
+        {addProdModal && (
+          <Modal onClose={() => setAddProdModal(false)}>
+            <AddToProduct onClose={setAddProdModal} />
+          </Modal>
         )}
       </div>
       {footer}

@@ -1,25 +1,16 @@
 import css from "./modal.module.css";
 import { useEffect, useRef } from "react";
 import Button from "../components/Button/button";
+import { ReactComponent as Close } from "../assets/close_black_48dp.svg";
 
-const Modal = function ({
-  setEditOverlayOpen,
-  EditProduct,
-  AddToProduct,
-  setAddOverlayOpen,
-}: any) {
+const Modal = function ({ children, onClose }: any) {
   const close: any = useRef(null);
 
   function onClickOutside(ref: any) {
     useEffect(() => {
       const listener = (event: any) => {
         const handler = () => {
-          if (setAddOverlayOpen) {
-            setAddOverlayOpen(false);
-          }
-          if (setEditOverlayOpen) {
-            setEditOverlayOpen(false);
-          }
+          onClose(false);
         };
         // Do nothing if clicking ref's element or descendent elements
         if (!ref.current || ref.current.contains(event.target)) {
@@ -43,13 +34,12 @@ const Modal = function ({
   return (
     <div className={css.overlay}>
       <div className={css.modal} ref={close}>
-        {EditProduct || AddToProduct}
-      </div>
-      <div className={css.buttonContainer}>
-        <Button
-          title="Close"
-          onClick={() => setAddOverlayOpen(false) || setEditOverlayOpen(false)}
-        />
+        <div className={css.buttonContainer}>
+          <Close className={css.closeButton} onClick={onClose}>
+            Close
+          </Close>
+        </div>
+        <div>{children}</div>
       </div>
     </div>
   );

@@ -3,9 +3,11 @@ import css from "./add-to-product.module.css";
 import { userDataContext } from "../utils/userAuth";
 import { supabase } from "../utils/supabase";
 import Button from "../components/Button/button";
+import Title from "./title";
 import { ProductListContext } from "../App";
+import CategoryFilter from "./category-filter";
 
-export default function AddToProduct({ setAddOverlayOpen }: any) {
+export default function AddToProduct({ onClose }: any) {
   const [productList, setProductList]: any = useContext(ProductListContext);
   const [name, setName] = useState("");
   const [category, setCategory] = useState("None");
@@ -15,6 +17,8 @@ export default function AddToProduct({ setAddOverlayOpen }: any) {
 
   const userAuth: any = useContext(userDataContext);
   const user_id = userAuth.id;
+
+  const macChar = 100 - description.length;
 
   const handleSubmit = async function (e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -38,62 +42,80 @@ export default function AddToProduct({ setAddOverlayOpen }: any) {
       setFormError(error);
     }
     if (data) {
-      setProductList([...productList, ...data]);
+      setProductList([...data, ...productList]);
     }
-    setAddOverlayOpen(false);
+    onClose(false);
   };
+  const addOptions = [
+    { value: "None", label: "None" },
+    { value: "Food-and-Pantry", label: "Food-and-Pantry" },
+    { value: "Health-and-Beauty", label: "Health-and-Beauty" },
+    { value: "Household", label: "Household" },
+  ];
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className={css.container}>
-        <label className={css.label} htmlFor="product-name">
-          Product Name
-        </label>
-        <input
-          className={css.categoryField}
-          type="text"
-          name="product-name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        ></input>
+      <Title>Add a New Product</Title>
+      <form onSubmit={handleSubmit} className={css.formContainer}>
+        <div className={css.nameAndCategoryContainer}>
+          <div>
+            <label className={css.label} htmlFor="product-name">
+              Product Name <span style={{ color: "red" }}>*</span>
+            </label>
+            <input
+              id="product-name"
+              className={css.field}
+              type="text"
+              name="product-name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            ></input>
+          </div>
+          <div className={css.categoryContainer}>
+            <label className={css.label} htmlFor="category">
+              Category
+            </label>
+            <CategoryFilter
+              id="category"
+              name="category"
+              selector={(e) => setCategory(e.value)}
+              placeholder="None"
+              options={addOptions}
+            />
+          </div>
+        </div>
 
-        <label className={css.label} htmlFor="category">
-          Category
-        </label>
-        <select
-          className={css.categoryField}
-          name="category"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        >
-          <option value="None">None</option>
-          <option value="Food-and-Pantry">Food and Pantry</option>
-          <option value="Health-and-Beauty">Health and Beauty</option>
-          <option value="Household">Household</option>
-        </select>
-
-        <label className={css.label} htmlFor="description">
-          Description
-        </label>
-        <textarea
-          className={css.categoryField}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          name="description"
-        ></textarea>
-        <label className={css.price} htmlFor="average-price">
-          Price
-        </label>
-        <input
-          className={css.categoryField}
-          type="number"
-          name="average-price"
-          value={avgPrice}
-          onChange={(e) => setAvgPrice(e.target.value)}
-          required
-        ></input>
-        <Button onClick={handleSubmit} title="Add" />
+        <div className={css.priceContainer}>
+          <label className={css.label} htmlFor="average-price">
+            Price<span style={{ color: "red" }}> *</span>
+          </label>
+          <input
+            id="average-price"
+            min="0"
+            className={css.field}
+            type="number"
+            name="average-price"
+            value={avgPrice}
+            onChange={(e) => setAvgPrice(e.target.value)}
+            required
+          ></input>
+        </div>
+        <div className={css.descriptionContainer}>
+          <label className={css.label} htmlFor="description">
+            Description
+          </label>
+          <textarea
+            id="description"
+            className={css.description}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            name="description"
+            maxLength={100}
+          ></textarea>
+          <p className={css.maxChar}>{`${macChar} / 100 Characters`}</p>
+        </div>
+        <Button onClick={handleSubmit}>Save</Button>
       </form>
     </div>
   );

@@ -1,20 +1,17 @@
 import css from "./category-filter.module.css";
 import Select from "react-select";
-import Background from "./Background/background";
 
-const options = [
-  { value: "all", label: "All" },
-  { value: "None", label: "None" },
-  { value: "Food-and-Pantry", label: "Food-and-Pantry" },
-  { value: "Health-and-Beauty", label: "Health-and-Beauty" },
-  { value: "Household", label: "Household" },
-];
-
-export default function CategoryFilter({ onChangeHandler }: any) {
+export default function CategoryFilter({
+  value,
+  selector,
+  placeholder,
+  options,
+}: any) {
   return (
     <div>
       <Select
-        placeholder={<div>Filter Category</div>}
+        value={value}
+        placeholder={<div>{placeholder}</div>}
         options={options}
         className={css.box}
         styles={{
@@ -40,7 +37,7 @@ export default function CategoryFilter({ onChangeHandler }: any) {
             color: state.isFocused ? "#fff" : "#111",
           }),
         }}
-        onChange={(e) => onChangeHandler(e.value)}
+        onChange={selector}
       ></Select>
     </div>
   );

@@ -40,7 +40,7 @@ export default function ProductItem({
           <span className={css.title}> times</span>
           <div className={css.buttonsContainer}>
             <span className={css.price}>
-              {product.avg_price.toFixed(2)}{" "}
+              {product.avg_price?.toFixed(2)}{" "}
               <span className={css.currency}>€</span>
             </span>
             <div>

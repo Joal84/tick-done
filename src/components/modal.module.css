@@ -15,17 +15,33 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: clamp(45ch, 50%, 75ch);
+  width: auto;
   height: auto;
   padding: 20px;
 
   border-radius: 12px;
-  background-color: rgb(253, 253, 253);
+  background-color: var(--background-grey);
   z-index: 21;
+  filter: drop-shadow(0 0 40px #1010103e);
 }
 .buttonContainer {
+  text-align: right;
   position: absolute;
-  left: 50%;
-  top: 75%;
-  transform: translate(-50%, -50%);
+  right: 10px;
+  top: 10px;
+}
+.closeButton {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  fill: var(--font-dark);
+  padding: 2px;
+
+  transition: var(--transition);
+}
+
+.closeButton:hover {
+  border-radius: 1000px;
+  background-color: rgb(253, 253, 253);
+  border: var(--border);
 }

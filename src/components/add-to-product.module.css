@@ -1,11 +1,54 @@
-.categoryField {
-  font-size: 1.6rem;
+.title {
+  margin-bottom: 48px;
 }
-
 .label {
-  font-size: 2rem;
+  font-size: 1.4rem;
 }
-.container {
+.categoryContainer {
   display: flex;
   flex-direction: column;
+  gap: 8px;
+}
+
+.formContainer {
+  margin-top: 32px;
+  font-size: 1.6rem;
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+}
+.field {
+  margin-top: 8px;
+  padding: 8px;
+  height: 48px;
+  border-radius: 5px;
+  border: var(--border);
+}
+.description {
+  margin-top: 8px;
+  padding: 8px;
+  height: 80px;
+  border-radius: 5px;
+  border: var(--border);
+}
+.nameAndCategoryContainer {
+  display: flex;
+  align-items: end;
+  width: 400px;
+}
+.priceContainer {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
+.descriptionContainer {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
+.maxChar {
+  color: #838383;
+  margin-top: 8px;
+  font-size: 1.4rem;
+  text-align: right;
 }
