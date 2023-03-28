@@ -1,22 +1,36 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useMemo, useContext } from "react";
 import { supabase } from "../utils/supabase";
 import AddToShopplist from "../components/add-to-shopplist";
 import css from "./display-shopplist.module.css";
 import { ShoppingListContext } from "../App";
 import { userDataContext } from "../utils/userAuth";
 import { ProductListContext } from "../App";
+import { currencyContext } from "../App";
 import ShoppingItem from "../components/shopping-item";
 
 import { ColorRing } from "react-loader-spinner";
 
 export default function DisplayShopplist({ nav, footer }: any) {
   const userAuth: any = useContext(userDataContext);
+  const [currency, setCurrency]: any = useContext(currencyContext);
   const [fetchError, setFetchError] = useState("");
   const [deletedItem, setDeletedItem] = useState([{}]);
   const [newItem, setNewItem] = useState([{}]);
   const [list, setList]: any = useContext(ShoppingListContext);
   const [productList, setProductList]: any = useContext(ProductListContext);
   const [isLoading, setIsLoading] = useState(false);
+
+  useMemo(() => {
+    const fetchUserPreferences = async () => {
+      const { data, error } = await supabase.from("user_settings").select();
+      if (error) {
+      }
+      if (data) {
+        setCurrency(data);
+      }
+    };
+    fetchUserPreferences();
+  }, []);
 
   useEffect(() => {
     const fetchLProdList = async () => {
@@ -42,7 +56,7 @@ export default function DisplayShopplist({ nav, footer }: any) {
       const { data, error } = await supabase
         .from("shopping_lists")
         .select(
-          "*, products_list(avg_price, last_purchased, total_bought, category)"
+          "*, products_list(name, avg_price, last_purchased, total_bought, category)"
         );
 
       if (error) {
@@ -202,11 +216,14 @@ export default function DisplayShopplist({ nav, footer }: any) {
         )}
         <div className={css.container}>
           {list.length === 0 || Object.keys(userAuth).length === 0 ? (
-            <img
-              className={css.shoppingCart}
-              alt="Shopping Cart image"
-              src="src/assets/shopping-cart.png"
-            ></img>
+            <div className={css.emptyListContainer}>
+              <img
+                className={css.emptyListImage}
+                alt="Shopping Cart image"
+                src="src/assets/empty_shopplist.webp"
+              ></img>
+              <p className={css.emptyCartMessage}>Your shopplist is empty.</p>
+            </div>
           ) : (
             list.map((product: any, index: number) => {
               return (
@@ -232,7 +249,11 @@ export default function DisplayShopplist({ nav, footer }: any) {
             <div className={css.divider}></div>
             <div className={css.totalPriceCont}>
               Total Price:{" "}
-              <span className={css.totalPrice}>{totalPrice.toFixed(2)}</span> €
+              <span className={css.totalPrice}>{totalPrice.toFixed(2)}</span>
+              <span style={{ fontSize: "2rem", fontWeight: "300" }}>
+                {" "}
+                {currency[0]?.currency || "€"}
+              </span>
             </div>
           </div>
         )}

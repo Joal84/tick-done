@@ -1,11 +1,14 @@
 import css from "./navigation.module.css";
-import { Navigate, useNavigate } from "react-router-dom";
-import Button from "./button";
+import { useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { userDataContext } from "../utils/userAuth";
 import { supabase } from "../utils/supabase";
 import { ReactComponent as LogoBox } from "../assets/logo_box.svg";
 import { ReactComponent as LogoLettering } from "../assets/logo_lettering.svg";
+
+export async function signOutUser() {
+  const { error } = await supabase.auth.signOut();
+}
 
 function Navigation({ setUserLogged }: any) {
   const userAuth: any = useContext(userDataContext);
@@ -15,9 +18,6 @@ function Navigation({ setUserLogged }: any) {
     setUserLogged(userAuth);
   });
 
-  async function signOutUser() {
-    const { error } = await supabase.auth.signOut();
-  }
   return (
     <nav className={css.bar}>
       <div className={css.container}>

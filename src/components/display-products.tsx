@@ -5,9 +5,11 @@ import EditProduct from "./edit-product";
 import css from "./display-products.module.css";
 import { ColorRing } from "react-loader-spinner";
 import { ProductListContext } from "../App";
+import { userDataContext } from "../utils/userAuth";
 import ProductItem from "./product-item";
 
 export default function DisplayProducts({ filteredProducts }: any) {
+  const userAuth: any = useContext(userDataContext);
   const [fetchError, setFetchError] = useState("");
   const [productList, setProductList]: any = useContext(ProductListContext);
   const [editModal, setEditModal]: any = useState(false);
@@ -69,31 +71,44 @@ export default function DisplayProducts({ filteredProducts }: any) {
 
   return (
     <>
-      {isLoading && (
-        <div className={css.loading}>
-          <ColorRing
-            visible={true}
-            height="80"
-            width="80"
-            ariaLabel="blocks-loading"
-            wrapperStyle={{}}
-            wrapperClass="blocks-wrapper"
-            colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
-          />
-        </div>
-      )}
-
-      <div className={css.gridContainer}>
-        {filteredProducts.map((product: any) => {
-          return (
-            <ProductItem
-              key={product.id}
-              product={product}
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
+      <div className={css.container}>
+        {isLoading && (
+          <div className={css.loading}>
+            <ColorRing
+              visible={true}
+              height="80"
+              width="80"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+              colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
             />
-          );
-        })}
+          </div>
+        )}
+
+        {productList.length === 0 || Object.keys(userAuth).length === 0 ? (
+          <div className={css.emptyListContainer}>
+            <img
+              className={css.emptyListImage}
+              alt="Shopping Cart image"
+              src="src/assets/empty_product.webp"
+            ></img>
+            <p className={css.emptyListMessage}>Your product list is empty.</p>
+          </div>
+        ) : (
+          <div className={css.gridContainer}>
+            {filteredProducts.map((product: any) => {
+              return (
+                <ProductItem
+                  key={product.id}
+                  product={product}
+                  handleEdit={handleEdit}
+                  handleDelete={handleDelete}
+                />
+              );
+            })}
+          </div>
+        )}
         {editModal && (
           <Modal onClose={() => setEditModal(false)}>
             <EditProduct

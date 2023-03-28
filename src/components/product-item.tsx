@@ -1,13 +1,17 @@
+import { useContext } from "react";
 import css from "./product-item.module.css";
 import { lastPurchased } from "../components/shopping-item";
 import { ReactComponent as DeleteButton } from "../assets/delete_black_24dp.svg";
 import { ReactComponent as EditButton } from "../assets/edit_black_24dp.svg";
-
+import { currencyContext } from "../App";
 export default function ProductItem({
   product,
   handleEdit,
   handleDelete,
 }: any) {
+  const [currency, setCurrency]: any = useContext(currencyContext);
+
+  const currencyValue = currency[0]?.currency || "€";
   return (
     <>
       <div key={product.id} className={css.card}>
@@ -41,7 +45,7 @@ export default function ProductItem({
           <div className={css.buttonsContainer}>
             <span className={css.price}>
               {product.avg_price?.toFixed(2)}{" "}
-              <span className={css.currency}>€</span>
+              <span className={css.currency}> {" " + currencyValue}</span>
             </span>
             <div>
               <EditButton

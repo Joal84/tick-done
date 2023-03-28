@@ -1,5 +1,9 @@
 import css from "./title.module.css";
 
-export default function Title({ children }: any) {
-  return <h2 className={css.mainTitle}>{children}</h2>;
+export default function Title({ children, type = "mainTitle" }: any) {
+  return type === "mainTitle" ? (
+    <h1 className={css.mainTitle}>{children}</h1>
+  ) : (
+    <h2 className={css[type]}>{children}</h2>
+  );
 }

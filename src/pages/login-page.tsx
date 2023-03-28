@@ -7,16 +7,18 @@ import { ShoppingListContext } from "../App";
 import css from "./login-page.module.css";
 import { ReactComponent as LogoBox } from "../assets/logo_box.svg";
 import { ReactComponent as LogoLettering } from "../assets/logo_lettering.svg";
+import { currencyContext } from "../App";
 
 export default function Login({ signIn, signUp }: any) {
   const userAuth = useContext(userDataContext);
   const [list, setList]: any = useContext(ShoppingListContext);
   const [productList, setProductList]: any = useContext(ProductListContext);
+  const [currency, setCurrency]: any = useContext(currencyContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     supabase.auth.onAuthStateChange(async (event) => {
-      if (event !== "SIGNED_OUT") {
+      if (event === "SIGNED_IN") {
         // forward to success URL
         navigate("/");
       }

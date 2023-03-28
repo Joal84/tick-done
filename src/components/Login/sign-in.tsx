@@ -34,7 +34,6 @@ export default function SignIn() {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
     });
-    console.log(data);
   };
   const handleFacebookOAuth = async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
@@ -43,7 +42,7 @@ export default function SignIn() {
   };
   return (
     <motion.div animate={{ x: 100 }} className={css.container}>
-      <Title title="Login" />
+      <Title>Login</Title>
       <form className={css.form} onSubmit={handleSubmit}>
         <label className={css.labelField} htmlFor="email">
           Email

@@ -1,7 +1,7 @@
 {
-  "name": "simplista",
+  "name": "tick-done",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -17,7 +17,9 @@
     "react-dom": "^18.2.0",
     "react-loader-spinner": "^5.3.4",
     "react-router-dom": "^6.6.1",
-    "react-select": "^5.7.0"
+    "react-select": "^5.7.0",
+    "sweetalert2": "^11.7.3",
+    "sweetalert2-react-content": "^5.0.7"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",

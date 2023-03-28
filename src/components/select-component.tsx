@@ -1,11 +1,12 @@
-import css from "./category-filter.module.css";
+import css from "./select-component.module.css";
 import Select from "react-select";
 
-export default function CategoryFilter({
+export default function SelectComponent({
   value,
   selector,
   placeholder,
   options,
+  width,
 }: any) {
   return (
     <div>
@@ -18,8 +19,9 @@ export default function CategoryFilter({
           control: (baseStyles, state) => ({
             ...baseStyles,
             border: `1px solid #cbcbcb`,
+            width: width,
             height: "48px",
-            borderRadius: "4px",
+            borderRadius: "5px",
             backgroundColor: "#fff",
           }),
           dropdownIndicator: (baseStyles, state) => ({

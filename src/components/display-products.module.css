@@ -10,3 +10,22 @@
   top: 30%;
   right: 48%;
 }
+.container {
+  min-height: calc(99.95svh - 449px);
+  padding-bottom: 120px;
+}
+.emptyListContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  gap: 48px;
+}
+.emptyListImage {
+  max-width: 47%;
+  height: auto;
+}
+.emptyListMessage {
+  font-weight: 300;
+  color: #494949;
+}

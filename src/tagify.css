@@ -13,7 +13,8 @@
   position: relative;
   transition: 0.1s;
   font-size: 2rem;
-  min-width: 300px;
+  min-width: 250px;
+
   border-radius: 5px;
 }
 @keyframes tags--bump {
@@ -192,7 +193,7 @@
 }
 .tagify__input {
   display: block;
-  min-width: 300px;
+  min-width: 250px;
   margin: 5px;
   padding: 0.3em 0.5em;
   line-height: inherit;
@@ -328,8 +329,12 @@
   outline: 0;
 }
 .tagify__dropdown__item--active {
-  background: #e5e5e5;
+  background: #227250;
+  color: #fff;
 }
 .tagify__dropdown__item:active {
   filter: brightness(105%);
+}
+
+.customLook {
 }

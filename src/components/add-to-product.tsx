@@ -5,7 +5,7 @@ import { supabase } from "../utils/supabase";
 import Button from "../components/Button/button";
 import Title from "./title";
 import { ProductListContext } from "../App";
-import CategoryFilter from "./category-filter";
+import SelectComponent from "./select-component";
 
 export default function AddToProduct({ onClose }: any) {
   const [productList, setProductList]: any = useContext(ProductListContext);
@@ -76,7 +76,7 @@ export default function AddToProduct({ onClose }: any) {
             <label className={css.label} htmlFor="category">
               Category
             </label>
-            <CategoryFilter
+            <SelectComponent
               id="category"
               name="category"
               selector={(e) => setCategory(e.value)}

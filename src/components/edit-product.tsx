@@ -3,19 +3,14 @@ import css from "./edit-product.module.css";
 import { supabase } from "../utils/supabase";
 import Button from "../components/Button/button";
 import Title from "./title";
-import CategoryFilter from "./category-filter";
+import SelectComponent from "./select-component";
 
 export default function EditProduct(props: any) {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("None");
   const [description, setDescription] = useState("");
   const [id, setId] = useState("");
-  const [avgPrice, setAvgPrice] = useState("");
-
-  if (description === null) {
-    setDescription("");
-  }
-  const macChar = 100 - description?.length;
+  const [avgPrice, setAvgPrice] = useState();
 
   const editOptions = [
     { value: "None", label: "None" },
@@ -31,11 +26,17 @@ export default function EditProduct(props: any) {
     setAvgPrice(props.avgPrice);
   }, []);
 
+  //Description character counter
+  const charCounter = (maxNumber: number) => {
+    description ?? setDescription("");
+    return maxNumber - description?.length;
+  };
+
   const handleSubmit = async function (e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (!name || !category) {
-      return;
+    if (!name || avgPrice === 0) {
+      return console.log("Error handler");
     }
 
     const { data, error }: any = await supabase
@@ -48,6 +49,7 @@ export default function EditProduct(props: any) {
     }
     if (data) {
     }
+
     props.onClose(false);
   };
   return (
@@ -73,7 +75,7 @@ export default function EditProduct(props: any) {
             <label className={css.label} htmlFor="category">
               Category
             </label>
-            <CategoryFilter
+            <SelectComponent
               value={editOptions.find((option) => {
                 return option.value === category;
               })}
@@ -113,7 +115,9 @@ export default function EditProduct(props: any) {
             name="description"
             maxLength={100}
           ></textarea>
-          <p className={css.maxChar}>{`${macChar} / 100 Characters`}</p>
+          <p className={css.maxChar}>{`${charCounter(
+            100
+          )} / 100 Characters`}</p>
         </div>
         <Button onClick={handleSubmit}>Save</Button>
       </form>

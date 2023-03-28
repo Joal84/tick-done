@@ -6,9 +6,9 @@ import DisplayProducts from "../components/display-products";
 import Modal from "../components/modal";
 import Button from "../components/Button/button";
 import Search from "../components/filtered-search";
-import CategoryFilter from "../components/category-filter";
+import SelectComponent from "../components/select-component";
 import { ProductListContext } from "../App";
-import Background from "../components/Background/background";
+import Title from "../components/title";
 
 export default function ManageProducts({ nav, footer }) {
   const [addProdModal, setAddProdModal] = useState(false);
@@ -67,7 +67,7 @@ export default function ManageProducts({ nav, footer }) {
                   <Search onChangeHandler={onSearchChange} />
                 </div>
                 <div className={css.categorySearch}>
-                  <CategoryFilter
+                  <SelectComponent
                     selector={(e) => setinputCategoryFilter(e.value)}
                     placeholder="Filter Category"
                     options={filterOptions}
@@ -80,7 +80,7 @@ export default function ManageProducts({ nav, footer }) {
                 </div>
               </div>
               <div className={css.dividerContainer}>
-                <p className={css.title}>Manage Your Products</p>
+                <Title type="secondTitle">Manage Your Products</Title>
                 <div className={css.divider}></div>
               </div>
               {search || inputCategoryFilter ? (

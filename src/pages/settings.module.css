@@ -1,0 +1,36 @@
+.container {
+  margin-top: 32px;
+  margin-bottom: 48px;
+  min-height: calc(100svh - 361.5px);
+  overflow: hidden;
+  padding: 0 24px 0 24px;
+}
+
+.backgroundImage {
+  position: absolute;
+
+  left: 56%;
+  top: 50%;
+  max-width: 27%;
+  height: auto;
+}
+
+.components {
+  position: relative;
+  display: flex;
+  gap: 70px;
+  justify-content: center;
+  z-index: 400;
+}
+
+.divider {
+  border-bottom: 3px solid #494949;
+  width: 79px;
+  margin-top: 8px;
+  margin-bottom: 48px;
+}
+.dividerContainer {
+  padding: 0 24px 0 24px;
+  margin: 0 auto;
+  width: 920px;
+}

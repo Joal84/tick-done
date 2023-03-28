@@ -5,12 +5,14 @@ import Title from "../title";
 import css from "./sign-up.module.css";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import Swal from "sweetalert2";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
+    repeatPassword: "",
   });
   const handleChange = (event) => {
     setFormData((prevForm) => {
@@ -20,8 +22,12 @@ export default function SignUp() {
       };
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.password !== formData.repeatPassword) {
+      return;
+    }
     const { data, error } = await supabase.auth.signUp({
       email: formData.email,
       password: formData.password,
@@ -34,18 +40,26 @@ export default function SignUp() {
     if (error) {
     }
     if (data) {
+      Swal.fire({
+        title: "Account Created!",
+        text: "Please check your Email inbox",
+        icon: "success",
+        confirmButtonColor: "#227250",
+        iconColor: "#227250",
+      });
     }
   };
   return (
     <motion.div animate={{ x: 100 }} className={css.container}>
-      <Title title="Create a tick-done account" />
+      <Title>Create your account</Title>
       <form className={css.form} onSubmit={handleSubmit}>
         <label className={css.labelField} htmlFor="name">
           Name
         </label>
         <input
+          id="name"
           className={css.field}
-          placeholder="Name"
+          placeholder="E.g. John"
           name="name"
           onChange={handleChange}
         />
@@ -53,24 +67,36 @@ export default function SignUp() {
           Email
         </label>
         <input
+          id="email"
           className={css.field}
-          placeholder="Email"
+          placeholder="E.g. something@something.com"
           name="email"
           onChange={handleChange}
         />
-        <label className={css.labelField} htmlFor="Password">
+        <label className={css.labelField} htmlFor="password">
           Password
         </label>
         <input
+          minLength={8}
+          id="password"
           className={css.field}
-          placeholder="Password"
           name="password"
           type="password"
           onChange={handleChange}
         />
-        <p className={css.password}>
-          Password should have a minimum of 5 characters
-        </p>
+        <label className={css.labelField} htmlFor="repeat-password">
+          Repeat password
+        </label>
+        <input
+          minLength={8}
+          className={css.field}
+          name="repeatPassword"
+          id="repeat-password"
+          type="password"
+          onChange={handleChange}
+        />
+        <p className={css.password}>Minimum of 8 characters</p>
+
         <Button type="submit">Sign Up</Button>
       </form>
       <p className={css.cta}>

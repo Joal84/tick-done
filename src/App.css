@@ -53,6 +53,7 @@ Medium:
 /*
 1. Use a more-intuitive box-sizing model.
 */
+
 #root {
   --background-color: #f9f9f9;
   --background-grey: #efefef;
@@ -60,11 +61,13 @@ Medium:
 
   --font-dark: #1d1d1d;
   --font-light: #f9f9f9;
+
   --main-color: #227250;
   --food-color: #bce7be;
+
+  --field-border-radious: 300px;
   --transition: all 0.2s ease-in-out;
   margin: 0 auto;
-  background-color: var(--background-color);
 }
 *,
 *::before,
@@ -78,6 +81,7 @@ Medium:
   margin: 0;
   font-family: "Inter", sans-serif;
   font-weight: 400;
+  font-size: 1.6rem;
 }
 
 a:link,
@@ -90,6 +94,8 @@ a:visited {
 html,
 body {
   font-size: 62.5%;
+  background-color: #f9f9f9;
+
   color: var(--font-dark);
 }
 /*
@@ -97,8 +103,6 @@ body {
 	4. Add accessible line-height
 	5. Improve text rendering
   */
-body {
-}
 
 /*
 	7. Remove built-in form typography styles

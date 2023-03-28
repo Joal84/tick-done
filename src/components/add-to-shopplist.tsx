@@ -13,7 +13,6 @@ export default function AddToShopplist({ setNewItem }: any) {
   const tagifyRef1: any = useRef();
 
   const [formError, setFormError] = useState("");
-  const [fetchError, setFetchError] = useState("");
 
   const [list, setList]: any = useContext(ShoppingListContext);
   const [productList, setProductList]: any = useContext(ProductListContext);

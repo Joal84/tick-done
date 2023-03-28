@@ -2,7 +2,9 @@ import css from "./shopping-item.module.css";
 
 import { ReactComponent as CompletedButton } from "../assets/check_circle_black_24dp.svg";
 import { ReactComponent as DeleteButton } from "../assets/delete_black_24dp.svg";
+import { currencyContext } from "../App";
 import { motion } from "framer-motion";
+import { useContext } from "react";
 
 export const lastPurchased = (item: any) => {
   const currentDate = new Date();
@@ -31,6 +33,9 @@ export default function ShoppingItem({
   handleQuantity,
   itemPrice,
 }: any) {
+  const [currency, setCurrency]: any = useContext(currencyContext);
+  const currencyValue = currency[0]?.currency || "€";
+
   const handleKeyCompleted = (e, product, index) => {
     if (e.keyCode === 13) {
       handleComplete(product, index);
@@ -43,7 +48,7 @@ export default function ShoppingItem({
       >
         <div className={css.divider}>
           <h2 className={css.title}>Name</h2>
-          <span className={css.infoSpan}>{product.name}</span>
+          <span className={css.infoSpan}>{product?.products_list?.name}</span>
         </div>
         <div className={css.imageContainer}>
           {product.products_list?.category !== "None" ? (
@@ -101,7 +106,10 @@ export default function ShoppingItem({
           }
         >
           <h2 className={css.title}>Price</h2>
-          <span className={css.infoSpan}>{itemPrice(product)}€</span>
+          <span className={css.infoSpan}>
+            {itemPrice(product)}
+            {" " + currencyValue}
+          </span>
         </div>
         <div
           className={css.divider}

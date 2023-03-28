@@ -171,7 +171,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px;
+  /* gap: 16px; */
 }
 .quantityButton {
   cursor: pointer;
@@ -187,4 +187,5 @@
 .quantity {
   font-size: 2rem;
   font-weight: 500;
+  width: 40px;
 }

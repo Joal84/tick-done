@@ -1,4 +1,9 @@
 .mainTitle {
   font-size: 2.4rem;
   text-align: center;
+  font-weight: 500;
+}
+
+.secondTitle {
+  font-size: 2rem;
 }
