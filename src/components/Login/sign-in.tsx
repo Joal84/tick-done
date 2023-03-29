@@ -1,17 +1,39 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { supabase } from "../../utils/supabase";
 import { Link } from "react-router-dom";
 import Title from "../title";
 import Button from "../Button/button";
 import css from "./sign-in.module.css";
 import { motion } from "framer-motion";
+import Swal from "sweetalert2";
 
 export default function SignIn() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const handleChange = (event) => {
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const resetPasswordHandler = async () => {
+    const { data, error } = await supabase.auth.resetPasswordForEmail(
+      formData.email,
+      { redirectTo: "http://localhost:5173/password-reset" }
+    );
+    if (error) {
+      console.log(error);
+    }
+    if (data) {
+      Swal.fire({
+        title: "Reset your password",
+        text: `A password reset link was sent to ${formData.email}`,
+        icon: "success",
+        confirmButtonColor: "#227250",
+        iconColor: "#227250",
+      });
+    }
+  };
+
+  const handleChange = (event: any) => {
     setFormData((prevForm) => {
       return {
         ...prevForm,
@@ -19,13 +41,16 @@ export default function SignIn() {
       };
     });
   };
-  const handleSubmit = async (e) => {
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { data, error }: any = await supabase.auth.signInWithPassword({
       email: formData.email,
       password: formData.password,
     });
     if (error) {
+      console.log(error);
+      setErrorMessage("Invalid credentials");
     }
     if (data) {
     }
@@ -40,6 +65,7 @@ export default function SignIn() {
       provider: "facebook",
     });
   };
+
   return (
     <motion.div animate={{ x: 100 }} className={css.container}>
       <Title>Login</Title>
@@ -47,17 +73,26 @@ export default function SignIn() {
         <label className={css.labelField} htmlFor="email">
           Email
         </label>
-        <input className={css.field} name="email" onChange={handleChange} />
+        <input
+          className={css.field}
+          type="email"
+          name="email"
+          onChange={handleChange}
+        />
+        <p style={{ fontSize: "1.4rem", color: "red" }}>{errorMessage}</p>
         <label className={css.labelField} htmlFor="password">
           Password
         </label>
         <input
           className={css.field}
           name="password"
+          minLength={8}
           type="password"
           onChange={handleChange}
         />
-        <p className={css.forgotPassword}>Forgot Password?</p>
+        <p className={css.forgotPassword} onClick={resetPasswordHandler}>
+          Forgot Password?
+        </p>
         <Button type="submit">Login</Button>
       </form>
       <div className={css.dividerContainer}>

@@ -17,6 +17,10 @@ function Navigation({ setUserLogged }: any) {
   useEffect(() => {
     setUserLogged(userAuth);
   });
+  const logoutHandler = () => {
+    signOutUser();
+    navigate("/login");
+  };
 
   return (
     <nav className={css.bar}>
@@ -52,7 +56,7 @@ function Navigation({ setUserLogged }: any) {
               className={css.navLink}
               onClick={
                 Object.keys(userAuth).length !== 0
-                  ? () => signOutUser()
+                  ? logoutHandler
                   : () => navigate("/login")
               }
             >

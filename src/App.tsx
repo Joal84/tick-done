@@ -11,6 +11,7 @@ import "./App.css";
 
 import SignIn from "./components/Login/sign-in";
 import SignUp from "./components/Login/sign-up";
+import ResetPass from "./components/Login/reset-pass";
 import Navigation from "./components/navigation";
 
 export const ShoppingListContext: any = createContext([{}]);
@@ -44,6 +45,10 @@ function App() {
                 <Route
                   path="/sign-up"
                   element={<Login signUp={<SignUp />} />}
+                />
+                <Route
+                  path="/password-reset"
+                  element={<Login resetPass={<ResetPass />} />}
                 />
                 <Route
                   path="/settings"

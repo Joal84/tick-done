@@ -11,7 +11,7 @@
   right: 48%;
 }
 .container {
-  min-height: calc(99.95svh - 449px);
+  min-height: calc(100vh - 401px);
   padding-bottom: 120px;
 }
 .emptyListContainer {
@@ -22,7 +22,7 @@
   gap: 48px;
 }
 .emptyListImage {
-  max-width: 47%;
+  max-width: 42%;
   height: auto;
 }
 .emptyListMessage {

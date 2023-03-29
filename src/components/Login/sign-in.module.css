@@ -53,8 +53,12 @@
 }
 .forgotPassword {
   align-self: self-end;
-
+  cursor: pointer;
   font-size: 1.2rem;
   margin-top: 8px;
   margin-bottom: 24px;
+  transition: var(--transition);
+}
+.forgotPassword:hover {
+  color: var(--main-color);
 }

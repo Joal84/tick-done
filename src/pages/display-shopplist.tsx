@@ -195,9 +195,9 @@ export default function DisplayShopplist({ nav, footer }: any) {
   };
 
   return (
-    <>
+    <div className={css.wrapperContainer}>
       {nav}
-      <div>
+      <div className={css.fullPage}>
         {Object.keys(userAuth).length !== 0 && (
           <AddToShopplist setNewItem={setNewItem} />
         )}
@@ -259,6 +259,6 @@ export default function DisplayShopplist({ nav, footer }: any) {
         )}
       </div>
       {footer}
-    </>
+    </div>
   );
 }

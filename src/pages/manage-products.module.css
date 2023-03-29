@@ -1,6 +1,13 @@
+.wrapperContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .container {
-  margin: 0 auto;
-  max-width: 88svw;
+  margin: 0 48px 0 48px;
+
+  max-width: 100vw;
+  max-height: 100vh;
 }
 .addButton {
   text-align: center;

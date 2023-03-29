@@ -9,7 +9,7 @@ import { ReactComponent as LogoBox } from "../assets/logo_box.svg";
 import { ReactComponent as LogoLettering } from "../assets/logo_lettering.svg";
 import { currencyContext } from "../App";
 
-export default function Login({ signIn, signUp }: any) {
+export default function Login({ signIn, signUp, resetPass }: any) {
   const userAuth = useContext(userDataContext);
   const [list, setList]: any = useContext(ShoppingListContext);
   const [productList, setProductList]: any = useContext(ProductListContext);
@@ -41,7 +41,7 @@ export default function Login({ signIn, signUp }: any) {
               A grocery list application made simple.
             </p>
           </div>
-          {signIn || signUp}
+          {signIn || signUp || resetPass}
         </div>
       </div>
     </>
