@@ -2,18 +2,16 @@ import { supabase } from "../utils/supabase";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useContext } from "react";
 import { userDataContext } from "../utils/userAuth";
-import { ProductListContext } from "../App";
-import { ShoppingListContext } from "../App";
+import { ProductListContext } from "../components/Data-fecthing/productlist-context";
+import { ShoppingListContext } from "../components/Data-fecthing/shoppinglist-contex";
 import css from "./login-page.module.css";
 import { ReactComponent as LogoBox } from "../assets/logo_box.svg";
 import { ReactComponent as LogoLettering } from "../assets/logo_lettering.svg";
-import { currencyContext } from "../App";
 
 export default function Login({ signIn, signUp, resetPass }: any) {
   const userAuth = useContext(userDataContext);
   const [list, setList]: any = useContext(ShoppingListContext);
   const [productList, setProductList]: any = useContext(ProductListContext);
-  const [currency, setCurrency]: any = useContext(currencyContext);
   const navigate = useNavigate();
 
   useEffect(() => {

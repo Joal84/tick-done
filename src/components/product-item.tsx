@@ -3,13 +3,13 @@ import css from "./product-item.module.css";
 import { lastPurchased } from "../components/shopping-item";
 import { ReactComponent as DeleteButton } from "../assets/delete_black_24dp.svg";
 import { ReactComponent as EditButton } from "../assets/edit_black_24dp.svg";
-import { currencyContext } from "../App";
+import { CurrencyContext } from "../components/Data-fecthing/settings-contex";
 export default function ProductItem({
   product,
   handleEdit,
   handleDelete,
 }: any) {
-  const [currency, setCurrency]: any = useContext(currencyContext);
+  const [currency, setCurrency]: any = useContext(CurrencyContext);
 
   const currencyValue = currency[0]?.currency || "€";
   return (

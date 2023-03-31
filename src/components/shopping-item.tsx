@@ -2,7 +2,7 @@ import css from "./shopping-item.module.css";
 
 import { ReactComponent as CompletedButton } from "../assets/check_circle_black_24dp.svg";
 import { ReactComponent as DeleteButton } from "../assets/delete_black_24dp.svg";
-import { currencyContext } from "../App";
+import { CurrencyContext } from "../components/Data-fecthing/settings-contex";
 import { motion } from "framer-motion";
 import { useContext } from "react";
 
@@ -33,7 +33,7 @@ export default function ShoppingItem({
   handleQuantity,
   itemPrice,
 }: any) {
-  const [currency, setCurrency]: any = useContext(currencyContext);
+  const [currency, setCurrency]: any = useContext(CurrencyContext);
   const currencyValue = currency[0]?.currency || "€";
 
   const handleKeyCompleted = (e, product, index) => {
@@ -56,6 +56,7 @@ export default function ShoppingItem({
               id={product.completed ? css.imageCompleted : ""}
               className={css.image}
               src={`src/assets/${product.products_list?.category}.png`}
+              alt={`${product.products_list?.category} image category`}
             />
           ) : (
             ""

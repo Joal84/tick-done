@@ -5,15 +5,14 @@ import { useContext } from "react";
 import { userDataContext } from "../utils/userAuth";
 import Tags from "@yaireo/tagify/dist/react.tagify";
 import { ReactComponent as AddSVG } from "../assets/plus-icon.svg";
-import { ShoppingListContext } from "../App";
-import { ProductListContext } from "../App";
+import { ShoppingListContext } from "../components/Data-fecthing/shoppinglist-contex";
+import { ProductListContext } from "../components/Data-fecthing/productlist-context";
 import TagField from "./tagfield";
 
-export default function AddToShopplist({ setNewItem }: any) {
+export default function AddToShopplist() {
   const tagifyRef1: any = useRef();
 
   const [formError, setFormError] = useState("");
-
   const [list, setList]: any = useContext(ShoppingListContext);
   const [productList, setProductList]: any = useContext(ProductListContext);
   const userAuth: any = useContext(userDataContext);
@@ -53,7 +52,6 @@ export default function AddToShopplist({ setNewItem }: any) {
 
   const handleSubmit = () => {
     if (!productName) {
-      setFormError("Please fill in all the fields");
       return;
     }
 
@@ -68,24 +66,25 @@ export default function AddToShopplist({ setNewItem }: any) {
         if (error) {
         }
         if (data) {
-          setList([...list, ...data]);
-          setNewItem(data);
+          console.log(data);
+          setList([...data, ...list]);
         }
       });
     }
+
     // Adding products into product list that do not exists in Product list
     newProductListValue.map(async (item) => {
-      const { data: prod_data, error: prod_error }: any = await supabase
+      const { data, error }: any = await supabase
         .from("products_list")
         .insert([{ name: item, category: "None", avg_price: 0, user_id }])
         .select();
 
-      if (prod_data) {
-        setProductList([...productList, ...prod_data]);
+      if (data) {
+        setProductList([...productList, ...data]);
       }
 
       // Check if new item also does not exist in the shopping list
-      const uniqueItemInTheList = prod_data.filter(
+      const uniqueItemInTheList = data.filter(
         (item1: any) =>
           !list.some(
             (item2: any) =>

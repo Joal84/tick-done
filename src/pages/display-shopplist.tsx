@@ -1,92 +1,28 @@
-import { useState, useEffect, useMemo, useContext } from "react";
+import { useState, useContext } from "react";
 import { supabase } from "../utils/supabase";
 import AddToShopplist from "../components/add-to-shopplist";
 import css from "./display-shopplist.module.css";
-import { ShoppingListContext } from "../App";
+import { ShoppingListContext } from "../components/Data-fecthing/shoppinglist-contex";
 import { userDataContext } from "../utils/userAuth";
-import { ProductListContext } from "../App";
-import { currencyContext } from "../App";
+import { CurrencyContext } from "../components/Data-fecthing/settings-contex";
 import ShoppingItem from "../components/shopping-item";
-
-import { ColorRing } from "react-loader-spinner";
 
 export default function DisplayShopplist({ nav, footer }: any) {
   const userAuth: any = useContext(userDataContext);
-  const [currency, setCurrency]: any = useContext(currencyContext);
-  const [fetchError, setFetchError] = useState("");
+  const [currency, setCurrency]: any = useContext(CurrencyContext);
+  const [list, setList]: any = useContext(ShoppingListContext);
   const [deletedItem, setDeletedItem] = useState([{}]);
   const [newItem, setNewItem] = useState([{}]);
-  const [list, setList]: any = useContext(ShoppingListContext);
-  const [productList, setProductList]: any = useContext(ProductListContext);
-  const [isLoading, setIsLoading] = useState(false);
 
-  useMemo(() => {
-    const fetchUserPreferences = async () => {
-      const { data, error } = await supabase.from("user_settings").select();
-      if (error) {
-      }
-      if (data) {
-        setCurrency(data);
-      }
-    };
-    fetchUserPreferences();
-  }, []);
+  const totalPriceCalculator = (shoppingList: any) => {
+    return shoppingList.reduce((total: any, itemPrice: any) => {
+      return (total += +itemPrice.totalPrice);
+    }, 0);
+  };
 
-  useEffect(() => {
-    const fetchLProdList = async () => {
-      setIsLoading(true);
-      const { data, error }: any = await supabase
-        .from("products_list")
-        .select();
-
-      if (error) {
-        setFetchError("Could not fetch the productList");
-        setIsLoading(false);
-      }
-      if (data) {
-        setProductList(data);
-        setIsLoading(false);
-        setFetchError("");
-      }
-    };
-    fetchLProdList();
-
-    const fetchList = async () => {
-      setIsLoading(true);
-      const { data, error } = await supabase
-        .from("shopping_lists")
-        .select(
-          "*, products_list(name, avg_price, last_purchased, total_bought, category)"
-        );
-
-      if (error) {
-        setFetchError("Could not fetch the list");
-        setIsLoading(false);
-      }
-
-      if (data) {
-        setList(
-          data.map((item) => {
-            return (item = {
-              ...item,
-              totalPrice: (
-                item.quantity * (item.products_list?.avg_price || 0.0)
-              ).toFixed(2),
-            });
-          })
-        );
-        setIsLoading(false);
-        setFetchError("");
-      }
-    };
-    fetchList();
-  }, [deletedItem, newItem]);
-
-  const totalPrice = list.reduce((total: any, itemPrice: any) => {
-    return (total += +itemPrice.totalPrice);
-  }, 0);
-
-  const totalComplete = list.filter((item) => item.completed === true);
+  const totalCompleteCalculator = () => {
+    return list.filter((item) => item.completed === true).length;
+  };
 
   const handleQuantity = (item: any, index: number, operator: string) => {
     const newList = [...list];
@@ -111,6 +47,7 @@ export default function DisplayShopplist({ nav, footer }: any) {
       };
 
     setList(newList);
+
     const updateQuantity = async (quantityToUpdate: any) => {
       const { data, error }: any = await supabase
         .from("shopping_lists")
@@ -118,7 +55,6 @@ export default function DisplayShopplist({ nav, footer }: any) {
         .eq("id", item.id);
 
       if (error) {
-        setFetchError("Could not complete the item");
       }
       if (data) {
       }
@@ -131,11 +67,18 @@ export default function DisplayShopplist({ nav, footer }: any) {
     newList[index] = {
       ...newList[index],
       completed: !newList[index].completed,
-      last_purchased: newList[index].completed && new Date(),
     };
+    if (newList[index].completed) {
+      newList[index] = {
+        ...newList[index],
+        products_list: {
+          last_purchased: new Date(),
+        },
+      };
+    }
 
+    console.log(newList);
     setList(newList);
-
     const updateCompleted = async (completedStatus: any) => {
       const { data, error }: any = await supabase
         .from("shopping_lists")
@@ -145,7 +88,6 @@ export default function DisplayShopplist({ nav, footer }: any) {
         .eq("id", item.id);
 
       if (error) {
-        setFetchError("Could not complete the item");
       }
       if (data) {
       }
@@ -163,10 +105,8 @@ export default function DisplayShopplist({ nav, footer }: any) {
           .select();
 
         if (error) {
-          setFetchError(error);
         }
         if (data) {
-          // setNewItem(data);
         }
       };
       updateLastPurchased();
@@ -186,7 +126,6 @@ export default function DisplayShopplist({ nav, footer }: any) {
       .select();
 
     if (error) {
-      setFetchError("Could not delete the item");
       setList({});
     }
     if (data) {
@@ -198,22 +137,7 @@ export default function DisplayShopplist({ nav, footer }: any) {
     <div className={css.wrapperContainer}>
       {nav}
       <div className={css.fullPage}>
-        {Object.keys(userAuth).length !== 0 && (
-          <AddToShopplist setNewItem={setNewItem} />
-        )}
-        {isLoading && (
-          <div className={css.loading}>
-            <ColorRing
-              visible={true}
-              height="80"
-              width="80"
-              ariaLabel="blocks-loading"
-              wrapperStyle={{}}
-              wrapperClass="blocks-wrapper"
-              colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
-            />
-          </div>
-        )}
+        {Object.keys(userAuth).length !== 0 && <AddToShopplist />}
         <div className={css.container}>
           {list.length === 0 || Object.keys(userAuth).length === 0 ? (
             <div className={css.emptyListContainer}>
@@ -244,12 +168,14 @@ export default function DisplayShopplist({ nav, footer }: any) {
           <div className={css.completeCounter}>
             <span>Completed </span>
             <span className={css.counter}>
-              {totalComplete.length} / {list.length}
+              {totalCompleteCalculator()} / {list.length}
             </span>
             <div className={css.divider}></div>
             <div className={css.totalPriceCont}>
               Total Price:{" "}
-              <span className={css.totalPrice}>{totalPrice.toFixed(2)}</span>
+              <span className={css.totalPrice}>
+                {totalPriceCalculator(list)?.toFixed(2)}
+              </span>
               <span style={{ fontSize: "2rem", fontWeight: "300" }}>
                 {" "}
                 {currency[0]?.currency || "€"}

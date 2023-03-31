@@ -57,11 +57,7 @@
   font-weight: 300;
   margin-bottom: 48px;
 }
-.loading {
-  position: fixed;
-  top: 30%;
-  right: 48%;
-}
+
 .emptyCartMessage {
   font-weight: 300;
   color: #494949;

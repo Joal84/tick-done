@@ -7,7 +7,7 @@ import Modal from "../components/modal";
 import Button from "../components/Button/button";
 import Search from "../components/filtered-search";
 import SelectComponent from "../components/select-component";
-import { ProductListContext } from "../App";
+import { ProductListContext } from "../components/Data-fecthing/productlist-context";
 import Title from "../components/title";
 
 export default function ManageProducts({ nav, footer }) {

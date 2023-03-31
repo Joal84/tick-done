@@ -4,7 +4,7 @@ import Modal from "./modal";
 import EditProduct from "./edit-product";
 import css from "./display-products.module.css";
 import { ColorRing } from "react-loader-spinner";
-import { ProductListContext } from "../App";
+import { ProductListContext } from "../components/Data-fecthing/productlist-context";
 import { userDataContext } from "../utils/userAuth";
 import ProductItem from "./product-item";
 

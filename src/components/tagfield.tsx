@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { ProductListContext } from "../App.js";
+import { ProductListContext } from "../components/Data-fecthing/productlist-context";
 import Tags from "@yaireo/tagify/dist/react.tagify";
 // import "@yaireo/tagify/dist/tagify.css";
 import { userDataContext } from "../utils/userAuth.js";
@@ -29,7 +29,7 @@ export default function TagField({ handleChange, tagifyRef }: any) {
 
   useEffect(() => {
     setTagifyProps({ loading: true });
-    setTagifyProps((lastProps) => ({ 
+    setTagifyProps((lastProps) => ({
       ...lastProps,
       whitelist: productList.map((item: any) => item.name),
 

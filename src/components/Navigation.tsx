@@ -10,13 +10,10 @@ export async function signOutUser() {
   const { error } = await supabase.auth.signOut();
 }
 
-function Navigation({ setUserLogged }: any) {
+function Navigation({}: any) {
   const userAuth: any = useContext(userDataContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setUserLogged(userAuth);
-  });
   const logoutHandler = () => {
     signOutUser();
     navigate("/login");

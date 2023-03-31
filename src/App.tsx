@@ -1,42 +1,32 @@
-import { useState, createContext, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import Login from "./pages/login-page";
 import Footer from "./components/Footer/footer";
 import DisplayShopplist from "./pages/display-shopplist";
 import UserAuth from "./utils/userAuth";
 import ManageProducts from "./pages/manage-products";
 import Settings from "./pages/settings";
-import "./App.css";
-
 import SignIn from "./components/Login/sign-in";
 import SignUp from "./components/Login/sign-up";
 import ResetPass from "./components/Login/reset-pass";
 import Navigation from "./components/navigation";
-
-export const ShoppingListContext: any = createContext([{}]);
-export const ProductListContext: any = createContext([{}]);
-export const currencyContext: any = createContext([{}]);
+import ShoppinglistFetch from "./components/Data-fecthing/shoppinglist-contex";
+import ProductListFetch from "./components/Data-fecthing/productlist-context";
+import SettingsFetch from "./components/Data-fecthing/settings-contex";
+import "./App.css";
 
 function App() {
-  const [currency, setCurrency] = useState("");
-  const [userLogged, setUserLogged] = useState({});
-  const [list, setList] = useState([{}]);
-  const [productList, setProductList] = useState([{}]);
-  const [isLoading, setIsLoading] = useState(false);
-
   return (
     <BrowserRouter>
       <UserAuth>
-        <currencyContext.Provider value={[currency, setCurrency]}>
-          <ShoppingListContext.Provider value={[list, setList]}>
-            <ProductListContext.Provider value={[productList, setProductList]}>
+        <SettingsFetch>
+          <ProductListFetch>
+            <ShoppinglistFetch>
               <Routes>
                 <Route
                   path="/"
                   element={
                     <DisplayShopplist
-                      nav={<Navigation setUserLogged={setUserLogged} />}
+                      nav={<Navigation />}
                       footer={<Footer />}
                     />
                   }
@@ -53,25 +43,19 @@ function App() {
                 <Route
                   path="/settings"
                   element={
-                    <Settings
-                      nav={<Navigation setUserLogged={setUserLogged} />}
-                      footer={<Footer />}
-                    />
+                    <Settings nav={<Navigation />} footer={<Footer />} />
                   }
                 />
                 <Route
                   path="/manage-products"
                   element={
-                    <ManageProducts
-                      nav={<Navigation setUserLogged={setUserLogged} />}
-                      footer={<Footer />}
-                    />
+                    <ManageProducts nav={<Navigation />} footer={<Footer />} />
                   }
                 />
               </Routes>
-            </ProductListContext.Provider>
-          </ShoppingListContext.Provider>
-        </currencyContext.Provider>
+            </ShoppinglistFetch>
+          </ProductListFetch>
+        </SettingsFetch>
       </UserAuth>
     </BrowserRouter>
   );

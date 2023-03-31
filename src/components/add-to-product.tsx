@@ -4,7 +4,7 @@ import { userDataContext } from "../utils/userAuth";
 import { supabase } from "../utils/supabase";
 import Button from "../components/Button/button";
 import Title from "./title";
-import { ProductListContext } from "../App";
+import { ProductListContext } from "../components/Data-fecthing/productlist-context";
 import SelectComponent from "./select-component";
 
 export default function AddToProduct({ onClose }: any) {

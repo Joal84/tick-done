@@ -3,7 +3,7 @@ import Button from "../Button/button";
 import Title from "../title";
 import css from "./preferences.module.css";
 import SelectComponent from "../select-component";
-import { currencyContext } from "../../App";
+import { CurrencyContext } from "../Data-fecthing/settings-contex";
 import { userDataContext } from "../../utils/userAuth";
 import { supabase } from "../../utils/supabase";
 
@@ -18,7 +18,7 @@ const currencyOptions = [
 ];
 
 export default function Preferences() {
-  const [currency, setCurrency]: any = useContext(currencyContext);
+  const [currency, setCurrency]: any = useContext(CurrencyContext);
   const [selectorCurrency, setSelectorCurrency] = useState("");
   const userAuth: any = useContext(userDataContext);
 
