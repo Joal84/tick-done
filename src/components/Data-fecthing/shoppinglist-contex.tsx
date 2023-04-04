@@ -15,7 +15,8 @@ export default function ShoppinglistFetch({ children }) {
       .from("shopping_lists")
       .select(
         "*, products_list(name, avg_price, last_purchased, total_bought, category)"
-      );
+      )
+      .order("id", { ascending: false });
 
     if (error) {
       setIsLoading(false);

@@ -111,7 +111,6 @@ export default function DisplayShopplist({ nav, footer }: any) {
   };
 
   const handleDelete = async (item: any) => {
-    console.log(item);
     const newList = list.filter((itemToDelete: any) => {
       console.log(itemToDelete);
       return itemToDelete.product_id !== item.product_id;

@@ -11,7 +11,10 @@ export default function ProductListFetch({ children }) {
 
   const fetchLProdList = async () => {
     setIsLoading(true);
-    const { data, error }: any = await supabase.from("products_list").select();
+    const { data, error }: any = await supabase
+      .from("products_list")
+      .select()
+      .order("id", { ascending: false });
 
     if (error) {
       setIsLoading(false);

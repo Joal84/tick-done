@@ -6,6 +6,7 @@ import { ReactComponent as EditButton } from "../assets/edit_black_24dp.svg";
 import { CurrencyContext } from "../components/Data-fecthing/settings-contex";
 export default function ProductItem({
   product,
+
   handleEdit,
   handleDelete,
 }: any) {

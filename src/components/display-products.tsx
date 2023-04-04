@@ -3,44 +3,23 @@ import { supabase } from "../utils/supabase";
 import Modal from "./modal";
 import EditProduct from "./edit-product";
 import css from "./display-products.module.css";
-import { ColorRing } from "react-loader-spinner";
+
 import { ProductListContext } from "../components/Data-fecthing/productlist-context";
+import { ShoppingListContext } from "../components/Data-fecthing/shoppinglist-contex";
 import { userDataContext } from "../utils/userAuth";
 import ProductItem from "./product-item";
+import Swal from "sweetalert2";
 
 export default function DisplayProducts({ filteredProducts }: any) {
   const userAuth: any = useContext(userDataContext);
-  const [fetchError, setFetchError] = useState("");
   const [productList, setProductList]: any = useContext(ProductListContext);
+  const [list, setList]: any = useContext(ShoppingListContext);
   const [editModal, setEditModal]: any = useState(false);
   const [name, setName] = useState("");
   const [category, setCategory] = useState(null);
   const [description, setDescription] = useState("");
   const [id, setId] = useState(null);
   const [avgPrice, setAvgPrice] = useState(0);
-  const [editedProduct, setEditedProduct] = useState({});
-  const [deletedProduct, setDeletedProduct] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    const fetchList = async () => {
-      const { data, error }: any = await supabase
-        .from("products_list")
-        .select();
-
-      if (error) {
-        setFetchError("Could not fetch the productList");
-        setIsLoading(false);
-      }
-      if (data) {
-        setProductList(data);
-        setFetchError("");
-        setIsLoading(false);
-      }
-    };
-    fetchList();
-  }, [deletedProduct, editedProduct]);
 
   const handleEdit = (product: any) => {
     setEditModal(true);
@@ -52,40 +31,65 @@ export default function DisplayProducts({ filteredProducts }: any) {
   };
 
   const handleDelete = async (item: any) => {
-    setIsLoading(true);
-    const { data, error }: any = await supabase
-      .from("products_list")
-      .delete()
-      .eq("id", item.id)
-      .select();
+    console.log(item);
+    const checkShoppingList = list.some(
+      (listItem: any) => listItem.product_id === item.id
+    );
+    if (checkShoppingList) {
+      Swal.fire({
+        title:
+          "This product is in your shopping list. Are you sure you want to delete it?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#ba6473",
+        cancelButtonColor: "#227250",
+        confirmButtonText: "Yes, delete it!",
+        reverseButtons: true,
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const newProdList = productList.filter(
+            (prodItem: any) => prodItem.id !== item.id
+          );
+          setProductList(newProdList);
 
-    if (error) {
-      setFetchError("Could not delete the product");
-      setIsLoading(false);
+          const newShoppList = list.filter((itemToDelete: any) => {
+            return itemToDelete.product_id !== item.id;
+          });
+          setList(newShoppList);
+
+          const { data, error }: any = await supabase
+            .from("products_list")
+            .delete()
+            .eq("id", item.id);
+
+          const { data: shopppingData, error: shopppingError }: any =
+            await supabase
+              .from("shopping_lists")
+              .delete()
+              .eq("product_id", item.id);
+        } else {
+          return;
+        }
+      });
     }
-    if (data) {
-      setDeletedProduct(data);
-      setIsLoading(false);
+    if (!checkShoppingList) {
+      const newList = productList.filter(
+        (prodItem: any) => prodItem.id !== item.id
+      );
+
+      setProductList(newList);
+
+      const { data, error }: any = await supabase
+        .from("products_list")
+        .delete()
+        .eq("id", item.id);
     }
   };
 
   return (
     <>
       <div className={css.container}>
-        {isLoading && (
-          <div className={css.loading}>
-            <ColorRing
-              visible={true}
-              height="80"
-              width="80"
-              ariaLabel="blocks-loading"
-              wrapperStyle={{}}
-              wrapperClass="blocks-wrapper"
-              colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
-            />
-          </div>
-        )}
-
         {productList.length === 0 || Object.keys(userAuth).length === 0 ? (
           <div className={css.emptyListContainer}>
             <img
