@@ -6,34 +6,32 @@ import css from "./footer.module.css";
 
 export default function Footer() {
   return (
-    <div className={css.wrap}>
-      <footer className={css.footer}>
-        <div className={css.infoContainer}>
-          <p className={css.copyright}>
-            &copy; 2023 tick-done by João Alvim P. <br />
-            All rights reserved
-          </p>
-          <p className={css.copyright}>
-            Illustration by: <br />
-            <a href="http://www.freepik.com" target="_blank">
-              Studiogstock / Freepik
-            </a>
-          </p>
+    <footer className={css.footer}>
+      <div className={css.infoContainer}>
+        <p className={css.copyright}>
+          &copy; 2023 tick-done by João Alvim P. <br />
+          All rights reserved
+        </p>
+        <p className={css.copyright}>
+          Illustration by: <br />
+          <a href="http://www.freepik.com" target="_blank">
+            Studiogstock / Freepik
+          </a>
+        </p>
 
-          <div className={css.contactContainer}>
-            <a
-              href="https://github.com/Joal84/tick-done"
-              target="_blank"
-              className={css.contactLinks}
-            >
-              <p>GitHub</p> <GithubLogo className={css.logo} />
-            </a>
-            <a href="mailto:joalmonog@gmail.com" className={css.contactLinks}>
-              <p>Contact Me</p> <Email className={css.logo} />
-            </a>
-          </div>
+        <div className={css.contactContainer}>
+          <a
+            href="https://github.com/Joal84/tick-done"
+            target="_blank"
+            className={css.contactLinks}
+          >
+            <p>GitHub</p> <GithubLogo className={css.logo} />
+          </a>
+          <a href="mailto:joalmonog@gmail.com" className={css.contactLinks}>
+            <p>Contact Me</p> <Email className={css.logo} />
+          </a>
         </div>
-      </footer>
-    </div>
+      </div>
+    </footer>
   );
 }

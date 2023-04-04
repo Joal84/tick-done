@@ -27,7 +27,7 @@ export default function ShoppinglistFetch({ children }) {
           return (item = {
             ...item,
             totalPrice: (
-              item.quantity * (item.products_list?.avg_price || 0.0)
+              item.quantity * (item.products_list?.avg_price ?? 0.0)
             ).toFixed(2),
           });
         })

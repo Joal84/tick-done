@@ -10,8 +10,8 @@ export default function ProductItem({
   handleDelete,
 }: any) {
   const [currency, setCurrency]: any = useContext(CurrencyContext);
+  const currencyValue = currency[0]?.currency ?? "€";
 
-  const currencyValue = currency[0]?.currency || "€";
   return (
     <>
       <div key={product.id} className={css.card}>
@@ -44,7 +44,7 @@ export default function ProductItem({
           <span className={css.title}> times</span>
           <div className={css.buttonsContainer}>
             <span className={css.price}>
-              {product.avg_price?.toFixed(2)}{" "}
+              {product?.avg_price}
               <span className={css.currency}> {" " + currencyValue}</span>
             </span>
             <div>

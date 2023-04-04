@@ -12,7 +12,6 @@ import TagField from "./tagfield";
 export default function AddToShopplist() {
   const tagifyRef1: any = useRef();
 
-  const [formError, setFormError] = useState("");
   const [list, setList]: any = useContext(ShoppingListContext);
   const [productList, setProductList]: any = useContext(ProductListContext);
   const userAuth: any = useContext(userDataContext);
@@ -34,19 +33,22 @@ export default function AddToShopplist() {
   // Filter input for products that are not in the product list yet
   const newProductListValue = productName.filter(
     (o1: any) =>
-      !productList.some((o2: any) => o1.toLowerCase() === o2.name.toLowerCase())
+      !productList.some(
+        (o2: any) => o1?.toLowerCase() === o2?.name?.toLowerCase()
+      )
   );
 
   // Filter input for peoducts that are in the product List already
   const findNewProdInProductList = productList.filter((o1: any) =>
-    productName.some((o2: any) => o1.name.toLowerCase() === o2.toLowerCase())
+    productName.some((o2: any) => o1?.name?.toLowerCase() === o2?.toLowerCase())
   );
 
   // Filter for products that are in the product list but not in the shopping list
   const uniqueItemInTheList = findNewProdInProductList.filter(
     (item1: any) =>
       !list.some(
-        (item2: any) => item1.name.toLowerCase() === item2.name.toLowerCase()
+        (item2: any) =>
+          item1?.name?.toLowerCase() === item2?.name?.toLowerCase()
       )
   );
 
@@ -60,31 +62,45 @@ export default function AddToShopplist() {
       uniqueItemInTheList.map(async (item: any) => {
         const { data, error }: any = await supabase
           .from("shopping_lists")
-          .insert([{ name: item.name, product_id: item.id, user_id }])
-          .select();
+          .insert([
+            {
+              name: item.name,
+              product_id: item.id,
+              user_id,
+            },
+          ]);
 
-        if (error) {
-        }
-        if (data) {
-          console.log(data);
-          setList([...data, ...list]);
-        }
+        setList((prevList: any) => [
+          ...prevList,
+          {
+            completed: false,
+            name: item.name,
+            quantity: 1,
+            products_list: {
+              name: item.name,
+              last_purchased: item.last_purchased,
+              category: item.category,
+              avg_price: item.avg_price,
+              total_bought: item.total_bought,
+            },
+            totalPrice: (1 * (item.avg_price || 0.0)).toFixed(2),
+            product_id: item.id,
+            user_id,
+          },
+        ]);
       });
     }
-
     // Adding products into product list that do not exists in Product list
     newProductListValue.map(async (item) => {
       const { data, error }: any = await supabase
         .from("products_list")
         .insert([{ name: item, category: "None", avg_price: 0, user_id }])
         .select();
-
       if (data) {
-        setProductList([...productList, ...data]);
+        setProductList((prevProdList: any) => [...prevProdList, ...data]);
       }
-
       // Check if new item also does not exist in the shopping list
-      const uniqueItemInTheList = data.filter(
+      const uniqueShoppingItem = data.filter(
         (item1: any) =>
           !list.some(
             (item2: any) =>
@@ -93,7 +109,7 @@ export default function AddToShopplist() {
       );
 
       // Add new and unique item in the shopping list
-      uniqueItemInTheList.map(async (newItem: any) => {
+      uniqueShoppingItem.map(async (newItem: any) => {
         const { data: shopping_data, error: shopping_error } = await supabase
           .from("shopping_lists")
           .insert([
@@ -102,16 +118,26 @@ export default function AddToShopplist() {
               product_id: newItem.id,
               user_id,
             },
-          ])
-          .select();
+          ]);
 
-        if (shopping_error) {
-          setFormError(prod_error);
-        }
-        if (shopping_data) {
-          setList([...list, ...shopping_data]);
-          setNewItem(shopping_data);
-        }
+        setList((prevList: any) => [
+          ...prevList,
+          {
+            completed: false,
+            name: newItem.name,
+            quantity: 1,
+            products_list: {
+              name: newItem.name,
+              last_purchased: newItem.last_purchased,
+              category: newItem.category,
+              avg_price: newItem.avg_price,
+              total_bought: newItem.total_bought,
+            },
+            totalPrice: (1 * (newItem.avg_price || 0.0)).toFixed(2),
+            product_id: newItem.id,
+            user_id,
+          },
+        ]);
       });
     });
 

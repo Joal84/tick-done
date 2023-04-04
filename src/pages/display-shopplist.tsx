@@ -1,18 +1,16 @@
-import { useState, useContext } from "react";
-import { supabase } from "../utils/supabase";
-import AddToShopplist from "../components/add-to-shopplist";
 import css from "./display-shopplist.module.css";
+import { useContext } from "react";
+import { supabase } from "../utils/supabase";
 import { ShoppingListContext } from "../components/Data-fecthing/shoppinglist-contex";
 import { userDataContext } from "../utils/userAuth";
 import { CurrencyContext } from "../components/Data-fecthing/settings-contex";
+import AddToShopplist from "../components/add-to-shopplist";
 import ShoppingItem from "../components/shopping-item";
 
 export default function DisplayShopplist({ nav, footer }: any) {
   const userAuth: any = useContext(userDataContext);
-  const [currency, setCurrency]: any = useContext(CurrencyContext);
+  const [currency]: any = useContext(CurrencyContext);
   const [list, setList]: any = useContext(ShoppingListContext);
-  const [deletedItem, setDeletedItem] = useState([{}]);
-  const [newItem, setNewItem] = useState([{}]);
 
   const totalPriceCalculator = (shoppingList: any) => {
     return shoppingList.reduce((total: any, itemPrice: any) => {
@@ -53,11 +51,6 @@ export default function DisplayShopplist({ nav, footer }: any) {
         .from("shopping_lists")
         .update({ quantity: quantityToUpdate })
         .eq("id", item.id);
-
-      if (error) {
-      }
-      if (data) {
-      }
     };
     updateQuantity(newList[index].quantity);
   };
@@ -73,11 +66,14 @@ export default function DisplayShopplist({ nav, footer }: any) {
         ...newList[index],
         products_list: {
           last_purchased: new Date(),
+          avg_price: item.products_list.avg_price,
+          category: item.products_list.category,
+          name: item.name,
+          total_bought: item.products_list.total_bought,
         },
       };
     }
 
-    console.log(newList);
     setList(newList);
     const updateCompleted = async (completedStatus: any) => {
       const { data, error }: any = await supabase
@@ -85,11 +81,13 @@ export default function DisplayShopplist({ nav, footer }: any) {
         .update({
           completed: completedStatus,
         })
-        .eq("id", item.id);
-
-      if (error) {
-      }
+        .eq("product_id", item.product_id)
+        .select();
       if (data) {
+        console.log(data);
+      }
+      if (error) {
+        console.log(error);
       }
     };
 
@@ -101,17 +99,11 @@ export default function DisplayShopplist({ nav, footer }: any) {
             last_purchased: new Date(),
             total_bought: item.products_list?.total_bought + item.quantity,
           })
-          .eq("id", item.product_id)
-          .select();
-
-        if (error) {
-        }
-        if (data) {
-        }
+          .eq("id", item.product_id);
       };
       updateLastPurchased();
     }
-    updateCompleted(!list[index].completed);
+    updateCompleted(newList[index].completed);
   };
 
   const itemPrice = (item: any) => {
@@ -119,18 +111,17 @@ export default function DisplayShopplist({ nav, footer }: any) {
   };
 
   const handleDelete = async (item: any) => {
+    console.log(item);
+    const newList = list.filter((itemToDelete: any) => {
+      console.log(itemToDelete);
+      return itemToDelete.product_id !== item.product_id;
+    });
     const { data, error } = await supabase
       .from("shopping_lists")
       .delete()
-      .eq("id", item.id)
-      .select();
+      .eq("product_id", item.product_id);
 
-    if (error) {
-      setList({});
-    }
-    if (data) {
-      setDeletedItem(data);
-    }
+    setList(newList);
   };
 
   return (
