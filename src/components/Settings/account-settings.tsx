@@ -40,10 +40,6 @@ export default function AccountSettings() {
     }).then((result) => {
       if (result.isConfirmed) {
         const { data, error } = supabase.auth.admin.deleteUser(userAuth.id);
-        if (error) {
-        }
-        if (data) {
-        }
         signOutUser();
         navigate("/login");
         Swal.fire({

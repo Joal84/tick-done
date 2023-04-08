@@ -20,7 +20,6 @@ export default function SignIn() {
       { redirectTo: "http://localhost:5173/password-reset" }
     );
     if (error) {
-      console.log(error);
     }
     if (data) {
       Swal.fire({
@@ -49,7 +48,6 @@ export default function SignIn() {
       password: formData.password,
     });
     if (error) {
-      console.log(error);
       setErrorMessage("Invalid credentials");
     }
     if (data) {

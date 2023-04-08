@@ -10,9 +10,25 @@
 
 .addButton {
   fill: var(--main-color);
+  align-self: flex-end;
 
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
-  margin: 10px 0 10px 0;
+  margin: 38px 0 10px 0;
+  transition: var(--transition);
+}
+
+.addButton:hover {
+  transform: scale(1.2);
+}
+.labelAndTag {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.label {
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--main-color);
 }

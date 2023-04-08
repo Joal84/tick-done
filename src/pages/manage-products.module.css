@@ -12,6 +12,7 @@
 .addButton {
   text-align: center;
   margin: 20px;
+  align-self: end;
 }
 .search {
   text-align: center;
@@ -37,4 +38,12 @@
   width: 220px;
   margin-top: 8px;
   margin-bottom: 48px;
+}
+.label {
+  font-size: 1.4rem;
+
+  gap: 8px;
+  align-items: start;
+  display: flex;
+  flex-direction: column;
 }

@@ -30,7 +30,7 @@ export default function SelectComponent({
           }),
           placeholder: (baseStyles, state) => ({
             ...baseStyles,
-            color: "#111",
+            color: "#757575",
           }),
           indicatorSeparator: (baseStyles) => ({}),
           option: (baseStyles, state) => ({

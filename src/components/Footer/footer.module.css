@@ -8,43 +8,40 @@
 .infoContainer {
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   justify-content: space-between;
   align-items: center;
   width: 96%;
   height: 100%;
 }
 .logo {
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   fill: #dddddd;
+  transition: var(--transition);
+}
+.logo:hover {
+  fill: #fbfbfb;
 }
 .contactContainer {
   font-size: 1.4rem;
   display: flex;
-  flex-direction: column;
-  align-items: end;
+
   justify-content: flex-end;
-  gap: 6px;
+  gap: 16px;
 }
 
 .copyright {
-  font-size: 1.4rem;
-}
-.contactLinks {
   display: flex;
-  justify-items: end;
-  align-items: center;
-  gap: 8px;
-  transition: var(--transition);
+  font-size: 1.4rem;
+  gap: 24px;
 }
-.contactLinks:link,
-.contactLinks:visited {
-  color: #dddddd;
-  text-decoration: none;
+.illustrationInfo {
+  font-size: 1.4rem;
+  margin-right: 48px;
 }
 
-.contactLinks:hover,
-.contactLinks:active {
-  color: var(--background-color);
+.link:link,
+.link:visited {
+  color: #dddddd;
 }

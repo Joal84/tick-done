@@ -62,11 +62,14 @@ export default function ManageProducts({ nav, footer }) {
             <Search onChangeHandler={onSearchChange} />
           </div>
           <div className={css.categorySearch}>
-            <SelectComponent
-              selector={(e) => setinputCategoryFilter(e.value)}
-              placeholder="Filter Category"
-              options={filterOptions}
-            />
+            <label className={css.label}>
+              Filter
+              <SelectComponent
+                selector={(e) => setinputCategoryFilter(e.value)}
+                placeholder="Category"
+                options={filterOptions}
+              />
+            </label>
           </div>
           <div className={css.addButton}>
             <Button className="add" onClick={() => setAddProdModal(true)}>

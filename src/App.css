@@ -56,9 +56,9 @@ Medium:
 
 #root {
   --background-color: #f9f9f9;
-  --background-grey: #efefef;
-  --border: 1px solid #cbcbcb;
-  --font-grey: #808080;
+  --background-grey: #d3d3d3;
+  --border: 1px solid #b5b5b5;
+  --font-grey: #727272;
 
   --font-dark: #1d1d1d;
   --font-light: #f9f9f9;
@@ -78,6 +78,9 @@ Medium:
 /*
 2. Remove default margin
 */
+*:focus {
+  outline: 2px solid #649c85;
+}
 * {
   margin: 0;
   font-family: "Inter", sans-serif;

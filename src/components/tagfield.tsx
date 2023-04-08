@@ -17,6 +17,8 @@ export default function TagField({ handleChange, tagifyRef }: any) {
   const baseTagifySettings = {
     maxTags: 6,
     placeholder: `${userName ? userName : ""}, type a product`,
+    autoComplete: true,
+    rightKey: true,
     dropdown: {
       enabled: 0,
     },
@@ -28,14 +30,13 @@ export default function TagField({ handleChange, tagifyRef }: any) {
   };
 
   useEffect(() => {
-    setTagifyProps({ loading: true });
     setTagifyProps((lastProps) => ({
       ...lastProps,
       whitelist: productList.map((item: any) => item.name),
 
       loading: false,
     }));
-  }, []);
+  }, [productList, userName]);
 
   return (
     <>

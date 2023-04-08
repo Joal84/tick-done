@@ -42,7 +42,10 @@ export default function ProductItem({
         <div className={css.priceButtonsContainer}>
           <span className={css.title}>Bought </span>
           <span className={css.bought}>{product.total_bought}</span>
-          <span className={css.title}> times</span>
+          <span className={css.title}>
+            {" "}
+            {product.total_bought === 1 ? "time" : "times"}
+          </span>
           <div className={css.buttonsContainer}>
             <span className={css.price}>
               {product?.avg_price}

@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { supabase } from "../utils/supabase";
+import { motion } from "framer-motion";
 import Modal from "./modal";
 import EditProduct from "./edit-product";
 import css from "./display-products.module.css";
@@ -7,6 +8,7 @@ import css from "./display-products.module.css";
 import { ProductListContext } from "../components/Data-fecthing/productlist-context";
 import { ShoppingListContext } from "../components/Data-fecthing/shoppinglist-contex";
 import { userDataContext } from "../utils/userAuth";
+
 import ProductItem from "./product-item";
 import Swal from "sweetalert2";
 

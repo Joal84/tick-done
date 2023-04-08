@@ -1,14 +1,17 @@
 import css from "./display-shopplist.module.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { supabase } from "../utils/supabase";
 import { ShoppingListContext } from "../components/Data-fecthing/shoppinglist-contex";
 import { userDataContext } from "../utils/userAuth";
 import { CurrencyContext } from "../components/Data-fecthing/settings-contex";
+import { ProductListContext } from "../components/Data-fecthing/productlist-context";
 import AddToShopplist from "../components/add-to-shopplist";
 import ShoppingItem from "../components/shopping-item";
+import { Reorder } from "framer-motion";
 
 export default function DisplayShopplist({ nav, footer }: any) {
   const userAuth: any = useContext(userDataContext);
+  const [productList, setProductList]: any = useContext(ProductListContext);
   const [currency]: any = useContext(CurrencyContext);
   const [list, setList]: any = useContext(ShoppingListContext);
 
@@ -56,6 +59,7 @@ export default function DisplayShopplist({ nav, footer }: any) {
   };
 
   const handleComplete = (item: any, index: number) => {
+    console.log(item);
     const newList = [...list];
     newList[index] = {
       ...newList[index],
@@ -65,11 +69,9 @@ export default function DisplayShopplist({ nav, footer }: any) {
       newList[index] = {
         ...newList[index],
         products_list: {
+          ...newList[index].products_list,
           last_purchased: new Date(),
-          avg_price: item.products_list.avg_price,
           category: item.products_list.category,
-          name: item.name,
-          total_bought: item.products_list.total_bought,
         },
       };
     }
@@ -81,14 +83,7 @@ export default function DisplayShopplist({ nav, footer }: any) {
         .update({
           completed: completedStatus,
         })
-        .eq("product_id", item.product_id)
-        .select();
-      if (data) {
-        console.log(data);
-      }
-      if (error) {
-        console.log(error);
-      }
+        .eq("product_id", item.product_id);
     };
 
     if (newList[index].completed) {
@@ -100,6 +95,19 @@ export default function DisplayShopplist({ nav, footer }: any) {
             total_bought: item.products_list?.total_bought + item.quantity,
           })
           .eq("id", item.product_id);
+
+        const newProdList = [...productList];
+        const currentProductIndex = newProdList.findIndex(
+          (prodItem) => prodItem.id === item.product_id
+        );
+        const updateProduct = {
+          ...productList[currentProductIndex],
+          last_purchased: new Date(),
+          total_bought:
+            productList[currentProductIndex].total_bought + item.quantity,
+        };
+        newProdList[currentProductIndex] = updateProduct;
+        setProductList(newProdList);
       };
       updateLastPurchased();
     }
@@ -112,7 +120,6 @@ export default function DisplayShopplist({ nav, footer }: any) {
 
   const handleDelete = async (item: any) => {
     const newList = list.filter((itemToDelete: any) => {
-      console.log(itemToDelete);
       return itemToDelete.product_id !== item.product_id;
     });
     const { data, error } = await supabase
@@ -121,6 +128,23 @@ export default function DisplayShopplist({ nav, footer }: any) {
       .eq("product_id", item.product_id);
 
     setList(newList);
+  };
+  const reOrder = (value) => {
+    setList(
+      value.map((item, index: number) => {
+        return { ...item, order: index };
+      })
+    );
+    value.map(async (item, index: number) => {
+      const { data, error } = await supabase
+        .from("shopping_lists")
+        .update([
+          {
+            order: index,
+          },
+        ])
+        .eq("product_id", item.product_id);
+    });
   };
 
   return (
@@ -139,19 +163,21 @@ export default function DisplayShopplist({ nav, footer }: any) {
               <p className={css.emptyCartMessage}>Your shopplist is empty.</p>
             </div>
           ) : (
-            list.map((product: any, index: number) => {
-              return (
-                <ShoppingItem
-                  key={product.id}
-                  product={product}
-                  index={index}
-                  itemPrice={itemPrice}
-                  handleDelete={handleDelete}
-                  handleQuantity={handleQuantity}
-                  handleComplete={handleComplete}
-                />
-              );
-            })
+            <Reorder.Group axis="y" values={list} onReorder={reOrder}>
+              {list.map((product: any, index: number) => {
+                return (
+                  <ShoppingItem
+                    key={product.id}
+                    product={product}
+                    index={index}
+                    itemPrice={itemPrice}
+                    handleDelete={handleDelete}
+                    handleQuantity={handleQuantity}
+                    handleComplete={handleComplete}
+                  />
+                );
+              })}
+            </Reorder.Group>
           )}
         </div>
         {Object.keys(userAuth).length !== 0 && (

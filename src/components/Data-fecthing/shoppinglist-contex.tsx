@@ -16,7 +16,7 @@ export default function ShoppinglistFetch({ children }) {
       .select(
         "*, products_list(name, avg_price, last_purchased, total_bought, category)"
       )
-      .order("id", { ascending: false });
+      .order("order");
 
     if (error) {
       setIsLoading(false);
@@ -36,6 +36,7 @@ export default function ShoppinglistFetch({ children }) {
       setIsLoading(false);
     }
   };
+
   useEffect(() => {
     fetchList();
   }, []);

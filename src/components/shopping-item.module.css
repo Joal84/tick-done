@@ -9,8 +9,9 @@
   border: var(--border);
 
   width: 60vw;
-  min-height: 100px;
-  max-width: 1200px;
+  height: 100px;
+  max-height: 100%;
+  max-width: 100%;
 
   border-radius: 15px;
   text-align: center;
@@ -29,6 +30,7 @@
   width: 60px;
   top: 8px;
   left: -28px;
+  user-select: none;
 }
 #imageCompleted {
   filter: grayscale();
@@ -102,11 +104,13 @@
   margin-bottom: 14px;
   font-size: 1.6rem;
   font-weight: 300;
+  user-select: none;
 }
 
 .infoSpan {
   text-transform: uppercase;
   font-weight: 500;
+  user-select: none;
 }
 .notCompletedIcon {
   cursor: pointer;
@@ -120,7 +124,7 @@
   -webkit-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
 
-  fill: rgb(157, 157, 157);
+  fill: var(--main-color);
   transition: var(--transition);
 }
 .actionButtons {
@@ -132,7 +136,8 @@
   justify-content: center;
 }
 .notCompletedIcon:hover {
-  fill: var(--main-color);
+  fill: var(--background-color);
+  background-color: var(--main-color);
 }
 .completedIcon {
   cursor: pointer;
@@ -140,14 +145,19 @@
   min-height: 100px;
   padding: 20px;
   border: var(--border);
-  background-color: var(--main-color);
+  background-color: #cecece;
   border-radius: 300px;
 
-  fill: var(--background-color);
+  fill: var(--main-color);
   transition: var(--transition);
   box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
+}
+.completedIcon:hover {
+  background-color: hsl(4, 69%, 48%);
+
+  fill: rgb(255, 255, 255);
 }
 .deleteButton {
   border: var(--border);
@@ -158,26 +168,28 @@
   background-color: rgb(255, 255, 255);
   border-radius: 300px;
 
-  fill: rgb(209, 150, 150);
+  fill: hsl(4, 69%, 48%);
   transition: var(--transition);
   box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
 }
 .deleteButton:hover {
-  fill: hsl(4, 69%, 48%);
+  background-color: hsl(4, 69%, 48%);
+
+  fill: rgb(255, 255, 255);
 }
 .quantityCont {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* gap: 16px; */
+  user-select: none;
 }
 .quantityButton {
   cursor: pointer;
   width: 35px;
   height: 35px;
-
+  user-select: none;
   background-color: var(--background-color);
   border: var(--border);
   border-radius: 300px;
@@ -188,4 +200,5 @@
   font-size: 2rem;
   font-weight: 500;
   width: 40px;
+  user-select: none;
 }

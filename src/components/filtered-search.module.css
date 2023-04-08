@@ -6,3 +6,12 @@
   border-radius: 5px;
   border: var(--border);
 }
+
+.label {
+  font-size: 1.4rem;
+
+  gap: 8px;
+  align-items: start;
+  display: flex;
+  flex-direction: column;
+}

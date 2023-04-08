@@ -11,7 +11,7 @@ export default function UserAuth({ children }: any) {
       await supabase.auth.onAuthStateChange(async (event) => {
         switch (event) {
           case "SIGNED_OUT":
-            setUser({});
+            await setUser({});
             break;
           case "SIGNED_IN":
             await getUserData();
@@ -30,7 +30,7 @@ export default function UserAuth({ children }: any) {
     getUserData();
     authStateChange();
   }, []);
-
+  console.log(user);
   return (
     <userDataContext.Provider value={user}>{children}</userDataContext.Provider>
   );

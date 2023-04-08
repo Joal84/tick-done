@@ -1,5 +1,5 @@
 import css from "./navigation.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { userDataContext } from "../utils/userAuth";
 import { supabase } from "../utils/supabase";
@@ -13,10 +13,23 @@ export async function signOutUser() {
 function Navigation({}: any) {
   const userAuth: any = useContext(userDataContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const logoutHandler = () => {
     signOutUser();
     navigate("/login");
+  };
+
+  const handleKeyNav = (e, location: string) => {
+    if (e.keyCode === 13) {
+      navigate(location);
+    }
+  };
+  const handleKeyLogout = (e, location: string) => {
+    if (e.keyCode === 13) {
+      signOutUser();
+      navigate(location);
+    }
   };
 
   return (
@@ -36,25 +49,52 @@ function Navigation({}: any) {
           <ul className={css.buttonContainer}>
             <li
               tabIndex={0}
-              className={css.navLink}
+              className={
+                location.pathname === "/" ? css.currentLink : css.navLink
+              }
+              onClick={() => navigate("/")}
+              onKeyDown={(e) => handleKeyNav(e, "/")}
+            >
+              Shopping List
+            </li>
+            <li
+              tabIndex={0}
+              className={
+                location.pathname === "/manage-products"
+                  ? css.currentLink
+                  : css.navLink
+              }
               onClick={() => navigate("/manage-products")}
+              onKeyDown={(e) => handleKeyNav(e, "/manage-products")}
             >
               Manage Products
             </li>
             <li
               tabIndex={0}
-              className={css.navLink}
+              className={
+                location.pathname === "/settings"
+                  ? css.currentLink
+                  : css.navLink
+              }
               onClick={() => navigate("/settings")}
+              onKeyDown={(e) => handleKeyNav(e, "/settings")}
             >
               Settings
             </li>
             <li
               tabIndex={0}
-              className={css.navLink}
+              className={
+                location.pathname === "/login" ? css.currentLink : css.navLink
+              }
               onClick={
                 Object.keys(userAuth).length !== 0
                   ? logoutHandler
                   : () => navigate("/login")
+              }
+              onKeyDown={
+                Object.keys(userAuth).length !== 0
+                  ? (e) => handleKeyLogout(e, "/login")
+                  : (e) => handleKeyNav(e, "/login")
               }
             >
               {Object.keys(userAuth).length !== 0 ? "Logout" : "Login"}
