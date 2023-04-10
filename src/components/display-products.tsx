@@ -33,7 +33,6 @@ export default function DisplayProducts({ filteredProducts }: any) {
   };
 
   const handleDelete = async (item: any) => {
-    console.log(item);
     const checkShoppingList = list.some(
       (listItem: any) => listItem.product_id === item.id
     );

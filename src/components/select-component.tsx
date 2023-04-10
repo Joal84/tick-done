@@ -18,11 +18,17 @@ export default function SelectComponent({
         styles={{
           control: (baseStyles, state) => ({
             ...baseStyles,
-            border: `1px solid #cbcbcb`,
+            border: state.isFocused ? "2px solid #5ecfa0" : "1px solid #b5b5b5",
+            boxShadow: state.isFocused ? "0px 0px 2px #5ecfa0" : "none",
+            "&:hover": {
+              border: "1px solid #b5b5b5",
+              boxShadow: "2px solid #5ecfa0",
+            },
             width: width,
             height: "48px",
             borderRadius: "5px",
             backgroundColor: "#fff",
+            focus: "#111",
           }),
           dropdownIndicator: (baseStyles, state) => ({
             ...baseStyles,

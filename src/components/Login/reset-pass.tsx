@@ -26,10 +26,10 @@ export default function ResetPass() {
 
         if (data) {
           alert("Password updated successfully!");
-          console.log(data);
+  
         }
         if (error) {
-          console.log(error);
+      
           alert("There was an error updating your password.");
         }
       }

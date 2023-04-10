@@ -61,7 +61,7 @@ export default function ShoppingItem({
   return (
     <Reorder.Item
       value={product}
-      key={product.product_id}
+      key={product}
       className={css.container}
       dragListener={false}
       dragControls={dragControls}

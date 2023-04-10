@@ -6,6 +6,7 @@ import SelectComponent from "../select-component";
 import { CurrencyContext } from "../Data-fecthing/settings-contex";
 import { userDataContext } from "../../utils/userAuth";
 import { supabase } from "../../utils/supabase";
+import Swal from "sweetalert2";
 
 const currencyOptions = [
   { value: "€", label: "EUR €" },
@@ -21,7 +22,6 @@ export default function Preferences() {
   const [currency, setCurrency]: any = useContext(CurrencyContext);
   const [selectorCurrency, setSelectorCurrency] = useState("");
   const userAuth: any = useContext(userDataContext);
-
   const user_id = userAuth.id;
 
   const handlePreferrences = async (e) => {
@@ -37,12 +37,18 @@ export default function Preferences() {
     }
     if (data) {
       setCurrency(data);
+      Swal.fire({
+        title: "Information Updated",
+        icon: "success",
+        confirmButtonColor: "#227250",
+        iconColor: "#227250",
+      });
     }
   };
 
   return (
     <div className={css.container}>
-      <form className={css.form}>
+      <form className={css.form} onSubmit={handlePreferrences}>
         <Title type="secondTitle">Preferences</Title>
 
         <label className={css.label}>
@@ -58,7 +64,7 @@ export default function Preferences() {
           </div>
         </label>
         <div className={css.buttonsContainer}>
-          <Button className="base" onClick={handlePreferrences}>
+          <Button className="base" onSubmit={handlePreferrences}>
             Save
           </Button>
         </div>

@@ -117,7 +117,7 @@ export default function AccountSettings() {
       }
     }
     supabase.auth.onAuthStateChange((event, session) => {
-      if (event == "USER_UPDATED") console.log("USER_UPDATED", session);
+      if (event == "USER_UPDATED");
     });
   };
 

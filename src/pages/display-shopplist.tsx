@@ -59,7 +59,6 @@ export default function DisplayShopplist({ nav, footer }: any) {
   };
 
   const handleComplete = (item: any, index: number) => {
-    console.log(item);
     const newList = [...list];
     newList[index] = {
       ...newList[index],
@@ -167,7 +166,7 @@ export default function DisplayShopplist({ nav, footer }: any) {
               {list.map((product: any, index: number) => {
                 return (
                   <ShoppingItem
-                    key={product.id}
+                    key={product.name}
                     product={product}
                     index={index}
                     itemPrice={itemPrice}

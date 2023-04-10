@@ -84,7 +84,7 @@ export default function EditProduct(props: any) {
     }
 
     setProductList(newProdList);
-    console.log(list);
+
     const { data, error }: any = await supabase
       .from("products_list")
       .update({ name: newName, description, category, avg_price: avgPrice, id })
@@ -93,7 +93,7 @@ export default function EditProduct(props: any) {
 
     props.onClose(false);
   };
-  console.log(list);
+
   return (
     <div>
       <Title>Edit Product</Title>

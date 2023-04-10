@@ -30,7 +30,7 @@ export default function UserAuth({ children }: any) {
     getUserData();
     authStateChange();
   }, []);
-  console.log(user);
+
   return (
     <userDataContext.Provider value={user}>{children}</userDataContext.Provider>
   );

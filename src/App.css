@@ -79,7 +79,7 @@ Medium:
 2. Remove default margin
 */
 *:focus {
-  outline: 2px solid #649c85;
+  outline: 2px solid #469675;
 }
 * {
   margin: 0;
