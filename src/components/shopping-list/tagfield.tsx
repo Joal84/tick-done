@@ -1,9 +1,8 @@
+import "./tagify.css";
 import { useState, useEffect, useContext } from "react";
-import { ProductListContext } from "../components/Data-fecthing/productlist-context";
+import { ProductListContext } from "../data-fecthing/productlist-context";
+import { userDataContext } from "../data-fecthing/userAuth.js";
 import Tags from "@yaireo/tagify/dist/react.tagify";
-// import "@yaireo/tagify/dist/tagify.css";
-import { userDataContext } from "../utils/userAuth.js";
-import "../tagify.css";
 
 export default function TagField({ handleChange, tagifyRef }: any) {
   const userAuth: any = useContext(userDataContext);

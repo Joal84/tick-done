@@ -1,7 +1,6 @@
 import css from "./modal.module.css";
 import { useEffect, useRef } from "react";
-import Button from "../components/Button/button";
-import { ReactComponent as Close } from "../assets/close_black_48dp.svg";
+import { ReactComponent as Close } from "../../assets/close_black_48dp.svg";
 
 const Modal = function ({ children, onClose }: any) {
   const close: any = useRef(null);

@@ -1,9 +1,7 @@
-import { Children } from "react";
+import css from "./button.module.css";
 import { ReactComponent as FbLogo } from "../../assets/facebook-f_Logo-White-Logo.wine.svg";
 import { ReactComponent as GoogleLogo } from "../../assets/google_logo.svg";
 import { ReactComponent as AddSVG } from "../../assets/plus-icon.svg";
-
-import css from "./button.module.css";
 
 export type ButtonProps = {
   buttonType: any;

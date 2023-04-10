@@ -1,9 +1,9 @@
-import { useContext } from "react";
 import css from "./product-item.module.css";
-import { lastPurchased } from "../components/shopping-item";
-import { ReactComponent as DeleteButton } from "../assets/delete_black_24dp.svg";
-import { ReactComponent as EditButton } from "../assets/edit_black_24dp.svg";
-import { CurrencyContext } from "../components/Data-fecthing/settings-contex";
+import { useContext } from "react";
+import { CurrencyContext } from "../data-fecthing/settings-contex";
+import { lastPurchased } from "../shopping-list/shopping-item";
+import { ReactComponent as DeleteButton } from "../../assets/delete_black_24dp.svg";
+import { ReactComponent as EditButton } from "../../assets/edit_black_24dp.svg";
 import { motion } from "framer-motion";
 
 export default function ProductItem({

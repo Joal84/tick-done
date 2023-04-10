@@ -1,14 +1,11 @@
-import { useState, useEffect, useContext } from "react";
-import { supabase } from "../utils/supabase";
-import { motion } from "framer-motion";
-import Modal from "./modal";
-import EditProduct from "./edit-product";
 import css from "./display-products.module.css";
-
-import { ProductListContext } from "../components/Data-fecthing/productlist-context";
-import { ShoppingListContext } from "../components/Data-fecthing/shoppinglist-contex";
-import { userDataContext } from "../utils/userAuth";
-
+import { useState, useContext } from "react";
+import { supabase } from "../../utils/supabase";
+import { ProductListContext } from "../../components/data-fecthing/productlist-context";
+import { ShoppingListContext } from "../../components/data-fecthing/shoppinglist-contex";
+import { userDataContext } from "../../components/data-fecthing/userAuth";
+import Modal from "../modal/modal";
+import EditProduct from "./edit-product";
 import ProductItem from "./product-item";
 import Swal from "sweetalert2";
 

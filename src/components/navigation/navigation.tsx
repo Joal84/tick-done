@@ -1,10 +1,10 @@
 import css from "./navigation.module.css";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useContext, useEffect } from "react";
-import { userDataContext } from "../utils/userAuth";
-import { supabase } from "../utils/supabase";
-import { ReactComponent as LogoBox } from "../assets/logo_box.svg";
-import { ReactComponent as LogoLettering } from "../assets/logo_lettering.svg";
+import { useContext } from "react";
+import { userDataContext } from "../data-fecthing/userAuth";
+import { supabase } from "../../utils/supabase";
+import { ReactComponent as LogoBox } from "../../assets/logo_box.svg";
+import { ReactComponent as LogoLettering } from "../../assets/logo_lettering.svg";
 
 export async function signOutUser() {
   const { error } = await supabase.auth.signOut();

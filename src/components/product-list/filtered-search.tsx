@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import css from "./filtered-search.module.css";
 
 export default function Search({ onChangeHandler }: any) {

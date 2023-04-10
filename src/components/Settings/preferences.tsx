@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
-import Button from "../Button/button";
-import Title from "../title";
 import css from "./preferences.module.css";
-import SelectComponent from "../select-component";
-import { CurrencyContext } from "../Data-fecthing/settings-contex";
-import { userDataContext } from "../../utils/userAuth";
+import { useContext, useState } from "react";
 import { supabase } from "../../utils/supabase";
+import { CurrencyContext } from "../data-fecthing/settings-contex";
+import { userDataContext } from "../data-fecthing/userAuth";
+import Button from "../button/button";
+import Title from "../../components/title/title";
+import SelectComponent from "../../components/select-component/select-component";
 import Swal from "sweetalert2";
 
 const currencyOptions = [

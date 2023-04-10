@@ -1,9 +1,9 @@
 import css from "./reset-pass.module.css";
-import { motion } from "framer-motion";
-import Title from "../title";
-import Button from "../Button/button";
 import { supabase } from "../../utils/supabase";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import Title from "../../components/title/title";
+import Button from "../button/button";
 
 export default function ResetPass() {
   const [password, setPassword] = useState({
@@ -26,10 +26,8 @@ export default function ResetPass() {
 
         if (data) {
           alert("Password updated successfully!");
-  
         }
         if (error) {
-      
           alert("There was an error updating your password.");
         }
       }

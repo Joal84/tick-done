@@ -1,6 +1,6 @@
+import "./loading.css";
 import { createContext, useState, useMemo } from "react";
 import { supabase } from "../../utils/supabase";
-import "./loading.css";
 
 export const CurrencyContext: any = createContext([{}]);
 

@@ -1,9 +1,8 @@
 import React from "react";
 import { ReactComponent as GithubLogo } from "../../assets/icons8-github.svg";
+import css from "./footer.module.css";
 import { ReactComponent as Email } from "../../assets/email_white_48dp.svg";
 import { ReactComponent as Linkedin } from "../../assets/linkedin.svg";
-import { Link } from "react-router-dom";
-import css from "./footer.module.css";
 
 export default function Footer() {
   return (

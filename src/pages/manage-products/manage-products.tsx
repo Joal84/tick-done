@@ -1,14 +1,14 @@
-import { useContext, useState, useEffect, ChangeEvent } from "react";
-import { userDataContext } from "../utils/userAuth";
 import css from "./manage-products.module.css";
-import AddToProduct from "../components/add-to-product";
-import DisplayProducts from "../components/display-products";
-import Modal from "../components/modal";
-import Button from "../components/Button/button";
-import Search from "../components/filtered-search";
-import SelectComponent from "../components/select-component";
-import { ProductListContext } from "../components/Data-fecthing/productlist-context";
-import Title from "../components/title";
+import { useContext, useState, useEffect, ChangeEvent } from "react";
+import { userDataContext } from "../../components/data-fecthing/userAuth";
+import { ProductListContext } from "../../components/data-fecthing/productlist-context";
+import AddToProduct from "../../components/product-list/add-to-product";
+import DisplayProducts from "../../components/product-list/display-products";
+import Modal from "../../components/modal/modal";
+import Button from "../../components/button/button";
+import Search from "../../components/product-list/filtered-search";
+import SelectComponent from "../../components/select-component/select-component";
+import Title from "../../components/title/title";
 
 export default function ManageProducts({ nav, footer }) {
   const [addProdModal, setAddProdModal] = useState(false);

@@ -1,17 +1,17 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./pages/login-page";
-import Footer from "./components/Footer/footer";
-import DisplayShopplist from "./pages/display-shopplist";
-import UserAuth from "./utils/userAuth";
-import ManageProducts from "./pages/manage-products";
-import Settings from "./pages/settings";
-import SignIn from "./components/Login/sign-in";
-import SignUp from "./components/Login/sign-up";
-import ResetPass from "./components/Login/reset-pass";
-import Navigation from "./components/navigation";
-import ShoppinglistFetch from "./components/Data-fecthing/shoppinglist-contex";
-import ProductListFetch from "./components/Data-fecthing/productlist-context";
-import SettingsFetch from "./components/Data-fecthing/settings-contex";
+import Login from "./pages/login/login-page";
+import Footer from "./components/footer/footer";
+import DisplayShopplist from "./pages/shopping-list/display-shopplist";
+import UserAuth from "./components/data-fecthing/userAuth";
+import ManageProducts from "./pages/manage-products/manage-products";
+import Settings from "./pages/settings/settings";
+import SignIn from "./components/login/sign-in";
+import SignUp from "./components/login/sign-up";
+import ResetPass from "./components/login/reset-pass";
+import Navigation from "./components/navigation/navigation";
+import ShoppinglistFetch from "./components/data-fecthing/shoppinglist-contex";
+import ProductListFetch from "./components/data-fecthing/productlist-context";
+import SettingsFetch from "./components/data-fecthing/settings-contex";
 import "./App.css";
 
 function App() {

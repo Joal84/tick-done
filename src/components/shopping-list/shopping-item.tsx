@@ -1,12 +1,11 @@
 import css from "./shopping-item.module.css";
-
-import { ReactComponent as CompletedButton } from "../assets/check_circle_black_24dp.svg";
-import { ReactComponent as DeleteButton } from "../assets/delete_black_24dp.svg";
-import { CurrencyContext } from "../components/Data-fecthing/settings-contex";
+import { ReactComponent as CompletedButton } from "../../assets/check_circle_black_24dp.svg";
+import { ReactComponent as DeleteButton } from "../../assets/delete_black_24dp.svg";
+import { CurrencyContext } from "../data-fecthing/settings-contex";
 import { Reorder, useMotionValue, useDragControls } from "framer-motion";
 import { useContext } from "react";
-import { useRaisedShadow } from "./ise-raised-shadow";
-import DragButton from "./DragButton";
+import { useRaisedShadow } from "../../components/drag-and-drop/ise-raised-shadow";
+import DragButton from "../../components/drag-and-drop/DragButton";
 
 export const lastPurchased = (item: any) => {
   const currentDate = new Date();

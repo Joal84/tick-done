@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import { userDataContext } from "../../utils/userAuth";
-import { supabase } from "../../utils/supabase";
-import { signOutUser } from "../navigation";
-import Title from "../title";
-import Button from "../Button/button";
 import css from "./account-settings.module.css";
+import { supabase } from "../../utils/supabase";
+import { useContext, useEffect, useState } from "react";
+import { userDataContext } from "../data-fecthing/userAuth";
+import { signOutUser } from "../../components/navigation/navigation";
+import Title from "../../components/title/title";
+import Button from "../button/button";
 import Swal from "sweetalert2";
 
 import { useNavigate } from "react-router-dom";

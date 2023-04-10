@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { supabase } from "../../utils/supabase";
-import Button from "../Button/button";
-import Title from "../title";
 import css from "./sign-up.module.css";
+import { useState } from "react";
+import { supabase } from "../../utils/supabase";
+import Button from "../button/button";
+import Title from "../../components/title/title";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ColorRing } from "react-loader-spinner";

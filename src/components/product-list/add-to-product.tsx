@@ -1,11 +1,11 @@
-import { FormEvent, useEffect, useState, useContext } from "react";
 import css from "./add-to-product.module.css";
-import { userDataContext } from "../utils/userAuth";
-import { supabase } from "../utils/supabase";
-import Button from "../components/Button/button";
-import Title from "./title";
-import { ProductListContext } from "../components/Data-fecthing/productlist-context";
-import SelectComponent from "./select-component";
+import { supabase } from "../../utils/supabase";
+import { FormEvent, useState, useContext } from "react";
+import { userDataContext } from "../data-fecthing/userAuth";
+import { ProductListContext } from "../data-fecthing/productlist-context";
+import Button from "../button/button";
+import Title from "../title/title";
+import SelectComponent from "../select-component/select-component";
 
 export default function AddToProduct({ onClose }: any) {
   const [productList, setProductList]: any = useContext(ProductListContext);

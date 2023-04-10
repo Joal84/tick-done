@@ -1,7 +1,7 @@
+import "./loading.css";
 import { createContext, useState, useEffect } from "react";
 import { supabase } from "../../utils/supabase";
 import { ColorRing } from "react-loader-spinner";
-import "./loading.css";
 
 export const ProductListContext: any = createContext([{}]);
 

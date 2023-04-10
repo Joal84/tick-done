@@ -1,12 +1,12 @@
 import css from "./display-shopplist.module.css";
-import { useContext, useState } from "react";
-import { supabase } from "../utils/supabase";
-import { ShoppingListContext } from "../components/Data-fecthing/shoppinglist-contex";
-import { userDataContext } from "../utils/userAuth";
-import { CurrencyContext } from "../components/Data-fecthing/settings-contex";
-import { ProductListContext } from "../components/Data-fecthing/productlist-context";
-import AddToShopplist from "../components/add-to-shopplist";
-import ShoppingItem from "../components/shopping-item";
+import { useContext } from "react";
+import { supabase } from "../../utils/supabase";
+import { ShoppingListContext } from "../../components/data-fecthing/shoppinglist-contex";
+import { userDataContext } from "../../components/data-fecthing/userAuth";
+import { CurrencyContext } from "../../components/data-fecthing/settings-contex";
+import { ProductListContext } from "../../components/data-fecthing/productlist-context";
+import AddToShopplist from "../../components/shopping-list/add-to-shopplist";
+import ShoppingItem from "../../components/shopping-list/shopping-item";
 import { Reorder } from "framer-motion";
 
 export default function DisplayShopplist({ nav, footer }: any) {

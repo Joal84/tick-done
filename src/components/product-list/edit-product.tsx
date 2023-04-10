@@ -1,11 +1,11 @@
-import { useEffect, useState, FormEvent, useContext } from "react";
 import css from "./edit-product.module.css";
-import { supabase } from "../utils/supabase";
-import Button from "../components/Button/button";
-import Title from "./title";
-import SelectComponent from "./select-component";
-import { ProductListContext } from "../components/Data-fecthing/productlist-context";
-import { ShoppingListContext } from "../components/Data-fecthing/shoppinglist-contex";
+import { useEffect, useState, FormEvent, useContext } from "react";
+import { supabase } from "../../utils/supabase";
+import { ProductListContext } from "../data-fecthing/productlist-context";
+import { ShoppingListContext } from "../data-fecthing/shoppinglist-contex";
+import Button from "../button/button";
+import Title from "../title/title";
+import SelectComponent from "../select-component/select-component";
 
 export default function EditProduct(props: any) {
   const [newName, setNewName] = useState("");

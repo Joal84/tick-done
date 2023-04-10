@@ -1,7 +1,7 @@
-import Title from "../components/title";
 import css from "./settings.module.css";
-import AccountSettings from "../components/Settings/account-settings";
-import Preferences from "../components/Settings/preferences";
+import Title from "../../components/title/title";
+import AccountSettings from "../../components/settings/account-settings";
+import Preferences from "../../components/settings/preferences";
 
 export default function Settings({ nav, footer }: any) {
   return (

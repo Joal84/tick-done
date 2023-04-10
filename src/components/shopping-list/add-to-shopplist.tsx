@@ -1,12 +1,11 @@
 import css from "./add-to-shopplist.module.css";
-import { supabase } from "../utils/supabase";
+import { supabase } from "../../utils/supabase";
 import { useRef, useState } from "react";
 import { useContext } from "react";
-import { userDataContext } from "../utils/userAuth";
-import Tags from "@yaireo/tagify/dist/react.tagify";
-import { ReactComponent as AddSVG } from "../assets/plus-icon.svg";
-import { ShoppingListContext } from "../components/Data-fecthing/shoppinglist-contex";
-import { ProductListContext } from "../components/Data-fecthing/productlist-context";
+import { userDataContext } from "../data-fecthing/userAuth";
+import { ReactComponent as AddSVG } from "../../assets/plus-icon.svg";
+import { ShoppingListContext } from "../data-fecthing/shoppinglist-contex";
+import { ProductListContext } from "../data-fecthing/productlist-context";
 import TagField from "./tagfield";
 
 export default function AddToShopplist() {
