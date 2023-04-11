@@ -15,7 +15,7 @@ export default function AccountSettings() {
     password: "",
     repeatPassword: "",
   });
-  const userAuth: any = useContext(userDataContext);
+  const [userAuth, setUser]: any = useContext(userDataContext);
 
   const navigate = useNavigate();
 

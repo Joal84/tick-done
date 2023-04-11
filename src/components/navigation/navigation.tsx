@@ -11,7 +11,7 @@ export async function signOutUser() {
 }
 
 function Navigation({}: any) {
-  const userAuth: any = useContext(userDataContext);
+  const [userAuth, setUser]: any = useContext(userDataContext);
   const navigate = useNavigate();
   const location = useLocation();
 

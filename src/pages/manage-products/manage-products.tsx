@@ -16,7 +16,7 @@ export default function ManageProducts({ nav, footer }) {
   const [inputCategoryFilter, setinputCategoryFilter] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([{}]);
   const [productList]: any = useContext(ProductListContext);
-  const userAuth: any = useContext(userDataContext);
+  const [userAuth, setUser]: any = useContext(userDataContext);
 
   const onSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const searchFieldString = event.target.value.toLocaleLowerCase();

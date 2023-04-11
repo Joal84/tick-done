@@ -1,4 +1,5 @@
 import { useEffect, useState, createContext } from "react";
+
 import { supabase } from "../../utils/supabase";
 
 export const userDataContext: any = createContext({});
@@ -8,10 +9,10 @@ export default function UserAuth({ children }: any) {
 
   useEffect(() => {
     const authStateChange = async function () {
-      await supabase.auth.onAuthStateChange(async (event) => {
+      supabase.auth.onAuthStateChange(async (event) => {
         switch (event) {
           case "SIGNED_OUT":
-            await setUser({});
+            setUser({});
             break;
           case "SIGNED_IN":
             await getUserData();
@@ -21,7 +22,6 @@ export default function UserAuth({ children }: any) {
     };
     async function getUserData() {
       await supabase.auth.getUser().then((value) => {
-        // value.data.user
         if (value.data?.user) {
           setUser(value.data.user);
         }
@@ -30,8 +30,9 @@ export default function UserAuth({ children }: any) {
     getUserData();
     authStateChange();
   }, []);
-
   return (
-    <userDataContext.Provider value={user}>{children}</userDataContext.Provider>
+    <userDataContext.Provider value={[user, setUser]}>
+      {children}
+    </userDataContext.Provider>
   );
 }

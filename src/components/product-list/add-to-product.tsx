@@ -15,7 +15,7 @@ export default function AddToProduct({ onClose }: any) {
   const [avgPrice, setAvgPrice] = useState(0);
   const [formError, setFormError] = useState("");
 
-  const userAuth: any = useContext(userDataContext);
+  const [userAuth, setUser]: any = useContext(userDataContext);
   const user_id = userAuth.id;
 
   const macChar = 100 - description.length;

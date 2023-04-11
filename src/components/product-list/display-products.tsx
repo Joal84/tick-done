@@ -10,7 +10,7 @@ import ProductItem from "./product-item";
 import Swal from "sweetalert2";
 
 export default function DisplayProducts({ filteredProducts }: any) {
-  const userAuth: any = useContext(userDataContext);
+  const [userAuth, setUser]: any = useContext(userDataContext);
   const [productList, setProductList]: any = useContext(ProductListContext);
   const [list, setList]: any = useContext(ShoppingListContext);
   const [editModal, setEditModal]: any = useState(false);

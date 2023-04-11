@@ -1,7 +1,7 @@
 .background {
   width: 100vw;
   height: 100vh;
-  background-image: url("../assets/background_login.webp");
+  background-image: url("../../assets/background_login.webp");
   position: absolute;
   background-size: 2400px;
   background-position: fixed;

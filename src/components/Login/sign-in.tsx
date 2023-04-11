@@ -1,11 +1,11 @@
 import css from "./sign-in.module.css";
 import { useState } from "react";
 import { supabase } from "../../utils/supabase";
+import { Link } from "react-router-dom";
 import Title from "../../components/title/title";
 import Button from "../button/button";
-import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
 import { motion } from "framer-motion";
+import Swal from "sweetalert2";
 
 export default function SignIn() {
   const [formData, setFormData] = useState({

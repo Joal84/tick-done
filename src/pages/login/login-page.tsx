@@ -9,7 +9,7 @@ import { ReactComponent as LogoBox } from "../../assets/logo_box.svg";
 import { ReactComponent as LogoLettering } from "../../assets/logo_lettering.svg";
 
 export default function Login({ signIn, signUp, resetPass }: any) {
-  const userAuth = useContext(userDataContext);
+  const [userAuth, setUser]: any = useContext(userDataContext);
   const [list, setList]: any = useContext(ShoppingListContext);
   const [productList, setProductList]: any = useContext(ProductListContext);
   const navigate = useNavigate();

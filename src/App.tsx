@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { supabase } from "./utils/supabase";
 import Login from "./pages/login/login-page";
 import Footer from "./components/footer/footer";
 import DisplayShopplist from "./pages/shopping-list/display-shopplist";
@@ -15,6 +17,25 @@ import SettingsFetch from "./components/data-fecthing/settings-contex";
 import "./App.css";
 
 function App() {
+  const [user, setUser]: any = useState({});
+
+  useEffect(() => {
+    const getUserData = async () => {
+      await supabase.auth.getUser().then((value) => {
+        if (value.data?.user) {
+          setUser(value.data?.user);
+        }
+      });
+    };
+    getUserData();
+  }, []);
+
+  const RequireAuth = ({ children }) => {
+    if (Object.keys(user).length === 0) {
+      return <Login signUp={<SignIn />} />;
+    }
+    return children;
+  };
   return (
     <BrowserRouter>
       <UserAuth>
@@ -25,12 +46,15 @@ function App() {
                 <Route
                   path="/"
                   element={
-                    <DisplayShopplist
-                      nav={<Navigation />}
-                      footer={<Footer />}
-                    />
+                    <RequireAuth>
+                      <DisplayShopplist
+                        nav={<Navigation />}
+                        footer={<Footer />}
+                      />
+                    </RequireAuth>
                   }
                 />
+
                 <Route path="/login" element={<Login signIn={<SignIn />} />} />
                 <Route
                   path="/sign-up"
@@ -43,13 +67,20 @@ function App() {
                 <Route
                   path="/settings"
                   element={
-                    <Settings nav={<Navigation />} footer={<Footer />} />
+                    <RequireAuth>
+                      <Settings nav={<Navigation />} footer={<Footer />} />
+                    </RequireAuth>
                   }
                 />
                 <Route
                   path="/manage-products"
                   element={
-                    <ManageProducts nav={<Navigation />} footer={<Footer />} />
+                    <RequireAuth>
+                      <ManageProducts
+                        nav={<Navigation />}
+                        footer={<Footer />}
+                      />
+                    </RequireAuth>
                   }
                 />
               </Routes>

@@ -10,7 +10,7 @@ import ShoppingItem from "../../components/shopping-list/shopping-item";
 import { Reorder } from "framer-motion";
 
 export default function DisplayShopplist({ nav, footer }: any) {
-  const userAuth: any = useContext(userDataContext);
+  const [userAuth, setUser]: any = useContext(userDataContext);
   const [productList, setProductList]: any = useContext(ProductListContext);
   const [currency]: any = useContext(CurrencyContext);
   const [list, setList]: any = useContext(ShoppingListContext);

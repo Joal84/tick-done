@@ -21,7 +21,7 @@ const currencyOptions = [
 export default function Preferences() {
   const [currency, setCurrency]: any = useContext(CurrencyContext);
   const [selectorCurrency, setSelectorCurrency] = useState("");
-  const userAuth: any = useContext(userDataContext);
+  const [userAuth, setUser]: any = useContext(userDataContext);
   const user_id = userAuth.id;
 
   const handlePreferrences = async (e) => {

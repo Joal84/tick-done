@@ -13,7 +13,7 @@ export default function AddToShopplist() {
 
   const [list, setList]: any = useContext(ShoppingListContext);
   const [productList, setProductList]: any = useContext(ProductListContext);
-  const userAuth: any = useContext(userDataContext);
+  const [userAuth, setUser]: any = useContext(userDataContext);
   const [productName, setProductName] = useState([]);
   const user_id = userAuth.id;
 
