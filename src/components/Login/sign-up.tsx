@@ -27,7 +27,7 @@ export default function SignUp() {
     });
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     setFormData((prevForm) => {
       return {
         ...prevForm,
@@ -36,7 +36,7 @@ export default function SignUp() {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
     if (

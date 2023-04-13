@@ -24,7 +24,7 @@ export default function Preferences() {
   const [userAuth, setUser]: any = useContext(userDataContext);
   const user_id = userAuth.id;
 
-  const handlePreferrences = async (e) => {
+  const handlePreferrences = async (e: any) => {
     e.preventDefault();
 
     const { data, error } = await supabase
@@ -59,7 +59,7 @@ export default function Preferences() {
                 return option.value === currency[0]?.currency;
               })}
               options={currencyOptions}
-              selector={(e) => setSelectorCurrency(e.value)}
+              selector={(e: any) => setSelectorCurrency(e.value)}
             />
           </div>
         </label>

@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function DragButton({ dragControls }: Props) {
-  function startDrag(event) {
+  function startDrag(event: any) {
     dragControls.start(event);
   }
   return (

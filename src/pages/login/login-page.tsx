@@ -1,6 +1,6 @@
 import css from "./login-page.module.css";
 import { supabase } from "../../utils/supabase";
-import { useNavigate } from "react-router-dom";
+import { redirect } from "react-router-dom";
 import { useEffect, useContext } from "react";
 import { userDataContext } from "../../components/data-fecthing/userAuth";
 import { ProductListContext } from "../../components/data-fecthing/productlist-context";
@@ -12,16 +12,15 @@ export default function Login({ signIn, signUp, resetPass }: any) {
   const [userAuth, setUser]: any = useContext(userDataContext);
   const [list, setList]: any = useContext(ShoppingListContext);
   const [productList, setProductList]: any = useContext(ProductListContext);
-  const navigate = useNavigate();
 
   useEffect(() => {
     supabase.auth.onAuthStateChange(async (event) => {
       if (event === "SIGNED_IN") {
         // forward to success URL
-        navigate("/");
+        redirect("/");
       }
       if (event === "SIGNED_OUT") {
-        navigate("/login");
+        redirect("/login");
         setProductList([{}]);
         setList([{}]);
       }

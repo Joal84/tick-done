@@ -5,7 +5,7 @@ import { ColorRing } from "react-loader-spinner";
 
 export const ShoppingListContext: any = createContext([{}]);
 
-export default function ShoppinglistFetch({ children }) {
+export default function ShoppinglistFetch({ children }: any) {
   const [list, setList] = useState([{}]);
   const [isLoading, setIsLoading] = useState(false);
 

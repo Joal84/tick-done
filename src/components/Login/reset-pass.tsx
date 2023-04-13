@@ -10,7 +10,7 @@ export default function ResetPass() {
     password: "",
     repeatPassword: "",
   });
-  const passwordResetHandler = (e) => {
+  const passwordResetHandler = (e: any) => {
     e.preventDefault();
     if (
       password.password !== password.repeatPassword ||
@@ -34,7 +34,7 @@ export default function ResetPass() {
     });
   };
 
-  const handleChange = () => {
+  const handleChange = (event: any) => {
     setPassword((prevForm) => {
       return {
         ...prevForm,

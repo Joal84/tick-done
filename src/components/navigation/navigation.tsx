@@ -20,12 +20,12 @@ function Navigation({}: any) {
     navigate("/login");
   };
 
-  const handleKeyNav = (e, location: string) => {
+  const handleKeyNav = (e: any, location: string) => {
     if (e.keyCode === 13) {
       navigate(location);
     }
   };
-  const handleKeyLogout = (e, location: string) => {
+  const handleKeyLogout = (e: any, location: string) => {
     if (e.keyCode === 13) {
       signOutUser();
       navigate(location);

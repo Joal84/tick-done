@@ -22,7 +22,7 @@ export default function DisplayShopplist({ nav, footer }: any) {
   };
 
   const totalCompleteCalculator = () => {
-    return list.filter((item) => item.completed === true).length;
+    return list.filter((item: any) => item.completed === true).length;
   };
 
   const handleQuantity = (item: any, index: number, operator: string) => {
@@ -128,13 +128,13 @@ export default function DisplayShopplist({ nav, footer }: any) {
 
     setList(newList);
   };
-  const reOrder = (value) => {
+  const reOrder = (value: any) => {
     setList(
-      value.map((item, index: number) => {
+      value.map((item: any, index: number) => {
         return { ...item, order: index };
       })
     );
-    value.map(async (item, index: number) => {
+    value.map(async (item: any, index: number) => {
       const { data, error } = await supabase
         .from("shopping_lists")
         .update([

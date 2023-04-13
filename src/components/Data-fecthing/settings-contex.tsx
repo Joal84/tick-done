@@ -4,7 +4,7 @@ import { supabase } from "../../utils/supabase";
 
 export const CurrencyContext: any = createContext([{}]);
 
-export default function SettingsFetch({ children }) {
+export default function SettingsFetch({ children }: any) {
   const [currency, setCurrency]: any = useState("");
 
   useMemo(() => {

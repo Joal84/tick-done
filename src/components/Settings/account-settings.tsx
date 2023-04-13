@@ -6,8 +6,7 @@ import { signOutUser } from "../../components/navigation/navigation";
 import Title from "../../components/title/title";
 import Button from "../button/button";
 import Swal from "sweetalert2";
-
-import { useNavigate } from "react-router-dom";
+import { redirect } from "react-router-dom";
 
 export default function AccountSettings() {
   const [userData, setUserData] = useState({ userName: "", email: "" });
@@ -17,8 +16,6 @@ export default function AccountSettings() {
   });
   const [userAuth, setUser]: any = useContext(userDataContext);
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     setUserData({
       userName: userAuth?.user_metadata?.name,
@@ -26,7 +23,7 @@ export default function AccountSettings() {
     });
   }, []);
 
-  const handleDelteUser = async (e) => {
+  const handleDelteUser = async (e: any) => {
     e.preventDefault();
     Swal.fire({
       title: "Are you sure you want to delete this account?",
@@ -39,9 +36,11 @@ export default function AccountSettings() {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        const { data, error } = supabase.auth.admin.deleteUser(userAuth.id);
+        const { data, error }: any = supabase.auth.admin.deleteUser(
+          userAuth.id
+        );
         signOutUser();
-        navigate("/login");
+        redirect("/login");
         Swal.fire({
           title: "Deleted!",
           text: "Your account has been deleted.",
@@ -55,7 +54,7 @@ export default function AccountSettings() {
     });
   };
 
-  const handleUserUpdate = async (e) => {
+  const handleUserUpdate = async (e: any) => {
     e.preventDefault();
 
     // Update email
@@ -116,9 +115,9 @@ export default function AccountSettings() {
         });
       }
     }
-    supabase.auth.onAuthStateChange((event, session) => {
-      if (event == "USER_UPDATED");
-    });
+    // supabase.auth.onAuthStateChange((event, session) => {
+    //   if (event == "USER_UPDATED")
+    // });
   };
 
   return (

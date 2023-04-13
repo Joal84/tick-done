@@ -28,7 +28,9 @@ export default function AddToProduct({ onClose }: any) {
       return;
     }
     if (
-      productList.some((item) => item.name.toLowerCase() === name.toLowerCase())
+      productList.some(
+        (item: any) => item.name.toLowerCase() === name.toLowerCase()
+      )
     ) {
       return;
     }
@@ -79,7 +81,7 @@ export default function AddToProduct({ onClose }: any) {
             <SelectComponent
               id="category"
               name="category"
-              selector={(e) => setCategory(e.value)}
+              selector={(e: any) => setCategory(e.value)}
               placeholder="None"
               options={addOptions}
             />
@@ -97,7 +99,7 @@ export default function AddToProduct({ onClose }: any) {
             type="number"
             name="average-price"
             value={avgPrice}
-            onChange={(e) => setAvgPrice(e.target.value)}
+            onChange={(e: any) => setAvgPrice(e.target.value)}
             required
           ></input>
         </div>

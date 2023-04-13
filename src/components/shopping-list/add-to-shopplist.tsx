@@ -17,7 +17,7 @@ export default function AddToShopplist() {
   const [productName, setProductName] = useState([]);
   const user_id = userAuth.id;
 
-  const handleKeyAdd = (e) => {
+  const handleKeyAdd = (e: any) => {
     if (e.keyCode === 13) {
       handleSubmit();
     }
@@ -150,7 +150,7 @@ export default function AddToShopplist() {
   };
   //saving order value in supabase
   const orderSupabase = () => {
-    return list.map(async (item) => {
+    return list.map(async (item: any) => {
       const { data, error } = await supabase
         .from("shopping_lists")
         .update([

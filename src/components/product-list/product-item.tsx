@@ -14,13 +14,13 @@ export default function ProductItem({
   const [currency, setCurrency]: any = useContext(CurrencyContext);
   const currencyValue = currency[0]?.currency ?? "€";
 
-  const handleKeyDelete = (e, product) => {
+  const handleKeyDelete = (e: any, product: any) => {
     if (e.keyCode === 13) {
       handleDelete(product);
     }
   };
 
-  const handleKeyEdit = (e, product) => {
+  const handleKeyEdit = (e: any, product: any) => {
     if (e.keyCode === 13) {
       handleEdit(product);
     }

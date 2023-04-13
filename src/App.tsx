@@ -30,12 +30,13 @@ function App() {
     getUserData();
   }, []);
 
-  const RequireAuth = ({ children }) => {
+  const RequireAuth = ({ children }: any) => {
     if (Object.keys(user).length === 0) {
       return <Login signUp={<SignIn />} />;
     }
     return children;
   };
+
   return (
     <BrowserRouter>
       <UserAuth>

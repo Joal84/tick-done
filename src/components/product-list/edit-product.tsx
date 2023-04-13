@@ -12,7 +12,7 @@ export default function EditProduct(props: any) {
   const [category, setCategory] = useState("None");
   const [description, setDescription] = useState("");
   const [id, setId] = useState("");
-  const [avgPrice, setAvgPrice] = useState();
+  const [avgPrice, setAvgPrice] = useState(0);
   const [productList, setProductList]: any = useContext(ProductListContext);
   const [list, setList]: any = useContext(ShoppingListContext);
 
@@ -43,7 +43,7 @@ export default function EditProduct(props: any) {
       return;
     }
     const currentProductIndex = productList.findIndex(
-      (item) => item.id === props.id
+      (item: any) => item.id === props.id
     );
     const updatedProduct = {
       ...productList[currentProductIndex],
@@ -60,11 +60,12 @@ export default function EditProduct(props: any) {
     //check if edited product also exist in the shopping list
 
     const checkShoppingList = list.some(
-      (listItem) => listItem.product_id === newProdList[currentProductIndex].id
+      (listItem: any) =>
+        listItem.product_id === newProdList[currentProductIndex].id
     );
     if (checkShoppingList) {
       const currentListIndex = list.findIndex(
-        (listItem) =>
+        (listItem: any) =>
           listItem.product_id === newProdList[currentProductIndex].id
       );
       const updateShopplist = {
@@ -123,7 +124,7 @@ export default function EditProduct(props: any) {
               })}
               id="category"
               name="category"
-              selector={(e) => setCategory(e.value)}
+              selector={(e: any) => setCategory(e.value)}
               placeholder="None"
               options={editOptions}
             />
@@ -141,7 +142,7 @@ export default function EditProduct(props: any) {
             type="number"
             name="average-price"
             value={avgPrice}
-            onChange={(e) => setAvgPrice(e.target.value)}
+            onChange={(e: any) => setAvgPrice(e.target.value)}
             required
           ></input>
         </div>

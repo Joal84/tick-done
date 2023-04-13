@@ -40,18 +40,23 @@ export default function ShoppingItem({
   const boxShadow = useRaisedShadow(y);
   const dragControls = useDragControls();
 
-  const handleKeyCompleted = (e, product, index) => {
+  const handleKeyCompleted = (e: any, product: any, index: number) => {
     if (e.keyCode === 13) {
       handleComplete(product, index);
     }
   };
 
-  const handleKeyDelete = (e, product, index) => {
+  const handleKeyDelete = (e: any, product: any, index: number) => {
     if (e.keyCode === 13) {
       handleDelete(product, index);
     }
   };
-  const handleKeyQuantity = (e, product, index, operator) => {
+  const handleKeyQuantity = (
+    e: any,
+    product: any,
+    index: number,
+    operator: string
+  ) => {
     if (e.keyCode === 13) {
       handleQuantity(product, index, operator);
     }

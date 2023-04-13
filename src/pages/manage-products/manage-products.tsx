@@ -10,7 +10,7 @@ import Search from "../../components/product-list/filtered-search";
 import SelectComponent from "../../components/select-component/select-component";
 import Title from "../../components/title/title";
 
-export default function ManageProducts({ nav, footer }) {
+export default function ManageProducts({ nav, footer }: any) {
   const [addProdModal, setAddProdModal] = useState(false);
   const [search, setSearch] = useState("");
   const [inputCategoryFilter, setinputCategoryFilter] = useState("");
@@ -65,7 +65,7 @@ export default function ManageProducts({ nav, footer }) {
             <label className={css.label}>
               Filter
               <SelectComponent
-                selector={(e) => setinputCategoryFilter(e.value)}
+                selector={(e: any) => setinputCategoryFilter(e.value)}
                 placeholder="Category"
                 options={filterOptions}
               />

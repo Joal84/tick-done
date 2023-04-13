@@ -8,13 +8,10 @@ export type ButtonProps = {
   title: string;
   className: any;
   onClick: any;
+  children: any;
 };
 
-export default function Button({
-  children,
-  onClick,
-  className = "base",
-}: ButtonProps) {
+export default function Button({ children, onClick, className = "base" }: any) {
   return (
     <button className={css[className]} onClick={onClick}>
       {children}
