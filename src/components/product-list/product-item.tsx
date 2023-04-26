@@ -5,6 +5,7 @@ import { lastPurchased } from "../shopping-list/shopping-item";
 import { ReactComponent as DeleteButton } from "../../assets/delete_black_24dp.svg";
 import { ReactComponent as EditButton } from "../../assets/edit_black_24dp.svg";
 import { motion } from "framer-motion";
+import { images } from "../shopping-list/shopping-item";
 
 export default function ProductItem({
   product,
@@ -45,7 +46,8 @@ export default function ProductItem({
         {product.category !== "None" ? (
           <img
             className={css.image}
-            src={`src/assets/${product.category}.png`}
+            src={images[product.category]}
+            alt={`${product.category} image`}
           />
         ) : (
           <></>

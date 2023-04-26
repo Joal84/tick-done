@@ -8,6 +8,7 @@ import { ProductListContext } from "../../components/data-fecthing/productlist-c
 import AddToShopplist from "../../components/shopping-list/add-to-shopplist";
 import ShoppingItem from "../../components/shopping-list/shopping-item";
 import { Reorder } from "framer-motion";
+import emptyShopplist from "../../assets/empty_shopplist.webp";
 
 export default function DisplayShopplist({ nav, footer }: any) {
   const [userAuth, setUser]: any = useContext(userDataContext);
@@ -157,7 +158,7 @@ export default function DisplayShopplist({ nav, footer }: any) {
               <img
                 className={css.emptyListImage}
                 alt="Shopping Cart image"
-                src="src/assets/empty_shopplist.webp"
+                src={emptyShopplist}
               ></img>
               <p className={css.emptyCartMessage}>Your shopplist is empty.</p>
             </div>

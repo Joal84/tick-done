@@ -8,6 +8,7 @@ import Modal from "../modal/modal";
 import EditProduct from "./edit-product";
 import ProductItem from "./product-item";
 import Swal from "sweetalert2";
+import emptyProduct from "../../assets/empty_product.webp";
 
 export default function DisplayProducts({ filteredProducts }: any) {
   const [userAuth, setUser]: any = useContext(userDataContext);
@@ -93,7 +94,7 @@ export default function DisplayProducts({ filteredProducts }: any) {
             <img
               className={css.emptyListImage}
               alt="Shopping Cart image"
-              src="src/assets/empty_product.webp"
+              src={emptyProduct}
             ></img>
             <p className={css.emptyListMessage}>Your product list is empty.</p>
           </div>

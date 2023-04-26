@@ -2,6 +2,7 @@ import css from "./settings.module.css";
 import Title from "../../components/title/title";
 import AccountSettings from "../../components/settings/account-settings";
 import Preferences from "../../components/settings/preferences";
+import shoppingImage from "../../assets/background-settings4.webp";
 
 export default function Settings({ nav, footer }: any) {
   return (
@@ -13,7 +14,7 @@ export default function Settings({ nav, footer }: any) {
       </div>
       <div className={css.container}>
         <img
-          src="src/assets/background-settings4.webp"
+          src={shoppingImage}
           alt="shopping illustration"
           className={css.backgroundImage}
         ></img>

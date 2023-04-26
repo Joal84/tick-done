@@ -6,6 +6,15 @@ import { Reorder, useMotionValue, useDragControls } from "framer-motion";
 import { useContext } from "react";
 import { useRaisedShadow } from "../../components/drag-and-drop/ise-raised-shadow";
 import DragButton from "../../components/drag-and-drop/DragButton";
+import foodAndPantry from "../../assets/Food-and-Pantry.png";
+import healthAndBeauty from "../../assets/Health-and-Beauty.png";
+import household from "../../assets/Household.png";
+
+export const images: any = {
+  "Food-and-Pantry": foodAndPantry,
+  "Health-and-Beauty": healthAndBeauty,
+  Household: household,
+};
 
 export const lastPurchased = (item: any) => {
   const currentDate = new Date();
@@ -84,7 +93,7 @@ export default function ShoppingItem({
             <img
               id={product.completed ? css.imageCompleted : ""}
               className={css.image}
-              src={`src/assets/${product.products_list?.category}.png`}
+              src={images[product.products_list?.category]}
               alt={`${product.products_list?.category} image category`}
             />
           ) : (
