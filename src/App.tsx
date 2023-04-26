@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "./utils/supabase";
 import Login from "./pages/login/login-page";
-import Footer from "./components/footer/footer";
+import Footer from "./components/footer/footer.jsx";
 import DisplayShopplist from "./pages/shopping-list/display-shopplist";
 import UserAuth from "./components/data-fecthing/userAuth";
 import ManageProducts from "./pages/manage-products/manage-products";
