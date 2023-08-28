@@ -9,48 +9,46 @@ import { ProductListContext } from "../data-fecthing/productlist-context";
 import TagField from "./tagfield";
 
 export default function AddToShopplist() {
-  const tagifyRef1: any = useRef();
+  const tagifyRef1 = useRef();
 
-  const [list, setList]: any = useContext(ShoppingListContext);
-  const [productList, setProductList]: any = useContext(ProductListContext);
-  const [userAuth, setUser]: any = useContext(userDataContext);
+  const [list, setList] = useContext(ShoppingListContext);
+  const [productList, setProductList] = useContext(ProductListContext);
+  const [userAuth, setUser] = useContext(userDataContext);
   const [productName, setProductName] = useState([]);
   const user_id = userAuth.id;
 
-  const handleKeyAdd = (e: any) => {
+  const handleKeyAdd = (e) => {
     if (e.keyCode === 13) {
       handleSubmit();
     }
   };
 
   // Capture products from input field
-  const handleChange = async (e: any) => {
-    setProductName(e.detail.tagify.value.map((item: any) => item.value));
+  const handleChange = async (e) => {
+    setProductName(e.detail.tagify.value.map((item) => item.value));
   };
 
   //Clear Add field
-  const clearAll = (tagifyRef: any) => {
+  const clearAll = (tagifyRef) => {
     tagifyRef.current && tagifyRef.current.removeAllTags();
   };
 
   // Filter input for products that are not in the product list yet
   const newProductListValue = productName.filter(
-    (o1: any) =>
-      !productList.some(
-        (o2: any) => o1?.toLowerCase() === o2.name?.toLowerCase()
-      )
+    (o1) =>
+      !productList.some((o2) => o1?.toLowerCase() === o2.name?.toLowerCase())
   );
 
   // Filter input for peoducts that are in the product List already
-  const findNewProdInProductList = productList.filter((o1: any) =>
-    productName.some((o2: any) => o1.name?.toLowerCase() === o2?.toLowerCase())
+  const findNewProdInProductList = productList.filter((o1) =>
+    productName.some((o2) => o1.name?.toLowerCase() === o2?.toLowerCase())
   );
 
   // Filter for products that are in the product list but not in the shopping list
   const uniqueItemInTheList = findNewProdInProductList.filter(
-    (item1: any) =>
+    (item1) =>
       !list.some(
-        (item2: any) => item1.name?.toLowerCase() === item2.name?.toLowerCase()
+        (item2) => item1.name?.toLowerCase() === item2.name?.toLowerCase()
       )
   );
 
@@ -61,8 +59,8 @@ export default function AddToShopplist() {
 
     // Adding products into shopping list that already exists in Product list
     if (findNewProdInProductList.length > 0) {
-      uniqueItemInTheList.map(async (item: any) => {
-        setList((prevList: any) => [
+      uniqueItemInTheList.map(async (item) => {
+        setList((prevList) => [
           ...prevList,
           {
             completed: false,
@@ -82,38 +80,35 @@ export default function AddToShopplist() {
           },
         ]);
 
-        const { data, error }: any = await supabase
-          .from("shopping_lists")
-          .insert([
-            {
-              name: item.name,
-              product_id: item.id,
-              user_id,
-            },
-          ]);
+        const { data, error } = await supabase.from("shopping_lists").insert([
+          {
+            name: item.name,
+            product_id: item.id,
+            user_id,
+          },
+        ]);
       });
     }
 
     // Adding products into product list that do not exists in Product list
     newProductListValue.map(async (item) => {
-      const { data, error }: any = await supabase
+      const { data, error } = await supabase
         .from("products_list")
         .insert([{ name: item, category: "None", avg_price: 0, user_id }])
         .select();
       if (data) {
-        setProductList((prevProdList: any) => [...prevProdList, ...data]);
+        setProductList((prevProdList) => [...prevProdList, ...data]);
       }
       // Check if new item also does not exist in the shopping list
       const uniqueShoppingItem = data.filter(
-        (item1: any) =>
+        (item1) =>
           !list.some(
-            (item2: any) =>
-              item1.name.toLowerCase() === item2.name.toLowerCase()
+            (item2) => item1.name.toLowerCase() === item2.name.toLowerCase()
           )
       );
 
       // Add new and unique item in the shopping list
-      uniqueShoppingItem.map(async (newItem: any) => {
+      uniqueShoppingItem.map(async (newItem) => {
         const { data: shopping_data, error: shopping_error } = await supabase
           .from("shopping_lists")
           .insert([
@@ -124,7 +119,7 @@ export default function AddToShopplist() {
             },
           ]);
 
-        setList((prevList: any) => [
+        setList((prevList) => [
           ...prevList,
           {
             completed: false,
@@ -150,7 +145,7 @@ export default function AddToShopplist() {
   };
   //saving order value in supabase
   const orderSupabase = () => {
-    return list.map(async (item: any) => {
+    return list.map(async (item) => {
       const { data, error } = await supabase
         .from("shopping_lists")
         .update([

@@ -7,21 +7,17 @@ import { ReactComponent as EditButton } from "../../assets/edit_black_24dp.svg";
 import { motion } from "framer-motion";
 import { images } from "../shopping-list/shopping-item";
 
-export default function ProductItem({
-  product,
-  handleEdit,
-  handleDelete,
-}: any) {
-  const [currency, setCurrency]: any = useContext(CurrencyContext);
+export default function ProductItem({ product, handleEdit, handleDelete }) {
+  const [currency, setCurrency] = useContext(CurrencyContext);
   const currencyValue = currency[0]?.currency ?? "€";
 
-  const handleKeyDelete = (e: any, product: any) => {
+  const handleKeyDelete = (e, product) => {
     if (e.keyCode === 13) {
       handleDelete(product);
     }
   };
 
-  const handleKeyEdit = (e: any, product: any) => {
+  const handleKeyEdit = (e, product) => {
     if (e.keyCode === 13) {
       handleEdit(product);
     }

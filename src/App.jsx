@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "./utils/supabase";
 import Login from "./pages/login/login-page";
-import Footer from "./components/footer/footer.jsx";
+import Footer from "./components/footer/footer";
 import DisplayShopplist from "./pages/shopping-list/display-shopplist";
 import UserAuth from "./components/data-fecthing/userAuth";
 import ManageProducts from "./pages/manage-products/manage-products";
@@ -17,7 +17,7 @@ import SettingsFetch from "./components/data-fecthing/settings-contex";
 import "./App.css";
 
 function App() {
-  const [user, setUser]: any = useState({});
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     const getUserData = async () => {
@@ -30,7 +30,7 @@ function App() {
     getUserData();
   }, []);
 
-  const RequireAuth = ({ children }: any) => {
+  const RequireAuth = ({ children }) => {
     if (Object.keys(user).length === 0) {
       return <Login signUp={<SignIn />} />;
     }

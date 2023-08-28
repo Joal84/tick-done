@@ -7,7 +7,7 @@ export default function SelectComponent({
   placeholder,
   options,
   width,
-}: any) {
+}) {
   return (
     <div>
       <Select

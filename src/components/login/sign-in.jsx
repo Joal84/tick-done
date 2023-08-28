@@ -1,8 +1,8 @@
 import css from "./sign-in.module.css";
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import { supabase } from "../../utils/supabase";
 import { Link } from "react-router-dom";
-import Title from "../../components/title/title";
+import Title from "../title/title";
 import Button from "../button/button";
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
@@ -32,7 +32,7 @@ export default function SignIn() {
     }
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = (event) => {
     setFormData((prevForm) => {
       return {
         ...prevForm,
@@ -41,9 +41,9 @@ export default function SignIn() {
     });
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const { data, error }: any = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email: formData.email,
       password: formData.password,
     });

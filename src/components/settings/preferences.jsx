@@ -4,8 +4,8 @@ import { supabase } from "../../utils/supabase";
 import { CurrencyContext } from "../data-fecthing/settings-contex";
 import { userDataContext } from "../data-fecthing/userAuth";
 import Button from "../button/button";
-import Title from "../../components/title/title";
-import SelectComponent from "../../components/select-component/select-component";
+import Title from "../title/title";
+import SelectComponent from "../select-component/select-component";
 import Swal from "sweetalert2";
 
 const currencyOptions = [
@@ -19,12 +19,12 @@ const currencyOptions = [
 ];
 
 export default function Preferences() {
-  const [currency, setCurrency]: any = useContext(CurrencyContext);
+  const [currency, setCurrency] = useContext(CurrencyContext);
   const [selectorCurrency, setSelectorCurrency] = useState("");
-  const [userAuth, setUser]: any = useContext(userDataContext);
+  const [userAuth, setUser] = useContext(userDataContext);
   const user_id = userAuth.id;
 
-  const handlePreferrences = async (e: any) => {
+  const handlePreferrences = async (e) => {
     e.preventDefault();
 
     const { data, error } = await supabase
@@ -59,7 +59,7 @@ export default function Preferences() {
                 return option.value === currency[0]?.currency;
               })}
               options={currencyOptions}
-              selector={(e: any) => setSelectorCurrency(e.value)}
+              selector={(e) => setSelectorCurrency(e.value)}
             />
           </div>
         </label>

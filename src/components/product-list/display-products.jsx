@@ -1,27 +1,27 @@
 import css from "./display-products.module.css";
 import { useState, useContext } from "react";
 import { supabase } from "../../utils/supabase";
-import { ProductListContext } from "../../components/data-fecthing/productlist-context";
-import { ShoppingListContext } from "../../components/data-fecthing/shoppinglist-contex";
-import { userDataContext } from "../../components/data-fecthing/userAuth";
+import { ProductListContext } from "../data-fecthing/productlist-context";
+import { ShoppingListContext } from "../data-fecthing/shoppinglist-contex";
+import { userDataContext } from "../data-fecthing/userAuth";
 import Modal from "../modal/modal";
 import EditProduct from "./edit-product";
 import ProductItem from "./product-item";
 import Swal from "sweetalert2";
 import emptyProduct from "../../assets/empty_product.webp";
 
-export default function DisplayProducts({ filteredProducts }: any) {
-  const [userAuth, setUser]: any = useContext(userDataContext);
-  const [productList, setProductList]: any = useContext(ProductListContext);
-  const [list, setList]: any = useContext(ShoppingListContext);
-  const [editModal, setEditModal]: any = useState(false);
+export default function DisplayProducts({ filteredProducts }) {
+  const [userAuth, setUser] = useContext(userDataContext);
+  const [productList, setProductList] = useContext(ProductListContext);
+  const [list, setList] = useContext(ShoppingListContext);
+  const [editModal, setEditModal] = useState(false);
   const [name, setName] = useState("");
   const [category, setCategory] = useState(null);
   const [description, setDescription] = useState("");
   const [id, setId] = useState(null);
   const [avgPrice, setAvgPrice] = useState(0);
 
-  const handleEdit = (product: any) => {
+  const handleEdit = (product) => {
     setEditModal(true);
     setName(product.name);
     setCategory(product.category);
@@ -30,9 +30,9 @@ export default function DisplayProducts({ filteredProducts }: any) {
     setAvgPrice(product.avg_price);
   };
 
-  const handleDelete = async (item: any) => {
+  const handleDelete = async (item) => {
     const checkShoppingList = list.some(
-      (listItem: any) => listItem.product_id === item.id
+      (listItem) => listItem.product_id === item.id
     );
     if (checkShoppingList) {
       Swal.fire({
@@ -48,38 +48,35 @@ export default function DisplayProducts({ filteredProducts }: any) {
       }).then(async (result) => {
         if (result.isConfirmed) {
           const newProdList = productList.filter(
-            (prodItem: any) => prodItem.id !== item.id
+            (prodItem) => prodItem.id !== item.id
           );
           setProductList(newProdList);
 
-          const newShoppList = list.filter((itemToDelete: any) => {
+          const newShoppList = list.filter((itemToDelete) => {
             return itemToDelete.product_id !== item.id;
           });
           setList(newShoppList);
 
-          const { data, error }: any = await supabase
+          const { data, error } = await supabase
             .from("products_list")
             .delete()
             .eq("id", item.id);
 
-          const { data: shopppingData, error: shopppingError }: any =
-            await supabase
-              .from("shopping_lists")
-              .delete()
-              .eq("product_id", item.id);
+          const { data: shopppingData, error: shopppingError } = await supabase
+            .from("shopping_lists")
+            .delete()
+            .eq("product_id", item.id);
         } else {
           return;
         }
       });
     }
     if (!checkShoppingList) {
-      const newList = productList.filter(
-        (prodItem: any) => prodItem.id !== item.id
-      );
+      const newList = productList.filter((prodItem) => prodItem.id !== item.id);
 
       setProductList(newList);
 
-      const { data, error }: any = await supabase
+      const { data, error } = await supabase
         .from("products_list")
         .delete()
         .eq("id", item.id);
@@ -100,7 +97,7 @@ export default function DisplayProducts({ filteredProducts }: any) {
           </div>
         ) : (
           <div className={css.gridContainer}>
-            {filteredProducts.map((product: any) => {
+            {filteredProducts.map((product) => {
               return (
                 <ProductItem
                   key={product.id}

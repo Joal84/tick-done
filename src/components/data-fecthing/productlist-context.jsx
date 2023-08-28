@@ -3,46 +3,34 @@ import { createContext, useState, useEffect } from "react";
 import { supabase } from "../../utils/supabase";
 import { ColorRing } from "react-loader-spinner";
 
-export const ShoppingListContext: any = createContext([{}]);
+export const ProductListContext = createContext([{}]);
 
-export default function ShoppinglistFetch({ children }: any) {
-  const [list, setList] = useState([{}]);
+export default function ProductListFetch({ children }) {
+  const [productList, setProductList] = useState([{}]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchList = async () => {
+  const fetchLProdList = async () => {
     setIsLoading(true);
     const { data, error } = await supabase
-      .from("shopping_lists")
-      .select(
-        "*, products_list(name, avg_price, last_purchased, total_bought, category)"
-      )
-      .order("order");
+      .from("products_list")
+      .select()
+      .order("id", { ascending: false });
 
     if (error) {
       setIsLoading(false);
     }
-
     if (data) {
-      setList(
-        data.map((item) => {
-          return (item = {
-            ...item,
-            totalPrice: (
-              item.quantity * (item.products_list?.avg_price ?? 0.0)
-            ).toFixed(2),
-          });
-        })
-      );
+      setProductList(data);
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchList();
+    fetchLProdList();
   }, []);
 
   return (
-    <ShoppingListContext.Provider value={[list, setList]}>
+    <ProductListContext.Provider value={[productList, setProductList]}>
       {children}{" "}
       {isLoading && (
         <div className="loading">
@@ -57,6 +45,6 @@ export default function ShoppinglistFetch({ children }: any) {
           />
         </div>
       )}
-    </ShoppingListContext.Provider>
+    </ProductListContext.Provider>
   );
 }

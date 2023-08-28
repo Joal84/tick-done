@@ -1,18 +1,17 @@
 import { useEffect, useState, createContext } from "react";
-
 import { supabase } from "../../utils/supabase";
 
-export const userDataContext: any = createContext({});
+export const userDataContext = createContext(null);
 
-export default function UserAuth({ children }: any) {
-  const [user, setUser] = useState({});
+export default function UserAuth({ children }) {
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
     const authStateChange = async function () {
       supabase.auth.onAuthStateChange(async (event) => {
         switch (event) {
           case "SIGNED_OUT":
-            setUser({});
+            setUser(null);
             break;
           case "SIGNED_IN":
             await getUserData();

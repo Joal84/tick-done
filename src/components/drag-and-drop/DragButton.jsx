@@ -1,12 +1,7 @@
 import css from "./DragButton.module.css";
-import { DragControls } from "framer-motion";
 
-interface Props {
-  dragControls: DragControls;
-}
-
-export default function DragButton({ dragControls }: Props) {
-  function startDrag(event: any) {
+export default function DragButton({ dragControls }) {
+  function startDrag(event) {
     dragControls.start(event);
   }
   return (

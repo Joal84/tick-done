@@ -1,26 +1,26 @@
 import css from "./add-to-product.module.css";
 import { supabase } from "../../utils/supabase";
-import { FormEvent, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { userDataContext } from "../data-fecthing/userAuth";
 import { ProductListContext } from "../data-fecthing/productlist-context";
 import Button from "../button/button";
 import Title from "../title/title";
 import SelectComponent from "../select-component/select-component";
 
-export default function AddToProduct({ onClose }: any) {
-  const [productList, setProductList]: any = useContext(ProductListContext);
+export default function AddToProduct({ onClose }) {
+  const [productList, setProductList] = useContext(ProductListContext);
   const [name, setName] = useState("");
   const [category, setCategory] = useState("None");
   const [description, setDescription] = useState("");
   const [avgPrice, setAvgPrice] = useState(0);
   const [formError, setFormError] = useState("");
 
-  const [userAuth, setUser]: any = useContext(userDataContext);
+  const [userAuth, setUser] = useContext(userDataContext);
   const user_id = userAuth.id;
 
   const macChar = 100 - description.length;
 
-  const handleSubmit = async function (e: FormEvent<HTMLFormElement>) {
+  const handleSubmit = async function (e) {
     e.preventDefault();
 
     if (!name || !category) {
@@ -28,14 +28,12 @@ export default function AddToProduct({ onClose }: any) {
       return;
     }
     if (
-      productList.some(
-        (item: any) => item.name.toLowerCase() === name.toLowerCase()
-      )
+      productList.some((item) => item.name.toLowerCase() === name.toLowerCase())
     ) {
       return;
     }
 
-    const { data, error }: any = await supabase
+    const { data, error } = await supabase
       .from("products_list")
       .insert([{ name, category, description, avg_price: avgPrice, user_id }])
       .select();
@@ -81,7 +79,7 @@ export default function AddToProduct({ onClose }: any) {
             <SelectComponent
               id="category"
               name="category"
-              selector={(e: any) => setCategory(e.value)}
+              selector={(e) => setCategory(e.value)}
               placeholder="None"
               options={addOptions}
             />
@@ -99,7 +97,7 @@ export default function AddToProduct({ onClose }: any) {
             type="number"
             name="average-price"
             value={avgPrice}
-            onChange={(e: any) => setAvgPrice(e.target.value)}
+            onChange={(e) => setAvgPrice(e.target.value)}
             required
           ></input>
         </div>

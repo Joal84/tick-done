@@ -2,8 +2,8 @@ import css from "./account-settings.module.css";
 import { supabase } from "../../utils/supabase";
 import { useContext, useEffect, useState } from "react";
 import { userDataContext } from "../data-fecthing/userAuth";
-import { signOutUser } from "../../components/navigation/navigation";
-import Title from "../../components/title/title";
+import { signOutUser } from "../navigation/navigation";
+import Title from "../title/title";
 import Button from "../button/button";
 import Swal from "sweetalert2";
 import { redirect } from "react-router-dom";
@@ -14,7 +14,7 @@ export default function AccountSettings() {
     password: "",
     repeatPassword: "",
   });
-  const [userAuth, setUser]: any = useContext(userDataContext);
+  const [userAuth, setUser] = useContext(userDataContext);
 
   useEffect(() => {
     setUserData({
@@ -23,7 +23,7 @@ export default function AccountSettings() {
     });
   }, []);
 
-  const handleDelteUser = async (e: any) => {
+  const handleDelteUser = async (e) => {
     e.preventDefault();
     Swal.fire({
       title: "Are you sure you want to delete this account?",
@@ -36,9 +36,7 @@ export default function AccountSettings() {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        const { data, error }: any = supabase.auth.admin.deleteUser(
-          userAuth.id
-        );
+        const { data, error } = supabase.auth.admin.deleteUser(userAuth.id);
         signOutUser();
         redirect("/login");
         Swal.fire({
@@ -54,7 +52,7 @@ export default function AccountSettings() {
     });
   };
 
-  const handleUserUpdate = async (e: any) => {
+  const handleUserUpdate = async (e) => {
     e.preventDefault();
 
     // Update email

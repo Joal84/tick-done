@@ -1,6 +1,6 @@
 import css from "./filtered-search.module.css";
 
-export default function Search({ onChangeHandler }: any) {
+export default function Search({ onChangeHandler }) {
   return (
     <label className={css.label} htmlFor="search">
       Search

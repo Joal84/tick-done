@@ -1,14 +1,14 @@
 import "./tagify.css";
 import { useState, useEffect, useContext } from "react";
 import { ProductListContext } from "../data-fecthing/productlist-context";
-import { userDataContext } from "../data-fecthing/userAuth.js";
+import { userDataContext } from "../data-fecthing/userAuth.jsx";
 import Tags from "@yaireo/tagify/dist/react.tagify";
 
-export default function TagField({ handleChange, tagifyRef }: any) {
-  const [userAuth, setUser]: any = useContext(userDataContext);
+export default function TagField({ handleChange, tagifyRef }) {
+  const [userAuth, setUser] = useContext(userDataContext);
   const [tagifySettings, setTagifySettings] = useState([]);
   const [tagifyProps, setTagifyProps] = useState({});
-  const [productList]: any = useContext(ProductListContext);
+  const [productList] = useContext(ProductListContext);
 
   const userName = userAuth?.user_metadata.name;
 
@@ -23,7 +23,7 @@ export default function TagField({ handleChange, tagifyRef }: any) {
     },
   };
 
-  const settings: any = {
+  const settings = {
     ...baseTagifySettings,
     ...tagifySettings,
   };
@@ -31,7 +31,7 @@ export default function TagField({ handleChange, tagifyRef }: any) {
   useEffect(() => {
     setTagifyProps((lastProps) => ({
       ...lastProps,
-      whitelist: productList.map((item: any) => item.name),
+      whitelist: productList.map((item) => item.name),
 
       loading: false,
     }));

@@ -10,23 +10,23 @@ import ShoppingItem from "../../components/shopping-list/shopping-item";
 import { Reorder } from "framer-motion";
 import emptyShopplist from "../../assets/empty_shopplist.webp";
 
-export default function DisplayShopplist({ nav, footer }: any) {
-  const [userAuth, setUser]: any = useContext(userDataContext);
-  const [productList, setProductList]: any = useContext(ProductListContext);
-  const [currency]: any = useContext(CurrencyContext);
-  const [list, setList]: any = useContext(ShoppingListContext);
+export default function DisplayShopplist({ nav, footer }) {
+  const [userAuth, setUser] = useContext(userDataContext);
+  const [productList, setProductList] = useContext(ProductListContext);
+  const [currency] = useContext(CurrencyContext);
+  const [list, setList] = useContext(ShoppingListContext);
 
-  const totalPriceCalculator = (shoppingList: any) => {
-    return shoppingList.reduce((total: any, itemPrice: any) => {
+  const totalPriceCalculator = (shoppingList) => {
+    return shoppingList.reduce((total, itemPrice) => {
       return (total += +itemPrice.totalPrice);
     }, 0);
   };
 
   const totalCompleteCalculator = () => {
-    return list.filter((item: any) => item.completed === true).length;
+    return list.filter((item) => item.completed === true).length;
   };
 
-  const handleQuantity = (item: any, index: number, operator: string) => {
+  const handleQuantity = (item, index, operator) => {
     const newList = [...list];
     if (operator === "+")
       newList[index] = {
@@ -50,8 +50,8 @@ export default function DisplayShopplist({ nav, footer }: any) {
 
     setList(newList);
 
-    const updateQuantity = async (quantityToUpdate: any) => {
-      const { data, error }: any = await supabase
+    const updateQuantity = async (quantityToUpdate) => {
+      const { data, error } = await supabase
         .from("shopping_lists")
         .update({ quantity: quantityToUpdate })
         .eq("id", item.id);
@@ -59,7 +59,7 @@ export default function DisplayShopplist({ nav, footer }: any) {
     updateQuantity(newList[index].quantity);
   };
 
-  const handleComplete = (item: any, index: number) => {
+  const handleComplete = (item, index) => {
     const newList = [...list];
     newList[index] = {
       ...newList[index],
@@ -77,8 +77,8 @@ export default function DisplayShopplist({ nav, footer }: any) {
     }
 
     setList(newList);
-    const updateCompleted = async (completedStatus: any) => {
-      const { data, error }: any = await supabase
+    const updateCompleted = async (completedStatus) => {
+      const { data, error } = await supabase
         .from("shopping_lists")
         .update({
           completed: completedStatus,
@@ -88,7 +88,7 @@ export default function DisplayShopplist({ nav, footer }: any) {
 
     if (newList[index].completed) {
       const updateLastPurchased = async () => {
-        const { data, error }: any = await supabase
+        const { data, error } = await supabase
           .from("products_list")
           .update({
             last_purchased: new Date(),
@@ -114,12 +114,12 @@ export default function DisplayShopplist({ nav, footer }: any) {
     updateCompleted(newList[index].completed);
   };
 
-  const itemPrice = (item: any) => {
+  const itemPrice = (item) => {
     return item.totalPrice;
   };
 
-  const handleDelete = async (item: any) => {
-    const newList = list.filter((itemToDelete: any) => {
+  const handleDelete = async (item) => {
+    const newList = list.filter((itemToDelete) => {
       return itemToDelete.product_id !== item.product_id;
     });
     const { data, error } = await supabase
@@ -129,13 +129,13 @@ export default function DisplayShopplist({ nav, footer }: any) {
 
     setList(newList);
   };
-  const reOrder = (value: any) => {
+  const reOrder = (value) => {
     setList(
-      value.map((item: any, index: number) => {
+      value.map((item, index) => {
         return { ...item, order: index };
       })
     );
-    value.map(async (item: any, index: number) => {
+    value.map(async (item, index) => {
       const { data, error } = await supabase
         .from("shopping_lists")
         .update([
@@ -164,7 +164,7 @@ export default function DisplayShopplist({ nav, footer }: any) {
             </div>
           ) : (
             <Reorder.Group axis="y" values={list} onReorder={reOrder}>
-              {list.map((product: any, index: number) => {
+              {list.map((product, index) => {
                 return (
                   <ShoppingItem
                     key={product.name}

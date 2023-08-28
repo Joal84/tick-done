@@ -2,7 +2,7 @@ import css from "./sign-up.module.css";
 import { useState } from "react";
 import { supabase } from "../../utils/supabase";
 import Button from "../button/button";
-import Title from "../../components/title/title";
+import Title from "../title/title";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ColorRing } from "react-loader-spinner";
@@ -27,7 +27,7 @@ export default function SignUp() {
     });
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = (event) => {
     setFormData((prevForm) => {
       return {
         ...prevForm,
@@ -36,7 +36,7 @@ export default function SignUp() {
     });
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     if (

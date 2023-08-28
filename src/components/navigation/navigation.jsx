@@ -1,8 +1,9 @@
 import css from "./navigation.module.css";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useContext } from "react";
+import { KeyboardEvent, useContext } from "react";
 import { userDataContext } from "../data-fecthing/userAuth";
 import { supabase } from "../../utils/supabase";
+
 import { ReactComponent as LogoBox } from "../../assets/logo_box.svg";
 import { ReactComponent as LogoLettering } from "../../assets/logo_lettering.svg";
 
@@ -10,8 +11,8 @@ export async function signOutUser() {
   const { error } = await supabase.auth.signOut();
 }
 
-function Navigation({}: any) {
-  const [userAuth, setUser]: any = useContext(userDataContext);
+function Navigation() {
+  const [userAuth, setUser] = useContext(userDataContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -20,12 +21,12 @@ function Navigation({}: any) {
     navigate("/login");
   };
 
-  const handleKeyNav = (e: any, location: string) => {
+  const handleKeyNav = (e, location) => {
     if (e.keyCode === 13) {
       navigate(location);
     }
   };
-  const handleKeyLogout = (e: any, location: string) => {
+  const handleKeyLogout = (e, location) => {
     if (e.keyCode === 13) {
       signOutUser();
       navigate(location);

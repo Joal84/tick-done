@@ -10,22 +10,22 @@ import Search from "../../components/product-list/filtered-search";
 import SelectComponent from "../../components/select-component/select-component";
 import Title from "../../components/title/title";
 
-export default function ManageProducts({ nav, footer }: any) {
+export default function ManageProducts({ nav, footer }) {
   const [addProdModal, setAddProdModal] = useState(false);
   const [search, setSearch] = useState("");
   const [inputCategoryFilter, setinputCategoryFilter] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([{}]);
-  const [productList]: any = useContext(ProductListContext);
-  const [userAuth, setUser]: any = useContext(userDataContext);
+  const [productList] = useContext(ProductListContext);
+  const [userAuth, setUser] = useContext(userDataContext);
 
-  const onSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
+  const onSearchChange = (event) => {
     const searchFieldString = event.target.value.toLocaleLowerCase();
     setSearch(searchFieldString);
   };
 
   useEffect(() => {
     if (search) {
-      const newFilteredProducts = productList.filter((product: any) => {
+      const newFilteredProducts = productList.filter((product) => {
         return product.name.toLocaleLowerCase().includes(search);
       });
       setFilteredProducts(newFilteredProducts);
@@ -33,7 +33,7 @@ export default function ManageProducts({ nav, footer }: any) {
   }, [productList, search]);
 
   useEffect(() => {
-    const categoryFilteredProducts = productList.filter((product: any) => {
+    const categoryFilteredProducts = productList.filter((product) => {
       if (inputCategoryFilter === "all") {
         return product;
       }
@@ -65,7 +65,7 @@ export default function ManageProducts({ nav, footer }: any) {
             <label className={css.label}>
               Filter
               <SelectComponent
-                selector={(e: any) => setinputCategoryFilter(e.value)}
+                selector={(e) => setinputCategoryFilter(e.value)}
                 placeholder="Category"
                 options={filterOptions}
               />

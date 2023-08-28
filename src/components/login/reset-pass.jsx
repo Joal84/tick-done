@@ -1,8 +1,8 @@
 import css from "./reset-pass.module.css";
 import { supabase } from "../../utils/supabase";
-import { useState } from "react";
+import {useState } from "react";
 import { motion } from "framer-motion";
-import Title from "../../components/title/title";
+import Title from "../title/title";
 import Button from "../button/button";
 
 export default function ResetPass() {
@@ -10,7 +10,7 @@ export default function ResetPass() {
     password: "",
     repeatPassword: "",
   });
-  const passwordResetHandler = (e: any) => {
+  const passwordResetHandler = (e) => {
     e.preventDefault();
     if (
       password.password !== password.repeatPassword ||
@@ -34,7 +34,7 @@ export default function ResetPass() {
     });
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = (event) => {
     setPassword((prevForm) => {
       return {
         ...prevForm,
@@ -73,9 +73,7 @@ export default function ResetPass() {
         />
         <p className={css.password}>Minimum of 8 characters</p>
 
-        <Button type="submit" onSubmit={passwordResetHandler}>
-          Reset
-        </Button>
+        <Button onSubmit={passwordResetHandler}>Reset</Button>
       </form>
     </motion.div>
   );

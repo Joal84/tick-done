@@ -4,7 +4,7 @@ import AccountSettings from "../../components/settings/account-settings";
 import Preferences from "../../components/settings/preferences";
 import shoppingImage from "../../assets/background-settings4.webp";
 
-export default function Settings({ nav, footer }: any) {
+export default function Settings({ nav, footer }) {
   return (
     <div style={{ overflow: "hidden" }}>
       <div>{nav}</div>

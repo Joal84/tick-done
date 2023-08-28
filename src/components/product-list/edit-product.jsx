@@ -7,14 +7,14 @@ import Button from "../button/button";
 import Title from "../title/title";
 import SelectComponent from "../select-component/select-component";
 
-export default function EditProduct(props: any) {
+export default function EditProduct(props) {
   const [newName, setNewName] = useState("");
   const [category, setCategory] = useState("None");
   const [description, setDescription] = useState("");
   const [id, setId] = useState("");
   const [avgPrice, setAvgPrice] = useState(0);
-  const [productList, setProductList]: any = useContext(ProductListContext);
-  const [list, setList]: any = useContext(ShoppingListContext);
+  const [productList, setProductList] = useContext(ProductListContext);
+  const [list, setList] = useContext(ShoppingListContext);
 
   const editOptions = [
     { value: "None", label: "None" },
@@ -31,19 +31,19 @@ export default function EditProduct(props: any) {
   }, []);
 
   //Description character counter
-  const charCounter = (maxNumber: number) => {
+  const charCounter = (maxNumber) => {
     description ?? setDescription("");
     return maxNumber - description?.length;
   };
 
-  const handleSubmit = async function (e: FormEvent<HTMLFormElement>) {
+  const handleSubmit = async function (e) {
     e.preventDefault();
 
     if (!newName || avgPrice === 0) {
       return;
     }
     const currentProductIndex = productList.findIndex(
-      (item: any) => item.id === props.id
+      (item) => item.id === props.id
     );
     const updatedProduct = {
       ...productList[currentProductIndex],
@@ -60,12 +60,11 @@ export default function EditProduct(props: any) {
     //check if edited product also exist in the shopping list
 
     const checkShoppingList = list.some(
-      (listItem: any) =>
-        listItem.product_id === newProdList[currentProductIndex].id
+      (listItem) => listItem.product_id === newProdList[currentProductIndex].id
     );
     if (checkShoppingList) {
       const currentListIndex = list.findIndex(
-        (listItem: any) =>
+        (listItem) =>
           listItem.product_id === newProdList[currentProductIndex].id
       );
       const updateShopplist = {
@@ -86,7 +85,7 @@ export default function EditProduct(props: any) {
 
     setProductList(newProdList);
 
-    const { data, error }: any = await supabase
+    const { data, error } = await supabase
       .from("products_list")
       .update({ name: newName, description, category, avg_price: avgPrice, id })
       .eq("id", id)
@@ -124,7 +123,7 @@ export default function EditProduct(props: any) {
               })}
               id="category"
               name="category"
-              selector={(e: any) => setCategory(e.value)}
+              selector={(e) => setCategory(e.value)}
               placeholder="None"
               options={editOptions}
             />
@@ -142,7 +141,7 @@ export default function EditProduct(props: any) {
             type="number"
             name="average-price"
             value={avgPrice}
-            onChange={(e: any) => setAvgPrice(e.target.value)}
+            onChange={(e) => setAvgPrice(e.target.value)}
             required
           ></input>
         </div>

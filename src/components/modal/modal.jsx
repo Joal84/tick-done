@@ -1,21 +1,31 @@
 import css from "./modal.module.css";
-import { useEffect, useRef } from "react";
+import { MouseEvent, useEffect, useRef, RefObject } from "react";
 import { ReactComponent as Close } from "../../assets/close_black_48dp.svg";
 
-const Modal = function ({ children, onClose }: any) {
-  const close: any = useRef(null);
+const Modal = function ({ children, onClose }) {
+  const close = useRef(null);
 
-  function onClickOutside(ref: any) {
+  function onClickOutside(ref) {
     useEffect(() => {
-      const listener = (event: any) => {
+      const listener = (event) => {
         const handler = () => {
           onClose(false);
         };
-        // Do nothing if clicking ref's element or descendent elements
-        if (!ref.current || ref.current.contains(event.target)) {
-          return;
+        // Checking the type of the event and cast it to the appropriate type
+        if ("touches" in event) {
+          const touchEvent = event;
+          if (!ref.current || ref.current.contains(touchEvent.target)) {
+            return;
+          } else {
+            handler();
+          }
         } else {
-          handler();
+          const mouseEvent = event;
+          if (!ref.current || ref.current.contains(mouseEvent.target)) {
+            return;
+          } else {
+            handler();
+          }
         }
       };
 
