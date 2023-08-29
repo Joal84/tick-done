@@ -59,7 +59,7 @@ export default function SignUp() {
     });
     if (error) {
       Swal.fire({
-        title: "Failed to creat account",
+        title: error,
 
         icon: "error",
         confirmButtonColor: "#227250",
@@ -68,6 +68,12 @@ export default function SignUp() {
       setIsLoading(false);
     }
     if (data) {
+      console.log(data.user.id);
+      const { userData, userError } = await supabase
+        .from("user_settings")
+        .insert({ currency: "€", user_id: data.user.id })
+        .select();
+
       Swal.fire({
         title: "Account Created!",
         text: "Please check your email inbox",
@@ -164,7 +170,9 @@ export default function SignUp() {
           onChange={handleChange}
         />
 
-        <Button type="submit">Sign Up</Button>
+        <Button type="submit" onClick={handleSubmit}>
+          Sign Up
+        </Button>
       </form>
       <p className={css.cta}>
         Already have an account? <Link to="/login">Sign In</Link>

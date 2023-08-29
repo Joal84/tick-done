@@ -22,11 +22,10 @@ export default function Preferences() {
   const [currency, setCurrency] = useContext(CurrencyContext);
   const [selectorCurrency, setSelectorCurrency] = useState("");
   const [userAuth, setUser] = useContext(userDataContext);
-  const user_id = userAuth.id;
+  const user_id = userAuth.user.id;
 
   const handlePreferrences = async (e) => {
     e.preventDefault();
-
     const { data, error } = await supabase
       .from("user_settings")
       .upsert([{ currency: selectorCurrency, user_id }], {
@@ -36,7 +35,7 @@ export default function Preferences() {
     if (error) {
     }
     if (data) {
-      setCurrency(data);
+      setCurrency(data[0].currency);
       Swal.fire({
         title: "Information Updated",
         icon: "success",
@@ -56,7 +55,7 @@ export default function Preferences() {
           <div style={{ width: "100%" }}>
             <SelectComponent
               value={currencyOptions.find((option) => {
-                return option.value === currency[0]?.currency;
+                return option.value === (currency ? currency : "€");
               })}
               options={currencyOptions}
               selector={(e) => setSelectorCurrency(e.value)}

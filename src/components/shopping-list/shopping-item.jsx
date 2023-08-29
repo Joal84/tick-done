@@ -44,7 +44,8 @@ export default function ShoppingItem({
   itemPrice,
 }) {
   const [currency, setCurrency] = useContext(CurrencyContext);
-  const currencyValue = currency[0]?.currency || "€";
+  const currencyValue = currency ? currency : "€";
+
   const y = useMotionValue(0);
   const boxShadow = useRaisedShadow(y);
   const dragControls = useDragControls();

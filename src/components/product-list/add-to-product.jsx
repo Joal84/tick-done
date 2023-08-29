@@ -16,7 +16,7 @@ export default function AddToProduct({ onClose }) {
   const [formError, setFormError] = useState("");
 
   const [userAuth, setUser] = useContext(userDataContext);
-  const user_id = userAuth.id;
+  const user_id = userAuth?.user.id;
 
   const macChar = 100 - description.length;
 

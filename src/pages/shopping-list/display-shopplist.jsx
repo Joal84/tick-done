@@ -1,5 +1,5 @@
 import css from "./display-shopplist.module.css";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { supabase } from "../../utils/supabase";
 import { ShoppingListContext } from "../../components/data-fecthing/shoppinglist-contex";
 import { userDataContext } from "../../components/data-fecthing/userAuth";
@@ -13,7 +13,7 @@ import emptyShopplist from "../../assets/empty_shopplist.webp";
 export default function DisplayShopplist({ nav, footer }) {
   const [userAuth, setUser] = useContext(userDataContext);
   const [productList, setProductList] = useContext(ProductListContext);
-  const [currency] = useContext(CurrencyContext);
+  const [currency, setCurrency] = useContext(CurrencyContext);
   const [list, setList] = useContext(ShoppingListContext);
 
   const totalPriceCalculator = (shoppingList) => {
@@ -151,9 +151,9 @@ export default function DisplayShopplist({ nav, footer }) {
     <div className={css.wrapperContainer}>
       {nav}
       <div className={css.fullPage}>
-        {Object.keys(userAuth).length !== 0 && <AddToShopplist />}
+        {userAuth?.length !== 0 && <AddToShopplist />}
         <div className={css.container}>
-          {list.length === 0 || Object.keys(userAuth).length === 0 ? (
+          {list.length === 0 || userAuth?.length === 0 ? (
             <div className={css.emptyListContainer}>
               <img
                 className={css.emptyListImage}
@@ -180,7 +180,7 @@ export default function DisplayShopplist({ nav, footer }) {
             </Reorder.Group>
           )}
         </div>
-        {Object.keys(userAuth).length !== 0 && (
+        {userAuth?.length !== 0 && (
           <div className={css.completeCounter}>
             <span>Completed </span>
             <span className={css.counter}>
@@ -193,8 +193,7 @@ export default function DisplayShopplist({ nav, footer }) {
                 {totalPriceCalculator(list)?.toFixed(2)}
               </span>
               <span style={{ fontSize: "2rem", fontWeight: "300" }}>
-                {" "}
-                {currency[0]?.currency || "€"}
+                {currency ? currency : "€"}
               </span>
             </div>
           </div>

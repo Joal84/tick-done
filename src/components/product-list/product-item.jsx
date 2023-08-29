@@ -9,7 +9,7 @@ import { images } from "../shopping-list/shopping-item";
 
 export default function ProductItem({ product, handleEdit, handleDelete }) {
   const [currency, setCurrency] = useContext(CurrencyContext);
-  const currencyValue = currency[0]?.currency ?? "€";
+  const currencyValue = currency ? currency : "€";
 
   const handleKeyDelete = (e, product) => {
     if (e.keyCode === 13) {

@@ -15,11 +15,11 @@ export default function AccountSettings() {
     repeatPassword: "",
   });
   const [userAuth, setUser] = useContext(userDataContext);
-
+  console.log(userAuth);
   useEffect(() => {
     setUserData({
-      userName: userAuth?.user_metadata?.name,
-      email: userAuth?.email,
+      userName: userAuth?.user?.user_metadata?.name,
+      email: userAuth?.user?.email,
     });
   }, []);
 

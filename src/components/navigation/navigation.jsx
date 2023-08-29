@@ -1,6 +1,6 @@
 import css from "./navigation.module.css";
 import { useNavigate, useLocation } from "react-router-dom";
-import { KeyboardEvent, useContext } from "react";
+import { useContext } from "react";
 import { userDataContext } from "../data-fecthing/userAuth";
 import { supabase } from "../../utils/supabase";
 
@@ -46,7 +46,7 @@ function Navigation() {
           <span className={css.slogan}>add. buy. repeat.</span>
         </div>
 
-        {Object.keys(userAuth).length !== 0 ? (
+        {userAuth?.length !== 0 ? (
           <ul className={css.buttonContainer}>
             <li
               tabIndex={0}
@@ -88,17 +88,17 @@ function Navigation() {
                 location.pathname === "/login" ? css.currentLink : css.navLink
               }
               onClick={
-                Object.keys(userAuth).length !== 0
+                userAuth?.length !== 0
                   ? logoutHandler
                   : () => navigate("/login")
               }
               onKeyDown={
-                Object.keys(userAuth).length !== 0
+                userAuth?.length !== 0
                   ? (e) => handleKeyLogout(e, "/login")
                   : (e) => handleKeyNav(e, "/login")
               }
             >
-              {Object.keys(userAuth).length !== 0 ? "Logout" : "Login"}
+              {userAuth?.length !== 0 ? "Logout" : "Login"}
             </li>
           </ul>
         ) : (
@@ -107,12 +107,12 @@ function Navigation() {
               tabIndex={0}
               className={css.navLink}
               onClick={
-                Object.keys(userAuth).length !== 0
+                userAuth?.length !== 0
                   ? () => signOutUser()
                   : () => navigate("/login")
               }
             >
-              {Object.keys(userAuth).length !== 0 ? "Logout" : "Login"}
+              {userAuth?.length !== 0 ? "Logout" : "Login"}
             </li>
           </ul>
         )}

@@ -15,8 +15,7 @@ export default function AddToShopplist() {
   const [productList, setProductList] = useContext(ProductListContext);
   const [userAuth, setUser] = useContext(userDataContext);
   const [productName, setProductName] = useState([]);
-  const user_id = userAuth.id;
-
+  const user_id = userAuth?.user?.id;
   const handleKeyAdd = (e) => {
     if (e.keyCode === 13) {
       handleSubmit();
@@ -96,6 +95,8 @@ export default function AddToShopplist() {
         .from("products_list")
         .insert([{ name: item, category: "None", avg_price: 0, user_id }])
         .select();
+      if (error) {
+      }
       if (data) {
         setProductList((prevProdList) => [...prevProdList, ...data]);
       }

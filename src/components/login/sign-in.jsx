@@ -1,13 +1,14 @@
 import css from "./sign-in.module.css";
-import { useState, FormEvent } from "react";
+import { useState } from "react";
 import { supabase } from "../../utils/supabase";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Title from "../title/title";
 import Button from "../button/button";
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 
 export default function SignIn() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -48,19 +49,28 @@ export default function SignIn() {
       password: formData.password,
     });
     if (error) {
+      console.log(error);
       setErrorMessage("Invalid credentials");
     }
     if (data) {
+      navigate("/");
+      window.location.reload();
     }
   };
   const handleGoogleOAuth = async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
+      options: {
+        redirectTo: "/",
+      },
     });
   };
   const handleFacebookOAuth = async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "facebook",
+      options: {
+        redirectTo: "/",
+      },
     });
   };
 
@@ -91,7 +101,9 @@ export default function SignIn() {
         <p className={css.forgotPassword} onClick={resetPasswordHandler}>
           Forgot Password?
         </p>
-        <Button type="submit">Login</Button>
+        <Button type="submit" onSubmit={handleSubmit}>
+          Login
+        </Button>
       </form>
       <div className={css.dividerContainer}>
         <div className={css.divider}></div>

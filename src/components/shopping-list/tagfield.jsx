@@ -5,12 +5,16 @@ import { userDataContext } from "../data-fecthing/userAuth.jsx";
 import Tags from "@yaireo/tagify/dist/react.tagify";
 
 export default function TagField({ handleChange, tagifyRef }) {
-  const [userAuth, setUser] = useContext(userDataContext);
   const [tagifySettings, setTagifySettings] = useState([]);
   const [tagifyProps, setTagifyProps] = useState({});
+  const [userAuth, setUser] = useContext(userDataContext);
   const [productList] = useContext(ProductListContext);
 
-  const userName = userAuth?.user_metadata.name;
+  // Displaying user name
+  let userName;
+  userAuth
+    ? (userName = userAuth.user.user_metadata.name)
+    : (userName = "User");
 
   // Tagify settings object
   const baseTagifySettings = {
@@ -35,7 +39,7 @@ export default function TagField({ handleChange, tagifyRef }) {
 
       loading: false,
     }));
-  }, [productList, userName]);
+  }, [productList, userAuth]);
 
   return (
     <>
