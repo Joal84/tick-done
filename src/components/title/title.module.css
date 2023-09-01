@@ -7,3 +7,9 @@
 .secondTitle {
   font-size: 2rem;
 }
+@media screen and (max-height: 760px) {
+  .mainTitle {
+    font-size: 2rem;
+    font-weight: 400;
+  }
+}

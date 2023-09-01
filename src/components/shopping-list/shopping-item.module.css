@@ -202,3 +202,20 @@
   width: 40px;
   user-select: none;
 }
+@media screen and (max-width: 971px) {
+  .title {
+    margin-top: 16px;
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+  }
+  .image {
+    position: absolute;
+    transition: var(--transition);
+    width: 50px;
+    top: 14px;
+    left: -43px;
+    user-select: none;
+  }
+}
+@media screen and (max-width: 750px) {
+}

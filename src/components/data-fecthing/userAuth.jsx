@@ -1,9 +1,14 @@
-import { useEffect, useState, createContext } from "react";
+import { useEffect, useState, createContext, useContext } from "react";
+import { redirect } from "react-router-dom";
 import { supabase } from "../../utils/supabase";
+import { ProductListContext } from "../../components/data-fecthing/productlist-context";
+import { ShoppingListContext } from "../../components/data-fecthing/shoppinglist-contex";
 
 export const userDataContext = createContext(null);
 
 export default function UserAuth({ children }) {
+  const [list, setList] = useContext(ShoppingListContext);
+  const [productList, setProductList] = useContext(ProductListContext);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -12,23 +17,23 @@ export default function UserAuth({ children }) {
         switch (event) {
           case "SIGNED_OUT":
             setUser(null);
+            redirect("/login");
+            setProductList(null);
+            setList(null);
             break;
           case "SIGNED_IN":
             await getUserData();
+            redirect("/");
             break;
           case "USER_UPDATED":
             await getUserData();
+            redirect("/");
             break;
         }
       });
     };
     const getUserData = async () => {
       const { data: newUser } = await supabase.auth.getUser();
-      // await supabase.auth.getUser().then((value) => {
-      //  if (value.data?.user) {
-      //   setUser(value.data.user);
-      //}
-      //  });
       setUser(newUser);
     };
     getUserData().then(authStateChange);

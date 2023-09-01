@@ -1,5 +1,5 @@
 import css from "./modal.module.css";
-import { MouseEvent, useEffect, useRef, RefObject } from "react";
+import { useEffect, useRef } from "react";
 import { ReactComponent as Close } from "../../assets/close_black_48dp.svg";
 
 const Modal = function ({ children, onClose }) {

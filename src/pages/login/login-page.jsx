@@ -1,44 +1,31 @@
 import css from "./login-page.module.css";
-import { supabase } from "../../utils/supabase";
-import { redirect } from "react-router-dom";
-import { useEffect, useContext } from "react";
-import { userDataContext } from "../../components/data-fecthing/userAuth";
-import { ProductListContext } from "../../components/data-fecthing/productlist-context";
-import { ShoppingListContext } from "../../components/data-fecthing/shoppinglist-contex";
+import { motion } from "framer-motion";
 import { ReactComponent as LogoBox } from "../../assets/logo_box.svg";
 import { ReactComponent as LogoLettering } from "../../assets/logo_lettering.svg";
 
 export default function Login({ signIn, signUp, resetPass }) {
-  const [userAuth, setUser] = useContext(userDataContext);
-  const [list, setList] = useContext(ShoppingListContext);
-  const [productList, setProductList] = useContext(ProductListContext);
-
-  useEffect(() => {
-    supabase.auth.onAuthStateChange(async (event) => {
-      if (event === "SIGNED_IN") {
-        // forward to success URL
-        redirect("/");
-      }
-      if (event === "SIGNED_OUT") {
-        redirect("/login");
-        setProductList([{}]);
-        setList([{}]);
-      }
-    });
-  }, [userAuth]);
   return (
     <>
       <div className={css.background}>
         <div className={css.container}>
           <div className={css.branding}>
-            <LogoBox className={css.logoBox} />
-            <LogoLettering className={css.logoLettering} />
+            <div className={css.logo}>
+              <LogoBox className={css.logoBox} />
+              <LogoLettering className={css.logoLettering} />
+            </div>
             <span className={css.slogan}>add. buy. repeat.</span>
             <p className={css.description}>
               A grocery list application made simple.
             </p>
           </div>
-          {signIn || signUp || resetPass}
+          <motion.div
+            initial={{ x: "-20%" }}
+            animate={{ x: "0%" }}
+            transition={{ duration: 0.6, type: "spring" }}
+            className={css.pannel}
+          >
+            {signIn || signUp || resetPass}
+          </motion.div>
         </div>
       </div>
     </>

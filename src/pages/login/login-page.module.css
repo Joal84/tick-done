@@ -1,24 +1,43 @@
 .background {
   width: 100vw;
   height: 100vh;
-  background-image: url("../../assets/background_login.webp");
   position: absolute;
+  overflow: hidden;
+}
+.background::before {
+  content: "";
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background-image: url("../../assets/background_login.webp");
   background-size: 2400px;
   background-position: fixed;
 }
 .container {
-  margin: 0 auto;
-}
-.branding {
   margin-left: 168px;
   margin-top: 100px;
   margin-bottom: 20px;
-  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 100%;
+  height: auto;
+}
+.logo {
+  max-width: 100%;
+  height: auto;
+}
+.branding {
+  margin: 8px;
+  z-index: 999;
 }
 .logoBox {
   width: 75px;
+  max-width: 20%;
+  height: auto;
 }
 .logoLettering {
+  max-width: 100%;
   width: 245px;
   margin-bottom: 16px;
   margin-left: 10px;
@@ -27,12 +46,66 @@
   font-size: 1.6rem;
   font-weight: 300;
   position: relative;
-  left: -242px;
-  top: 3px;
+  top: -15px;
+  left: 85px;
 }
 .description {
   font-weight: 300;
   margin-top: 21px;
-  text-align: left;
   font-size: 2rem;
+  flex-grow: 1;
+}
+.pannel {
+  margin-top: 26px;
+}
+
+@media screen and (max-width: 1000px) {
+  .background::before {
+    background-size: 2000px;
+    background-position: fixed;
+  }
+}
+@media screen and (max-width: 700px) {
+  .background::before {
+    background-position: 19% 15%;
+    opacity: 0.5;
+  }
+  .container {
+    width: 380px;
+    margin: 10% auto;
+  }
+  .slogan {
+    font-size: 1.6rem;
+    font-weight: 300;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .background::before {
+    background-position: 28% 15%;
+    opacity: 0.5;
+  }
+  .container {
+    width: 330px;
+    margin: 10% auto;
+  }
+  .slogan {
+    font-size: 1.6rem;
+    font-weight: 300;
+  }
+  .description {
+    margin-top: 14px;
+    font-size: 1.4rem;
+    text-align: center;
+  }
+  .pannel {
+    margin: 5svh auto;
+  }
+  .branding {
+    margin: 0px auto;
+  }
+  .logoLettering {
+    max-width: 100%;
+    width: 180px;
+  }
 }

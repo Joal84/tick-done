@@ -5,7 +5,7 @@
   left: 0rem;
   width: 100vw;
   height: 100vh;
-  z-index: 20;
+  z-index: 998;
 
   background-color: rgba(85, 85, 85, 0.722);
 }
@@ -21,7 +21,7 @@
 
   border-radius: 12px;
   background-color: var(--background-grey);
-  z-index: 21;
+  z-index: 999;
   filter: drop-shadow(0 0 40px #1010103e);
 }
 .buttonContainer {
@@ -44,4 +44,20 @@
   border-radius: 1000px;
   background-color: rgb(253, 253, 253);
   border: var(--border);
+}
+@media screen and (max-width: 830px) {
+  .modal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: auto;
+    padding: 20px;
+
+    border-radius: 12px;
+    background-color: #ffffffe9;
+    z-index: 21;
+    filter: drop-shadow(0 0 40px #1010103e);
+  }
 }

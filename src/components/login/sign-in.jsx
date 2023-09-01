@@ -4,7 +4,6 @@ import { supabase } from "../../utils/supabase";
 import { Link, useNavigate } from "react-router-dom";
 import Title from "../title/title";
 import Button from "../button/button";
-import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 
 export default function SignIn() {
@@ -54,7 +53,6 @@ export default function SignIn() {
     }
     if (data) {
       navigate("/");
-      window.location.reload();
     }
   };
   const handleGoogleOAuth = async () => {
@@ -75,8 +73,10 @@ export default function SignIn() {
   };
 
   return (
-    <motion.div animate={{ x: 100 }} className={css.container}>
-      <Title>Login</Title>
+    <div className={css.container}>
+      <div className={css.title}>
+        <Title>Login</Title>
+      </div>
       <form className={css.form} onSubmit={handleSubmit}>
         <label className={css.labelField} htmlFor="email">
           Email
@@ -119,6 +119,6 @@ export default function SignIn() {
       <p className={css.cta}>
         Don’t have an account? <Link to="/sign-up">Sign Up</Link>
       </p>
-    </motion.div>
+    </div>
   );
 }

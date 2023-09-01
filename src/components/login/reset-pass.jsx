@@ -1,7 +1,6 @@
 import css from "./reset-pass.module.css";
 import { supabase } from "../../utils/supabase";
-import {useState } from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
 import Title from "../title/title";
 import Button from "../button/button";
 
@@ -44,8 +43,10 @@ export default function ResetPass() {
   };
 
   return (
-    <motion.div animate={{ x: 100 }} className={css.container}>
-      <Title>Reset your password</Title>
+    <div className={css.container}>
+      <div className={css.title}>
+        <Title>Reset your password</Title>
+      </div>
       <form className={css.form} onSubmit={passwordResetHandler}>
         <label className={css.labelField} htmlFor="password">
           New password
@@ -75,6 +76,6 @@ export default function ResetPass() {
 
         <Button onSubmit={passwordResetHandler}>Reset</Button>
       </form>
-    </motion.div>
+    </div>
   );
 }

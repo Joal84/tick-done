@@ -4,7 +4,7 @@ import { supabase } from "../../utils/supabase";
 import Button from "../button/button";
 import Title from "../title/title";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+
 import { ColorRing } from "react-loader-spinner";
 import Swal from "sweetalert2";
 
@@ -87,7 +87,7 @@ export default function SignUp() {
   };
 
   return (
-    <motion.div animate={{ x: 100 }} className={css.container}>
+    <div className={css.container}>
       {isLoading && (
         <div className={css.loading}>
           <ColorRing
@@ -101,7 +101,9 @@ export default function SignUp() {
           />
         </div>
       )}
-      <Title>Create your account</Title>
+      <div className={css.title}>
+        <Title>Create your account</Title>
+      </div>
 
       <p
         style={{
@@ -177,6 +179,6 @@ export default function SignUp() {
       <p className={css.cta}>
         Already have an account? <Link to="/login">Sign In</Link>
       </p>
-    </motion.div>
+    </div>
   );
 }
