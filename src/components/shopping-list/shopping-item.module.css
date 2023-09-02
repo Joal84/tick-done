@@ -1,6 +1,10 @@
 .container {
   display: flex;
 }
+.containerMobile {
+  display: none;
+}
+
 .itemAdded {
   grid-template-columns: 2fr 1px 1fr 1fr 1fr;
   display: grid;
@@ -38,34 +42,34 @@
 }
 #Food-and-Pantry {
   background-color: hsl(155, 54%, 69%);
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   transition: var(--transition);
 }
 #Household {
   background-color: #c1b9f9;
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   transition: var(--transition);
 }
 
 #None {
   background-color: #fff;
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   transition: var(--transition);
 }
 
 #Health-and-Beauty {
   background-color: #eaeb95;
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   transition: var(--transition);
 }
 #completed {
   background-color: #cecece;
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   transition: var(--transition);
 }
 #completed:last-child {
@@ -100,6 +104,13 @@
 }
 
 .title {
+  margin-top: 20px;
+  margin-bottom: 14px;
+  font-size: 1.6rem;
+  font-weight: 300;
+  user-select: none;
+}
+.titleName {
   margin-top: 20px;
   margin-bottom: 14px;
   font-size: 1.6rem;
@@ -187,8 +198,8 @@
 }
 .quantityButton {
   cursor: pointer;
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   user-select: none;
   background-color: var(--background-color);
   border: var(--border);
@@ -218,4 +229,100 @@
   }
 }
 @media screen and (max-width: 750px) {
+  .actionButtons {
+    margin-left: 8px;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .deleteButton {
+    min-width: 46px;
+    min-height: 46px;
+    padding: 5px;
+  }
+  .notCompletedIcon {
+    min-width: 46px;
+    min-height: 46px;
+    padding: 5px;
+  }
+  .image {
+    display: none;
+  }
+  .itemAdded {
+    grid-template-rows: 1fr 3fr;
+    grid-template-columns: auto auto auto;
+    margin-right: 8px;
+    width: 75vw;
+    max-width: 100%;
+    height: 115px;
+    max-height: 100%;
+  }
+
+  .quantityButton {
+    width: 28px;
+    height: 28px;
+    font-size: 2rem;
+  }
+  .quantity {
+    font-size: 1.6rem;
+    width: 30px;
+    margin-bottom: 7px;
+  }
+  .title {
+    font-size: 1.4rem;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 10px;
+    padding: 10px;
+  }
+  .infoSpan {
+    font-size: 1.4rem;
+    min-width: 65px;
+    padding: 0px 10px 18px 10px;
+  }
+  .divider {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 25vw;
+  }
+  .quantityCont {
+    padding-bottom: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .dividerName {
+    grid-row: 1;
+    grid-column: 1/6;
+    justify-self: center;
+    align-self: center;
+    width: 100%;
+  }
+  .titleName {
+    display: none;
+  }
+
+  #Food-and-Pantry:nth-child(3),
+  #Health-and-Beauty:nth-child(3),
+  #None:nth-child(3),
+  #Household:nth-child(3) {
+    border-radius: 15px 0 0 15px;
+  }
+  #completed:nth-child(3) {
+    border-radius: 15px 0 0 15px;
+  }
+  .completedIcon {
+    min-width: 46px;
+    min-height: 46px;
+    padding: 5px;
+  }
+  .itemAddedCompleted {
+    grid-template-rows: 1fr 3fr;
+    grid-template-columns: auto auto auto;
+    margin-right: 8px;
+    width: 75vw;
+    max-width: 100%;
+    height: 100px;
+    max-height: 100%;
+  }
 }

@@ -3,3 +3,8 @@
   fill: #3e3e3e;
   cursor: grab;
 }
+@media screen and (max-width: 750px) {
+  .drag {
+    width: 40px;
+  }
+}

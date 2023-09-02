@@ -80,8 +80,8 @@ export default function ShoppingItem({
       <div
         className={product.completed ? css.itemAddedCompleted : css.itemAdded}
       >
-        <div className={css.divider}>
-          <h2 className={css.title}>Name</h2>
+        <div className={css.dividerName}>
+          <h2 className={css.titleName}>Name</h2>
           <span className={css.infoSpan}>{product?.products_list?.name}</span>
         </div>
         <div className={css.imageContainer}>
