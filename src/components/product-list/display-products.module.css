@@ -29,3 +29,20 @@
   font-weight: 300;
   color: #494949;
 }
+@media screen and (max-width: 830px) {
+  .gridContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (max-width: 700px) {
+  .gridContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin: 16px 16px;
+    width: 82vw;
+  }
+  .container {
+    padding-bottom: 60px;
+  }
+}

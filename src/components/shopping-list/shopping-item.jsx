@@ -74,7 +74,7 @@ export default function ShoppingItem({
       className={css.container}
       dragListener={false}
       dragControls={dragControls}
-      style={{ boxShadow, y, marginTop: "24px" }}
+      style={{ boxShadow, y, marginTop: "28px" }}
     >
       <DragButton dragControls={dragControls} />
       <div

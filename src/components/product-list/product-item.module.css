@@ -61,8 +61,8 @@
 }
 .editButton {
   cursor: pointer;
-  width: 45px;
-  height: 45px;
+  width: 46px;
+  height: 46px;
   background-color: var(--main-color);
   border-radius: 300px;
   padding: 8px;
@@ -160,4 +160,15 @@
 }
 #None + .description {
   background-color: #f0f0f0;
+}
+@media screen and (max-width: 750px) {
+  .image {
+    width: 50px;
+  }
+  .name {
+    font-size: 1.6rem;
+  }
+  .titleContainer {
+    padding-bottom: 8px;
+  }
 }

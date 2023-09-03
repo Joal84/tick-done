@@ -11,8 +11,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  gap: 24px;
 }
 .fullPage {
   min-height: calc(100vh - 230px);
