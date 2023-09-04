@@ -195,8 +195,8 @@
 }
 .quantityButton {
   cursor: pointer;
-  width: 30px;
-  height: 30px;
+  width: 34px;
+  height: 34px;
   user-select: none;
   background-color: var(--background-color);
   border: var(--border);
