@@ -5,6 +5,6 @@
 @media screen and (max-width: 700px) {
   .box {
     font-size: 1.4rem;
-    min-width: 100px;
+    min-width: 80px;
   }
 }
