@@ -45,4 +45,12 @@
   .container {
     padding-bottom: 60px;
   }
+  .emptyListImage {
+    max-width: 92%;
+    height: auto;
+  }
+  .container {
+    min-height: calc(100vh - 500px);
+    padding-bottom: 26px;
+  }
 }

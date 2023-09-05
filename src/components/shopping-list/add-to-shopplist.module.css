@@ -32,3 +32,19 @@
   font-weight: 300;
   color: var(--main-color);
 }
+@media screen and (max-width: 700px) {
+  .container {
+    margin: 0 auto;
+    width: 90%;
+  }
+  .addButton {
+    fill: var(--main-color);
+    align-self: center;
+
+    min-width: 40px;
+    height: 40px;
+    cursor: pointer;
+    margin: 38px 0 10px 0;
+    transition: var(--transition);
+  }
+}

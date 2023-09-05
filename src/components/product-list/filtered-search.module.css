@@ -21,3 +21,8 @@
     width: auto;
   }
 }
+@media screen and (max-width: 500px) {
+  .searchField {
+    max-width: 180px;
+  }
+}

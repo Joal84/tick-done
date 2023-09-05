@@ -6,7 +6,7 @@ import { signOutUser } from "../navigation/navigation";
 import Title from "../title/title";
 import Button from "../button/button";
 import Swal from "sweetalert2";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function AccountSettings() {
   const [userData, setUserData] = useState({ userName: "", email: "" });
@@ -15,7 +15,8 @@ export default function AccountSettings() {
     repeatPassword: "",
   });
   const [userAuth, setUser] = useContext(userDataContext);
-  console.log(userAuth);
+  const navigate = useNavigate();
+
   useEffect(() => {
     setUserData({
       userName: userAuth?.user?.user_metadata?.name,
@@ -36,9 +37,11 @@ export default function AccountSettings() {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        const { data, error } = supabase.auth.admin.deleteUser(userAuth.id);
+        const { data, error } = supabase.auth.admin.deleteUser(
+          userAuth.user.id
+        );
         signOutUser();
-        redirect("/login");
+        navigate("/login");
         Swal.fire({
           title: "Deleted!",
           text: "Your account has been deleted.",

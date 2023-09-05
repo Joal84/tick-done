@@ -105,7 +105,7 @@ export default function EditProduct(props) {
             </label>
             <input
               id="product-name"
-              className={css.field}
+              className={css.fieldName}
               type="text"
               name="product-name"
               value={newName}

@@ -64,7 +64,7 @@ export default function AddToProduct({ onClose }) {
             </label>
             <input
               id="product-name"
-              className={css.field}
+              className={css.fieldName}
               type="text"
               name="product-name"
               value={name}
