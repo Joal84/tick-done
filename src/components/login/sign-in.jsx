@@ -54,6 +54,7 @@ export default function SignIn() {
     if (data) {
       navigate("/");
     }
+    navigate("/");
   };
   const handleGoogleOAuth = async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({

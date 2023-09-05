@@ -50,7 +50,7 @@
     height: auto;
   }
   .container {
-    min-height: calc(100vh - 500px);
+    min-height: calc(100vh - 450px);
     padding-bottom: 26px;
   }
 }

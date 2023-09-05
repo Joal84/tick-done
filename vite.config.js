@@ -10,6 +10,31 @@ export default defineConfig({
     svgr(),
     VitePWA({
       registerType: "autoUpdate",
+
+      manifest: {
+        name: "tick-done",
+        short_name: "td",
+        description: "A Grocery list made easy",
+        icons: [
+          {
+            src: "/images/android-chrome-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+          {
+            src: "/images/android-chrome-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any",
+          },
+          {
+            src: "/images/android-chrome-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable",
+          },
+        ],
+      },
     }),
   ],
 });
