@@ -13,8 +13,8 @@ export default defineConfig({
 
       manifest: {
         name: "tick-done",
-        short_name: "td",
-        description: "A Grocery list made easy",
+        short_name: "tick-done",
+        description: "A grocery list application made simple.",
         icons: [
           {
             src: "/images/android-chrome-192x192.png",

@@ -13,7 +13,7 @@ export default function TagField({ handleChange, tagifyRef }) {
   // Displaying user name
   let userName;
   userAuth
-    ? (userName = userAuth.user.user_metadata.name)
+    ? (userName = userAuth.user.user_metadata.name.split(" ")[0])
     : (userName = "User");
 
   // Tagify settings object
