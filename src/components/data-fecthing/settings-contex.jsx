@@ -14,7 +14,7 @@ export default function SettingsFetch({ children }) {
       if (error) {
       }
       if (data) {
-        setCurrency(data[0].currency ?? "€");
+        setCurrency(data[0].currency ? data[0].currency : "€");
       }
     };
     fetchUserPreferences();
