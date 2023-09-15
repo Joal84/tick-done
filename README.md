@@ -1,6 +1,7 @@
 # tick-done
 tick-done is a simple and efficient grocery list web application designed with a primary focus on speed, accessibility, and user-friendliness. This progressive web application (PWA) was developed using React.js for the frontend, while authentication and database functionalities are powered by Supabase.
-
+![shopping-list desktop](https://res.cloudinary.com/dug5nydjp/image/upload/v1694774752/Captura_de_ecra%CC%83_2023-09-15_a%CC%80s_12.42.37_kx8txs.png)
+![Manage products desktop](https://res.cloudinary.com/dug5nydjp/image/upload/v1694774752/Captura_de_ecra%CC%83_2023-09-15_a%CC%80s_12.42.48_wwwtrd.png)
 ## Features
 - User-Friendly Interface: tick-done offers an intuitive and easy-to-navigate user interface that simplifies the process of creating and managing grocery lists.
 - Speed and Performance: The application has been optimized for speed, ensuring a seamless and responsive user experience, even on slower network connections.
