@@ -6,9 +6,11 @@ tick-done is a simple and efficient grocery list web application designed with a
 - User-Friendly Interface: tick-done offers an intuitive and easy-to-navigate user interface that simplifies the process of creating and managing grocery lists.
 - Speed and Performance: The application has been optimized for speed, ensuring a seamless and responsive user experience, even on slower network connections.
 - Accessibility: We are committed to making tick-done accessible to everyone. The application is designed with accessibility in mind to ensure that individuals with disabilities can use it effectively.
-- Progressive Web App (PWA): tick-Done is a PWA, which means you can install it on your device and use it offline. It provides a native app-like experience without the need to download from an app store.
+- Progressive Web App (PWA): tick-Done is a PWA, which means you can install it on your device. It provides a native app-like experience without the need to download from an app store.
 - Authentication: Secure user authentication is provided by Supabase, ensuring that your data remains protected and your lists are private.
+- Responsive design with strong focus on mobile.
 - Database: Supabase serves as the backend database for tick-done, allowing you to store and retrieve your grocery lists seamlessly.
+![mobile shopping list](https://res.cloudinary.com/dug5nydjp/image/upload/t_mobile2/knnpobfxf3huopjfxpbs.jpg)
 
 ## Getting Started
 To start using tick-done, follow these simple steps:
