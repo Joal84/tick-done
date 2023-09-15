@@ -10,6 +10,7 @@ tick-done is a simple and efficient grocery list web application designed with a
 - Authentication: Secure user authentication is provided by Supabase, ensuring that your data remains protected and your lists are private.
 - Responsive design with strong focus on mobile.
 - Database: Supabase serves as the backend database for tick-done, allowing you to store and retrieve your grocery lists seamlessly.
+  
 ![mobile shopping list](https://res.cloudinary.com/dug5nydjp/image/upload/t_mobile2/knnpobfxf3huopjfxpbs.jpg)
 
 ## Getting Started
