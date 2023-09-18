@@ -9,9 +9,9 @@ import { ReactComponent as LogoBox } from "../../assets/logo_box.svg";
 import { ReactComponent as LogoLettering } from "../../assets/logo_lettering.svg";
 import { ReactComponent as MenuLogo } from "../../assets/menu.svg";
 
-export async function signOutUser() {
+export const signOutUser = async () => {
   const { error } = await supabase.auth.signOut();
-}
+};
 
 function Navigation() {
   const navigate = useNavigate();

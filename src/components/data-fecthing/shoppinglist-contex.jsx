@@ -43,7 +43,7 @@ export default function ShoppinglistFetch({ children }) {
 
   return (
     <ShoppingListContext.Provider value={[list, setList]}>
-      {children}{" "}
+      {children}
       {isLoading && (
         <div className="loading">
           <ColorRing

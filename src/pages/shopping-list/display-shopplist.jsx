@@ -54,8 +54,9 @@ export default function DisplayShopplist({ nav, footer }) {
       const { data, error } = await supabase
         .from("shopping_lists")
         .update({ quantity: quantityToUpdate })
-        .eq("id", item.id);
+        .eq("product_id", item.product_id);
     };
+
     updateQuantity(newList[index].quantity);
   };
 

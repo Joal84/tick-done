@@ -68,7 +68,6 @@ export default function SignUp() {
       setIsLoading(false);
     }
     if (data) {
-      console.log(data.user.id);
       const { userData, userError } = await supabase
         .from("user_settings")
         .insert({ currency: "€", user_id: data.user.id })

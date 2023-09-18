@@ -48,7 +48,6 @@ export default function SignIn() {
       password: formData.password,
     });
     if (error) {
-      console.log(error);
       setErrorMessage("Invalid credentials");
     }
     if (data) {

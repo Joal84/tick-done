@@ -11,10 +11,10 @@ export default function SettingsFetch({ children }) {
     const fetchUserPreferences = async () => {
       const { data, error } = await supabase.from("user_settings").select();
 
-      if (error) {
-      }
-      if (data) {
+      if (data[0]) {
         setCurrency(data[0].currency ? data[0].currency : "€");
+      } else {
+        setCurrency("€");
       }
     };
     fetchUserPreferences();

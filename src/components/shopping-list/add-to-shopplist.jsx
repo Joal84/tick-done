@@ -83,6 +83,7 @@ export default function AddToShopplist() {
           {
             name: item.name,
             product_id: item.id,
+            quantity: 1,
             user_id,
           },
         ]);
@@ -95,8 +96,6 @@ export default function AddToShopplist() {
         .from("products_list")
         .insert([{ name: item, category: "None", avg_price: 0, user_id }])
         .select();
-      if (error) {
-      }
       if (data) {
         setProductList((prevProdList) => [...prevProdList, ...data]);
       }
@@ -116,6 +115,7 @@ export default function AddToShopplist() {
             {
               name: newItem.name,
               product_id: newItem.id,
+              quantity: 1,
               user_id,
             },
           ]);

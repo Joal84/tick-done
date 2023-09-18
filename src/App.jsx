@@ -17,7 +17,7 @@ import SettingsFetch from "./components/data-fecthing/settings-contex";
 import "./App.css";
 
 function App() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState([{}]);
 
   useEffect(() => {
     const getUserData = async () => {
