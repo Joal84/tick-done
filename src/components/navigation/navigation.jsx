@@ -31,7 +31,7 @@ function Navigation() {
           <span className={css.slogan}>add. buy. repeat.</span>
         </div>
 
-        {userAuth?.length !== 0 ? (
+        {userAuth !== null ? (
           <div>
             <div className={css.menuDisplay}>
               <Menu />
@@ -54,12 +54,12 @@ function Navigation() {
               tabIndex={0}
               className={css.navLink}
               onClick={
-                userAuth?.length !== 0
+                userAuth !== null
                   ? () => signOutUser()
                   : () => navigate("/login")
               }
             >
-              {userAuth?.length !== 0 ? "Logout" : "Login"}
+              {userAuth !== null ? "Logout" : "Login"}
             </li>
           </ul>
         )}

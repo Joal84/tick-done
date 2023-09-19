@@ -42,7 +42,7 @@ export default function EditProduct(props) {
     if (!newName || avgPrice === 0) {
       return;
     }
-    const currentProductIndex = productList.findIndex(
+    const currentProductIndex = productList?.findIndex(
       (item) => item.id === props.id
     );
     const updatedProduct = {

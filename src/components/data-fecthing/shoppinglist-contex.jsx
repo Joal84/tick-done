@@ -1,12 +1,14 @@
 import "./loading.css";
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import { supabase } from "../../utils/supabase";
 import { ColorRing } from "react-loader-spinner";
+import { userDataContext } from "./userAuth";
 
 export const ShoppingListContext = createContext([{}]);
 
 export default function ShoppinglistFetch({ children }) {
-  const [list, setList] = useState([{}]);
+  const [list, setList] = useState(null);
+  const [userAuth, setUser] = useContext(userDataContext);
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchList = async () => {
@@ -39,7 +41,7 @@ export default function ShoppinglistFetch({ children }) {
 
   useEffect(() => {
     fetchList();
-  }, []);
+  }, [userAuth]);
 
   return (
     <ShoppingListContext.Provider value={[list, setList]}>

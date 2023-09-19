@@ -63,16 +63,14 @@ export default function Menu() {
           className={
             location.pathname === "/login" ? css.currentLink : css.navLink
           }
-          onClick={
-            userAuth?.length !== 0 ? logoutHandler : () => navigate("/login")
-          }
+          onClick={userAuth !== null ? logoutHandler : () => navigate("/login")}
           onKeyDown={
-            userAuth?.length !== 0
+            userAuth !== null
               ? (e) => handleKeyLogout(e, "/login")
               : (e) => handleKeyNav(e, "/login")
           }
         >
-          {userAuth?.length !== 0 ? "Logout" : "Login"}
+          {userAuth !== null ? "Logout" : "Login"}
         </li>
       </ul>
     </div>

@@ -25,7 +25,7 @@ export default function ManageProducts({ nav, footer }) {
 
   useEffect(() => {
     if (search) {
-      const newFilteredProducts = productList.filter((product) => {
+      const newFilteredProducts = productList?.filter((product) => {
         return product.name.toLocaleLowerCase().includes(search);
       });
       setFilteredProducts(newFilteredProducts);
@@ -33,7 +33,7 @@ export default function ManageProducts({ nav, footer }) {
   }, [productList, search]);
 
   useEffect(() => {
-    const categoryFilteredProducts = productList.filter((product) => {
+    const categoryFilteredProducts = productList?.filter((product) => {
       if (inputCategoryFilter === "all") {
         return product;
       }

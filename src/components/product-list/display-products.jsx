@@ -47,12 +47,12 @@ export default function DisplayProducts({ filteredProducts }) {
         reverseButtons: true,
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const newProdList = productList.filter(
+          const newProdList = productList?.filter(
             (prodItem) => prodItem.id !== item.id
           );
           setProductList(newProdList);
 
-          const newShoppList = list.filter((itemToDelete) => {
+          const newShoppList = list?.filter((itemToDelete) => {
             return itemToDelete.product_id !== item.id;
           });
           setList(newShoppList);
@@ -72,7 +72,9 @@ export default function DisplayProducts({ filteredProducts }) {
       });
     }
     if (!checkShoppingList) {
-      const newList = productList.filter((prodItem) => prodItem.id !== item.id);
+      const newList = productList?.filter(
+        (prodItem) => prodItem.id !== item.id
+      );
 
       setProductList(newList);
 
@@ -82,22 +84,21 @@ export default function DisplayProducts({ filteredProducts }) {
         .eq("id", item.id);
     }
   };
-
   return (
     <>
       <div className={css.container}>
-        {productList.length === 0 || Object.keys(userAuth).length === 0 ? (
+        {productList === null || productList?.length === 0 ? (
           <div className={css.emptyListContainer}>
             <img
               className={css.emptyListImage}
-              alt="Shopping Cart image"
+              alt="Empty Cart image"
               src={emptyProduct}
             ></img>
             <p className={css.emptyListMessage}>Your product list is empty.</p>
           </div>
         ) : (
           <div className={css.gridContainer}>
-            {filteredProducts.map((product) => {
+            {filteredProducts?.map((product) => {
               return (
                 <ProductItem
                   key={product.id}

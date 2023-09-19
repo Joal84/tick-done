@@ -17,13 +17,13 @@ export default function DisplayShopplist({ nav, footer }) {
   const [list, setList] = useContext(ShoppingListContext);
 
   const totalPriceCalculator = (shoppingList) => {
-    return shoppingList.reduce((total, itemPrice) => {
+    return shoppingList?.reduce((total, itemPrice) => {
       return (total += +itemPrice.totalPrice);
     }, 0);
   };
 
   const totalCompleteCalculator = () => {
-    return list.filter((item) => item.completed === true).length;
+    return list?.filter((item) => item.completed === true).length;
   };
 
   const handleQuantity = (item, index, operator) => {
@@ -152,9 +152,9 @@ export default function DisplayShopplist({ nav, footer }) {
     <div className={css.wrapperContainer}>
       {nav}
       <div className={css.fullPage}>
-        {userAuth?.length !== 0 && <AddToShopplist />}
+        {userAuth !== null && <AddToShopplist />}
         <div className={css.container}>
-          {list.length === 0 || userAuth?.length === 0 ? (
+          {list === null || list?.length === 0 ? (
             <div className={css.emptyListContainer}>
               <img
                 className={css.emptyListImage}
@@ -165,7 +165,7 @@ export default function DisplayShopplist({ nav, footer }) {
             </div>
           ) : (
             <Reorder.Group axis="y" values={list} onReorder={reOrder}>
-              {list.map((product, index) => {
+              {list?.map((product, index) => {
                 return (
                   <ShoppingItem
                     key={product.name}
@@ -181,11 +181,13 @@ export default function DisplayShopplist({ nav, footer }) {
             </Reorder.Group>
           )}
         </div>
-        {userAuth?.length !== 0 && (
+        {list === null || list?.length === 0 ? (
+          <div></div>
+        ) : (
           <div className={css.completeCounter}>
             <span>Completed </span>
             <span className={css.counter}>
-              {totalCompleteCalculator()} / {list.length}
+              {totalCompleteCalculator()} / {list?.length}
             </span>
             <div className={css.divider}></div>
             <div className={css.totalPriceCont}>

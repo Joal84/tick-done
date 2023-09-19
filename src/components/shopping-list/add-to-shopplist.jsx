@@ -33,18 +33,18 @@ export default function AddToShopplist() {
   };
 
   // Filter input for products that are not in the product list yet
-  const newProductListValue = productName.filter(
+  const newProductListValue = productName?.filter(
     (o1) =>
-      !productList.some((o2) => o1?.toLowerCase() === o2.name?.toLowerCase())
+      !productList?.some((o2) => o1?.toLowerCase() === o2.name?.toLowerCase())
   );
 
   // Filter input for peoducts that are in the product List already
-  const findNewProdInProductList = productList.filter((o1) =>
-    productName.some((o2) => o1.name?.toLowerCase() === o2?.toLowerCase())
+  const findNewProdInProductList = productList?.filter((o1) =>
+    productName?.some((o2) => o1.name?.toLowerCase() === o2?.toLowerCase())
   );
 
   // Filter for products that are in the product list but not in the shopping list
-  const uniqueItemInTheList = findNewProdInProductList.filter(
+  const uniqueItemInTheList = findNewProdInProductList?.filter(
     (item1) =>
       !list.some(
         (item2) => item1.name?.toLowerCase() === item2.name?.toLowerCase()
@@ -57,8 +57,8 @@ export default function AddToShopplist() {
     }
 
     // Adding products into shopping list that already exists in Product list
-    if (findNewProdInProductList.length > 0) {
-      uniqueItemInTheList.map(async (item) => {
+    if (findNewProdInProductList?.length > 0) {
+      uniqueItemInTheList?.map(async (item) => {
         setList((prevList) => [
           ...prevList,
           {
@@ -97,8 +97,9 @@ export default function AddToShopplist() {
         .insert([{ name: item, category: "None", avg_price: 0, user_id }])
         .select();
       if (data) {
-        setProductList((prevProdList) => [...prevProdList, ...data]);
+        setProductList((prevList) => [...prevList, ...data]);
       }
+
       // Check if new item also does not exist in the shopping list
       const uniqueShoppingItem = data.filter(
         (item1) =>
@@ -146,7 +147,7 @@ export default function AddToShopplist() {
   };
   //saving order value in supabase
   const orderSupabase = () => {
-    return list.map(async (item) => {
+    return list?.map(async (item) => {
       const { data, error } = await supabase
         .from("shopping_lists")
         .update([
@@ -158,6 +159,7 @@ export default function AddToShopplist() {
     });
   };
   orderSupabase();
+
   return (
     <div className={css.container}>
       <div className={css.labelAndTag}>

@@ -17,7 +17,7 @@ import SettingsFetch from "./components/data-fecthing/settings-contex";
 import "./App.css";
 
 function App() {
-  const [user, setUser] = useState([{}]);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const getUserData = async () => {
@@ -31,7 +31,7 @@ function App() {
   }, []);
 
   const RequireAuth = ({ children }) => {
-    if (Object.keys(user).length === 0) {
+    if (user === null) {
       return <Login signUp={<SignIn />} />;
     }
     return children;
@@ -39,8 +39,8 @@ function App() {
 
   return (
     <BrowserRouter>
-      <UserAuth>
-        <SettingsFetch>
+      <SettingsFetch>
+        <UserAuth>
           <ProductListFetch>
             <ShoppinglistFetch>
               <Routes>
@@ -87,8 +87,8 @@ function App() {
               </Routes>
             </ShoppinglistFetch>
           </ProductListFetch>
-        </SettingsFetch>
-      </UserAuth>
+        </UserAuth>
+      </SettingsFetch>
     </BrowserRouter>
   );
 }

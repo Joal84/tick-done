@@ -28,7 +28,9 @@ export default function AddToProduct({ onClose }) {
       return;
     }
     if (
-      productList.some((item) => item.name.toLowerCase() === name.toLowerCase())
+      productList?.some(
+        (item) => item.name.toLowerCase() === name.toLowerCase()
+      )
     ) {
       return;
     }

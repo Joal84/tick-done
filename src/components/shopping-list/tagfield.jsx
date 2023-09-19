@@ -35,7 +35,7 @@ export default function TagField({ handleChange, tagifyRef }) {
   useEffect(() => {
     setTagifyProps((lastProps) => ({
       ...lastProps,
-      whitelist: productList.map((item) => item.name),
+      whitelist: productList?.map((item) => item.name),
 
       loading: false,
     }));
