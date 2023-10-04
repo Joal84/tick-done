@@ -7,7 +7,20 @@ import Button from "../button/button";
 import Title from "../title/title";
 import SelectComponent from "../select-component/select-component";
 
+export const handleEdit = (product, setState, setModalTuggle) => {
+  setModalTuggle(true);
+  setState({
+    name: product.name,
+    category: product.category,
+    description: product.description,
+    id: product.id,
+    avgPrice: product.avg_price,
+  });
+};
+
 export default function EditProduct(props) {
+  const [productList, setProductList] = useContext(ProductListContext);
+  const [list, setList] = useContext(ShoppingListContext);
   const [editedProduct, setEditedProduct] = useState({
     newName: "",
     category: "None",
@@ -15,8 +28,6 @@ export default function EditProduct(props) {
     id: "",
     avgPrice: 0,
   });
-  const [productList, setProductList] = useContext(ProductListContext);
-  const [list, setList] = useContext(ShoppingListContext);
 
   useEffect(() => {
     setEditedProduct({

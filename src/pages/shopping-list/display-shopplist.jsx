@@ -1,13 +1,15 @@
 import css from "./display-shopplist.module.css";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { supabase } from "../../utils/supabase";
 import { ShoppingListContext } from "../../components/data-fecthing/shoppinglist-contex";
 import { userDataContext } from "../../components/data-fecthing/userAuth";
 import { CurrencyContext } from "../../components/data-fecthing/settings-contex";
 import { ProductListContext } from "../../components/data-fecthing/productlist-context";
+import { Reorder } from "framer-motion";
+import Modal from "../../components/modal/modal";
+import EditProduct from "../../components/product-list/edit-product";
 import AddToShopplist from "../../components/shopping-list/add-to-shopplist";
 import ShoppingItem from "../../components/shopping-list/shopping-item";
-import { Reorder } from "framer-motion";
 import emptyShopplist from "../../assets/empty_shopplist.webp";
 
 export default function DisplayShopplist({ nav, footer }) {
@@ -15,6 +17,8 @@ export default function DisplayShopplist({ nav, footer }) {
   const [productList, setProductList] = useContext(ProductListContext);
   const [currency, setCurrency] = useContext(CurrencyContext);
   const [list, setList] = useContext(ShoppingListContext);
+  const [editModal, setEditModal] = useState(false);
+  const [productToEdit, setProductToEdit] = useState(null);
 
   const totalPriceCalculator = (shoppingList) => {
     return shoppingList?.reduce((total, itemPrice) => {
@@ -170,11 +174,14 @@ export default function DisplayShopplist({ nav, footer }) {
                   <ShoppingItem
                     key={product.name}
                     product={product}
+                    productToEditInfo={product.products_list}
                     index={index}
                     itemPrice={itemPrice}
                     handleDelete={handleDelete}
                     handleQuantity={handleQuantity}
                     handleComplete={handleComplete}
+                    setProductToEdit={setProductToEdit}
+                    setEditModal={setEditModal}
                   />
                 );
               })}
@@ -203,6 +210,18 @@ export default function DisplayShopplist({ nav, footer }) {
         )}
       </div>
       {footer}
+      {editModal && (
+        <Modal onClose={() => setEditModal(false)}>
+          <EditProduct
+            onClose={setEditModal}
+            name={productToEdit.name}
+            category={productToEdit.category}
+            description={productToEdit.description}
+            id={productToEdit.id}
+            avgPrice={productToEdit.avgPrice}
+          />
+        </Modal>
+      )}
     </div>
   );
 }

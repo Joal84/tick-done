@@ -16,7 +16,7 @@ export default function ShoppinglistFetch({ children }) {
     const { data, error } = await supabase
       .from("shopping_lists")
       .select(
-        "*, products_list(name, avg_price, last_purchased, total_bought, category)"
+        "*, products_list(name, avg_price, last_purchased, total_bought, category, description, id)"
       )
       .order("order");
 

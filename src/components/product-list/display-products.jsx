@@ -3,7 +3,7 @@ import { useState, useContext } from "react";
 import { supabase } from "../../utils/supabase";
 import { ProductListContext } from "../data-fecthing/productlist-context";
 import { ShoppingListContext } from "../data-fecthing/shoppinglist-contex";
-import { userDataContext } from "../data-fecthing/userAuth";
+import { handleEdit } from "../product-list/edit-product";
 import Modal from "../modal/modal";
 import EditProduct from "./edit-product";
 import ProductItem from "./product-item";
@@ -11,22 +11,10 @@ import Swal from "sweetalert2";
 import emptyProduct from "../../assets/empty_product.webp";
 
 export default function DisplayProducts({ filteredProducts }) {
-  const [userAuth, setUser] = useContext(userDataContext);
   const [productList, setProductList] = useContext(ProductListContext);
   const [list, setList] = useContext(ShoppingListContext);
   const [editModal, setEditModal] = useState(false);
   const [productToEdit, setProductToEdit] = useState(null);
-
-  const handleEdit = (product) => {
-    setEditModal(true);
-    setProductToEdit({
-      name: product.name,
-      category: product.category,
-      description: product.description,
-      id: product.id,
-      avgPrice: product.avg_price,
-    });
-  };
 
   const handleDelete = async (item) => {
     const checkShoppingList = list.some(
@@ -101,7 +89,9 @@ export default function DisplayProducts({ filteredProducts }) {
                 <ProductItem
                   key={product.id}
                   product={product}
-                  handleEdit={handleEdit}
+                  handleEdit={(e) =>
+                    handleEdit(product, setProductToEdit, setEditModal)
+                  }
                   handleDelete={handleDelete}
                 />
               );

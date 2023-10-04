@@ -6,6 +6,7 @@ import { CurrencyContext } from "../data-fecthing/settings-contex";
 import { Reorder, useMotionValue, useDragControls } from "framer-motion";
 import { useContext } from "react";
 import { useRaisedShadow } from "../drag-and-drop/ise-raised-shadow";
+import { handleEdit } from "../product-list/edit-product";
 import DragButton from "../drag-and-drop/DragButton";
 import foodAndPantry from "../../assets/Food-and-Pantry.png";
 import healthAndBeauty from "../../assets/Health-and-Beauty.png";
@@ -43,6 +44,9 @@ export default function ShoppingItem({
   handleDelete,
   handleQuantity,
   itemPrice,
+  setProductToEdit,
+  setEditModal,
+  productToEditInfo,
 }) {
   const [currency, setCurrency] = useContext(CurrencyContext);
   const currencyValue = currency ? currency : "€";
@@ -65,6 +69,17 @@ export default function ShoppingItem({
   const handleKeyQuantity = (e, product, index, operator) => {
     if (e.keyCode === 13) {
       handleQuantity(product, index, operator);
+    }
+  };
+
+  const handleKeyEdit = (
+    e,
+    productToEditInfo,
+    setProductToEdit,
+    setEditModal
+  ) => {
+    if (e.keyCode === 13) {
+      handleEdit(productToEditInfo, setProductToEdit, setEditModal);
     }
   };
 
@@ -166,11 +181,13 @@ export default function ShoppingItem({
       <div className={css.actionButtons}>
         <EditButton
           tabIndex={0}
-          onKeyDown={(e) => handleKeyCompleted(e, product, index)}
-          className={
-            product.completed ? css.completedIcon : css.notCompletedIcon
+          onKeyDown={(e) =>
+            handleKeyEdit(e, productToEditInfo, setProductToEdit, setEditModal)
           }
-          onClick={() => handleComplete(product, index)}
+          className={css.editIcon}
+          onClick={() =>
+            handleEdit(productToEditInfo, setProductToEdit, setEditModal)
+          }
         />
         <CompletedButton
           tabIndex={0}

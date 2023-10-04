@@ -210,6 +210,28 @@
   width: 40px;
   user-select: none;
 }
+
+.editIcon {
+  cursor: pointer;
+  min-width: 100px;
+  min-height: 100px;
+  padding: 20px;
+  border: var(--border);
+  background-color: #ffffff;
+  border-radius: 300px;
+
+  fill: var(--main-color);
+  transition: var(--transition);
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
+}
+.editIcon:hover {
+  background-color: #e2ea44;
+
+  fill: var(--main-color);
+}
+
 @media screen and (max-width: 971px) {
   .title {
     margin-top: 16px;
@@ -233,11 +255,33 @@
     gap: 8px;
   }
   .deleteButton {
+    position: relative;
+    top: -50px;
+    left: 0px;
+    min-width: 46px;
+    min-height: 46px;
+    padding: 5px;
+  }
+  .editIcon {
+    position: relative;
+    min-width: 46px;
+    min-height: 46px;
+    padding: 5px;
+    top: -20px;
+    left: -50px;
+  }
+  .completedIcon {
+    position: relative;
+    top: -50px;
+    left: 0px;
     min-width: 46px;
     min-height: 46px;
     padding: 5px;
   }
   .notCompletedIcon {
+    position: relative;
+    top: -50px;
+    left: 0px;
     min-width: 46px;
     min-height: 46px;
     padding: 5px;
@@ -314,11 +358,6 @@
   }
   #completed:nth-child(3) {
     border-radius: 15px 0 0 15px;
-  }
-  .completedIcon {
-    min-width: 46px;
-    min-height: 46px;
-    padding: 5px;
   }
   .itemAddedCompleted {
     grid-template-rows: 1fr 3fr;
