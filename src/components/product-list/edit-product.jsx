@@ -8,13 +8,25 @@ import Title from "../title/title";
 import SelectComponent from "../select-component/select-component";
 
 export default function EditProduct(props) {
-  const [newName, setNewName] = useState("");
-  const [category, setCategory] = useState("None");
-  const [description, setDescription] = useState("");
-  const [id, setId] = useState("");
-  const [avgPrice, setAvgPrice] = useState(0);
+  const [editedProduct, setEditedProduct] = useState({
+    newName: "",
+    category: "None",
+    description: "",
+    id: "",
+    avgPrice: 0,
+  });
   const [productList, setProductList] = useContext(ProductListContext);
   const [list, setList] = useContext(ShoppingListContext);
+
+  useEffect(() => {
+    setEditedProduct({
+      newName: props.name,
+      category: props.category,
+      description: props.description,
+      id: props.id,
+      avgPrice: props.avgPrice,
+    });
+  }, [props.name, props.category, props.description, props.id, props.avgPrice]);
 
   const editOptions = [
     { value: "None", label: "None" },
@@ -22,24 +34,18 @@ export default function EditProduct(props) {
     { value: "Health-and-Beauty", label: "Health-and-Beauty" },
     { value: "Household", label: "Household" },
   ];
-  useEffect(() => {
-    setNewName(props.name);
-    setCategory(props.category);
-    setDescription(props.description);
-    setId(props.id);
-    setAvgPrice(props.avgPrice);
-  }, []);
 
   //Description character counter
   const charCounter = (maxNumber) => {
-    description ?? setDescription("");
-    return maxNumber - description?.length;
+    editedProduct.description ??
+      setEditedProduct({ ...editedProduct, description: "" });
+    return maxNumber - editedProduct.description?.length;
   };
 
   const handleSubmit = async function (e) {
     e.preventDefault();
 
-    if (!newName || avgPrice === 0) {
+    if (!editedProduct.newName || editedProduct.avgPrice === 0) {
       return;
     }
     const currentProductIndex = productList?.findIndex(
@@ -47,11 +53,11 @@ export default function EditProduct(props) {
     );
     const updatedProduct = {
       ...productList[currentProductIndex],
-      name: newName,
-      description: description,
-      category: category,
-      avg_price: avgPrice,
-      id: id,
+      name: editedProduct.newName,
+      description: editedProduct.description,
+      category: editedProduct.category,
+      avg_price: editedProduct.avgPrice,
+      id: editedProduct.id,
     };
 
     const newProdList = [...productList];
@@ -69,13 +75,15 @@ export default function EditProduct(props) {
       );
       const updateShopplist = {
         ...list[currentListIndex],
-        name: newName,
-        totalPrice: (list[currentListIndex].quantity * avgPrice).toFixed(2),
+        name: editedProduct.newName,
+        totalPrice: (
+          list[currentListIndex].quantity * editedProduct.avgPrice
+        ).toFixed(2),
         products_list: {
           ...list[currentListIndex].products_list,
-          name: newName,
-          category: category,
-          avg_price: avgPrice,
+          name: editedProduct.newName,
+          category: editedProduct.category,
+          avg_price: editedProduct.avgPrice,
         },
       };
       const newList = [...list];
@@ -87,8 +95,14 @@ export default function EditProduct(props) {
 
     const { data, error } = await supabase
       .from("products_list")
-      .update({ name: newName, description, category, avg_price: avgPrice, id })
-      .eq("id", id)
+      .update({
+        name: editedProduct.newName,
+        description: editedProduct.description,
+        category: editedProduct.category,
+        avg_price: editedProduct.avgPrice,
+        id: editedProduct.id,
+      })
+      .eq("id", editedProduct.id)
       .select();
 
     props.onClose(false);
@@ -108,8 +122,10 @@ export default function EditProduct(props) {
               className={css.fieldName}
               type="text"
               name="product-name"
-              value={newName}
-              onChange={(e) => setNewName(e.target.value)}
+              value={editedProduct.newName}
+              onChange={(e) =>
+                setEditedProduct({ ...editedProduct, newName: e.target.value })
+              }
               required
             ></input>
           </div>
@@ -119,11 +135,13 @@ export default function EditProduct(props) {
             </label>
             <SelectComponent
               value={editOptions.find((option) => {
-                return option.value === category;
+                return option.value === editedProduct.category;
               })}
               id="category"
               name="category"
-              selector={(e) => setCategory(e.value)}
+              selector={(e) =>
+                setEditedProduct({ ...editedProduct, category: e.value })
+              }
               placeholder="None"
               options={editOptions}
             />
@@ -140,8 +158,10 @@ export default function EditProduct(props) {
             className={css.field}
             type="number"
             name="average-price"
-            value={avgPrice}
-            onChange={(e) => setAvgPrice(e.target.value)}
+            value={editedProduct.avgPrice}
+            onChange={(e) =>
+              setEditedProduct({ ...editedProduct, avgPrice: e.target.value })
+            }
             required
           ></input>
         </div>
@@ -152,8 +172,13 @@ export default function EditProduct(props) {
           <textarea
             id="description"
             className={css.description}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={editedProduct.description}
+            onChange={(e) =>
+              setEditedProduct({
+                ...editedProduct,
+                description: e.target.value,
+              })
+            }
             name="description"
             maxLength={100}
           ></textarea>

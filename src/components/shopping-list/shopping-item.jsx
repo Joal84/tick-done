@@ -1,5 +1,6 @@
 import css from "./shopping-item.module.css";
 import { ReactComponent as CompletedButton } from "../../assets/check_circle_black_24dp.svg";
+import { ReactComponent as EditButton } from "../../assets/edit_black_24dp.svg";
 import { ReactComponent as DeleteButton } from "../../assets/delete_black_24dp.svg";
 import { CurrencyContext } from "../data-fecthing/settings-contex";
 import { Reorder, useMotionValue, useDragControls } from "framer-motion";
@@ -163,6 +164,14 @@ export default function ShoppingItem({
         </div>
       </div>
       <div className={css.actionButtons}>
+        <EditButton
+          tabIndex={0}
+          onKeyDown={(e) => handleKeyCompleted(e, product, index)}
+          className={
+            product.completed ? css.completedIcon : css.notCompletedIcon
+          }
+          onClick={() => handleComplete(product, index)}
+        />
         <CompletedButton
           tabIndex={0}
           onKeyDown={(e) => handleKeyCompleted(e, product, index)}

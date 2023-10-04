@@ -15,19 +15,17 @@ export default function DisplayProducts({ filteredProducts }) {
   const [productList, setProductList] = useContext(ProductListContext);
   const [list, setList] = useContext(ShoppingListContext);
   const [editModal, setEditModal] = useState(false);
-  const [name, setName] = useState("");
-  const [category, setCategory] = useState(null);
-  const [description, setDescription] = useState("");
-  const [id, setId] = useState(null);
-  const [avgPrice, setAvgPrice] = useState(0);
+  const [productToEdit, setProductToEdit] = useState(null);
 
   const handleEdit = (product) => {
     setEditModal(true);
-    setName(product.name);
-    setCategory(product.category);
-    setDescription(product.description);
-    setId(product.id);
-    setAvgPrice(product.avg_price);
+    setProductToEdit({
+      name: product.name,
+      category: product.category,
+      description: product.description,
+      id: product.id,
+      avgPrice: product.avg_price,
+    });
   };
 
   const handleDelete = async (item) => {
@@ -114,11 +112,11 @@ export default function DisplayProducts({ filteredProducts }) {
           <Modal onClose={() => setEditModal(false)}>
             <EditProduct
               onClose={setEditModal}
-              name={name}
-              category={category}
-              description={description}
-              id={id}
-              avgPrice={avgPrice}
+              name={productToEdit.name}
+              category={productToEdit.category}
+              description={productToEdit.description}
+              id={productToEdit.id}
+              avgPrice={productToEdit.avgPrice}
             />
           </Modal>
         )}
