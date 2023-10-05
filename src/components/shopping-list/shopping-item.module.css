@@ -227,9 +227,9 @@
   -moz-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
 }
 .editIcon:hover {
-  background-color: #e2ea44;
+  background-color: #9ac9da;
 
-  fill: var(--main-color);
+  fill: #fff;
 }
 
 @media screen and (max-width: 971px) {
