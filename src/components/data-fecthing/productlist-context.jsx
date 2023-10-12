@@ -50,4 +50,3 @@ export default function ProductListFetch({ children }) {
     </ProductListContext.Provider>
   );
 }
-console.log(test);
